@@ -117,15 +117,79 @@ def load_rows(cfg, *, query=None, all_done=False, state=None, kind=None, tag=Non
     With `query`, ranked `search_idea_tasks` hits (which always scan open+closed, so the
     non-active switch does not apply — the same rule as `wt ideas --query`). Without one,
     `collect_idea_tasks` in freshness order, narrowed to active states unless `all_done`.
+
+    Duplicate `:ID:` values across org files (e.g. a copied rotation sibling under the same
+    `org_files` dir) are collapsed so the desk DataTable never raises Textual's
+    `DuplicateKey` when row keys are idea ids.
     """
     now = now or dt.datetime.now(tz=cfg.get("_tz"))
     filters = dict(state=state, kind=kind, tag=tag, project=project,
                    workstream=workstream, priority=priority, epic=epic)
     if query and query.strip():
         hits = R.search_idea_tasks(cfg, query, limit=limit, **filters)
-        return [(_row_for(cfg, t, now=now, score=s, snippet=snip), t) for t, s, snip in hits]
+        tasks_scored = [(t, s, snip) for t, s, snip in hits]
+        tasks_scored = _dedupe_scored_idea_tasks(cfg, tasks_scored)
+        return [(_row_for(cfg, t, now=now, score=s, snippet=snip), t)
+                for t, s, snip in tasks_scored]
     tasks = R.collect_idea_tasks(cfg, all_done=all_done, sort=sort, desc=desc, **filters)
+    tasks = _dedupe_idea_tasks(cfg, tasks)
     return [(_row_for(cfg, t, now=now), t) for t in tasks]
+
+
+def _idea_id(task) -> str:
+    return (task.properties or {}).get("ID") or task.id or ""
+
+
+def _prefer_live_ideas_file(cfg, current, challenger) -> bool:
+    """True if `challenger` should replace `current` when both share an idea id."""
+    import os
+    ideas = os.path.expanduser(cfg.get("org_ideas_file") or "")
+    if not ideas:
+        return False
+    try:
+        live = os.path.normpath(os.path.realpath(ideas))
+        return os.path.normpath(os.path.realpath(challenger.file)) == live and (
+            os.path.normpath(os.path.realpath(current.file)) != live)
+    except OSError:
+        return False
+
+
+def _dedupe_idea_tasks(cfg, tasks) -> list:
+    """Keep one Task per idea id; prefer `org_ideas_file` over historical siblings."""
+    best: dict[str, object] = {}
+    order: list[str] = []
+    for t in tasks:
+        iid = _idea_id(t)
+        if not iid:
+            # no id — keep as-is under a synthetic slot so we don't drop it
+            order.append(id(t))
+            best[id(t)] = t
+            continue
+        if iid not in best:
+            order.append(iid)
+            best[iid] = t
+        elif _prefer_live_ideas_file(cfg, best[iid], t):
+            best[iid] = t
+    return [best[k] for k in order if k in best]
+
+
+def _dedupe_scored_idea_tasks(cfg, scored) -> list:
+    best: dict[str, tuple] = {}
+    order: list[str] = []
+    for t, s, snip in scored:
+        iid = _idea_id(t)
+        if not iid:
+            key = str(id(t))
+            order.append(key)
+            best[key] = (t, s, snip)
+            continue
+        if iid not in best:
+            order.append(iid)
+            best[iid] = (t, s, snip)
+        elif _prefer_live_ideas_file(cfg, best[iid][0], t):
+            best[iid] = (t, s, snip)
+    return [best[k] for k in order]
+
 
 
 def flatten_tree(cfg, tasks, *, sort=None, desc=False, now=None) -> list[tuple]:

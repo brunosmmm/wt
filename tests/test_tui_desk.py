@@ -97,6 +97,30 @@ def test_rows_default_to_active_only_and_toggle_reveals_non_active(tmp_path, mon
     assert dropped.is_done and dropped.state == "DROPPED"
 
 
+def test_load_rows_dedupes_duplicate_ids_across_org_files(tmp_path, monkeypatch):
+    """Copied rotation siblings under org_files must not yield DuplicateKey in the desk."""
+    cfg = _cfg(tmp_path)
+    org = Path(cfg["org_files"][0])
+    ideas = org / "ideas.org"
+    hist = org / "ideas-20260830.org"
+    body = """#+TODO: IDEA INCUBATE | PROMOTED DROPPED
+* INCUBATE same id in two files
+  :PROPERTIES:
+  :ID: IDEA-001
+  :END:
+"""
+    ideas.write_text(body, encoding="utf-8")
+    hist.write_text(body.replace("same id in two files", "historical copy"), encoding="utf-8")
+    cfg["org_files"] = [str(org)]
+    cfg["org_ideas_file"] = str(ideas)
+    monkeypatch.setattr("wt.cli.load_config", lambda: cfg)
+    rows = M.load_rows(cfg, all_done=True)
+    ids = [r.id for r, _ in rows]
+    assert ids.count("IDEA-001") == 1
+    row = next(r for r, _ in rows if r.id == "IDEA-001")
+    assert "same id in two files" in row.heading
+
+
 def test_rows_agree_with_the_classic_collector(tmp_path, monkeypatch):
     """Parity guard: the desk must never disagree with `wt ideas` on order or membership."""
     from wt import report as R

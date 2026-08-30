@@ -618,7 +618,15 @@ class IdeaDesk(App):
             avail = max(6, head_width - len(pad))
             cells.append(self._marked(pad + R._clip(row.heading, avail),
                                       style="dim" if row.is_done else ""))
-            table.add_row(*cells, key=row.id)
+            # Row keys are idea ids; if a duplicate still slipped past load_rows dedupe,
+            # suffix so Textual DataTable never raises DuplicateKey and crashes the desk.
+            row_key = row.id
+            try:
+                table.add_row(*cells, key=row_key)
+            except Exception as e:  # textual.widgets.data_table.DuplicateKey
+                if type(e).__name__ != "DuplicateKey":
+                    raise
+                table.add_row(*cells, key=f"{row.id}#{idx}")
         self.query_one("#status", Static).update(M.status_line(
             self._pairs, all_done=self.all_done, query=self.query, filters=self.filters,
             sort=self.sort, desc=self.desc,
