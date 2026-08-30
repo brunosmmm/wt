@@ -48,11 +48,18 @@ def known_projects(cfg):
     return sorted(values)
 
 
+def _outbound_flag(entry) -> bool:
+    """True when outbox entry has a non-empty repo_path (SPEC-0137)."""
+    if not isinstance(entry, dict):
+        return False
+    return bool((entry.get("repo_path") or "").strip())
+
+
 def projects_payload(cfg) -> dict:
-    """Agent-facing project map for `wt projects --json` (SPEC-0095).
+    """Agent-facing project map for `wt projects --json` (SPEC-0095 / SPEC-0137).
 
     Union of mapping buckets, `outbox_targets` keys, and Meta-Tools — each with topic count,
-    outbound flag, and `resolve_research_context` (never invents paths).
+    outbound flag (non-empty repo_path), and `resolve_research_context` (never invents paths).
     """
     axis = cfg.get("project_axis", "bucket")
     counts = {}
@@ -64,13 +71,102 @@ def projects_payload(cfg) -> dict:
     names = set(known_projects(cfg)) | set(outbox.keys()) | {"Meta-Tools"}
     projects = []
     for name in sorted(names):
+        entry = outbox.get(name) or {}
         projects.append({
             "name": name,
             "topics": counts.get(name, 0),
-            "outbound": name in outbox,
+            "outbound": _outbound_flag(entry),
             "research": resolve_research_context(cfg, name),
         })
     return {"schema": "wt.projects.v1", "projects": projects}
+
+
+def plan_project_add(cfg, name, *, repo=None, scheme=None, spec_dir=None, force=False):
+    """Plan registering/updating outbox_targets[name] (SPEC-0137). Does not write.
+
+    Returns a plan dict: action (create|update|noop), name, before, after, config_path.
+    Raises ValueError on empty name, missing path (unless force), or repo_path conflict.
+    """
+    name = (name or "").strip()
+    if not name:
+        raise ValueError("project name must be non-empty")
+    config_path = os.path.join(cfg["config_dir"], "config.yaml")
+    outbox = cfg.get("outbox_targets") or {}
+    before = dict(outbox[name]) if name in outbox and isinstance(outbox[name], dict) else (
+        {} if name in outbox else None)
+    after = dict(before or {})
+
+    if repo is not None:
+        raw = str(repo).strip()
+        expanded = os.path.expanduser(raw)
+        if not force:
+            if not os.path.exists(expanded):
+                raise ValueError(
+                    f"repo path does not exist: {expanded} (pass --force to record anyway)")
+            if not os.path.isdir(expanded):
+                raise ValueError(
+                    f"repo path is not a directory: {expanded} (pass --force to record anyway)")
+        existing = (after.get("repo_path") or "").strip()
+        if existing:
+            existing_exp = os.path.expanduser(existing)
+            if os.path.normpath(existing_exp) != os.path.normpath(expanded) and not force:
+                raise ValueError(
+                    f"conflict: outbox_targets[{name!r}].repo_path is {existing!r}; "
+                    f"refusing to replace with {expanded!r} (pass --force)")
+        after["repo_path"] = expanded
+
+    if scheme is not None:
+        after["scheme"] = scheme
+    if spec_dir is not None:
+        after["spec_dir"] = spec_dir
+
+    if before is None:
+        action = "create"
+    elif after == before:
+        action = "noop"
+    else:
+        action = "update"
+
+    return {
+        "action": action,
+        "name": name,
+        "before": before,
+        "after": after,
+        "config_path": config_path,
+    }
+
+
+def apply_project_add(cfg, plan):
+    """Commit a plan_project_add result to the user config.yaml (SPEC-0137).
+
+    Loads the on-disk user file only (not merged defaults), merges outbox_targets[name],
+    writes a timestamped backup, then atomically replaces config.yaml.
+    """
+    if plan.get("action") == "noop":
+        return
+    config_path = plan["config_path"]
+    path = Path(config_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    user = {}
+    if path.is_file():
+        loaded = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            user = loaded
+        # backup before mutate
+        from datetime import datetime
+        bak = path.with_name(f"config.yaml.bak.{datetime.now().strftime('%Y%m%d%H%M%S')}")
+        bak.write_bytes(path.read_bytes())
+    targets = dict(user.get("outbox_targets") or {})
+    targets[plan["name"]] = dict(plan["after"])
+    user["outbox_targets"] = targets
+    text = yaml.safe_dump(user, sort_keys=False, default_flow_style=False)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+    # keep in-memory cfg in sync for callers that re-use it
+    cfg_targets = dict(cfg.get("outbox_targets") or {})
+    cfg_targets[plan["name"]] = dict(plan["after"])
+    cfg["outbox_targets"] = cfg_targets
 
 
 def discover_wt_checkout():
@@ -126,7 +222,8 @@ def resolve_research_context(cfg, project=None):
             "source": "none",
             "note": (
                 f"project {project!r} has no outbox_targets.repo_path; "
-                "configure it for explore routing (or explore without a tree)"
+                f"run `wt projects add {project} --repo <path> --yes` "
+                "(or explore without a tree)"
             ),
         }
 

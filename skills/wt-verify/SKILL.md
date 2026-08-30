@@ -61,6 +61,8 @@ Run **in the target repo** that holds the portable file. Do **not** call `wt spe
 - Read-only audit — never auto-mark `done` for the human.
 - `ok: true` from the CLI does not skip judgment.
 - Thinness (SPEC-0017): defer flag lists to `--help`.
+- **SPEC-0138:** Superpowers “verification-before-completion” (pytest green, etc.) is
+  **not** a substitute for this skill. Close the loop here before treating work as done.
 
 ## Verify
 

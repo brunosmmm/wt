@@ -246,3 +246,22 @@ def test_wt_generate_is_internal_only():
     # Must not claim generate works for outbound specs as a happy path
     assert "or an outbound" not in body.lower()
     assert re.search(r"do\s+\*\*not\*\*\s+generate|do not generate", body, re.I)
+
+
+def test_superpowers_coexistence_guidance_spec_0138():
+    """SPEC-0138: orient + AGENTS teach wt lifecycle vs Superpowers tactics."""
+    orient = (REPO_SKILLS_DIR / "wt-orient" / "SKILL.md").read_text(encoding="utf-8")
+    assert "Coexistence with Superpowers" in orient
+    assert "docs/superpowers" in orient
+    assert "wt hub" in orient or "`wt hub`" in orient
+    assert "/wt-verify" in orient or "wt-verify" in orient
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "Superpowers" in agents
+    assert "docs/superpowers" in agents
+    for name in ("wt-seed", "wt-explore", "wt-new-work"):
+        text = (REPO_SKILLS_DIR / name / "SKILL.md").read_text(encoding="utf-8")
+        assert "docs/superpowers" in text or "Superpowers" in text, name
+    impl = (REPO_SKILLS_DIR / "wt-implement-spec" / "SKILL.md").read_text(encoding="utf-8")
+    verify = (REPO_SKILLS_DIR / "wt-verify" / "SKILL.md").read_text(encoding="utf-8")
+    assert "Superpowers" in impl or "wt-verify" in impl
+    assert "Superpowers" in verify

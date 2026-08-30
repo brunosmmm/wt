@@ -60,6 +60,9 @@ skill is global; it is the outbound close-the-loop playbook. This skill stays th
 - If this repo has its **own** stronger spec-first workflow, fold into that workflow but still
   honor this portable file’s AC, Test plan, and `status`.
 - Exact `wt` flags (if any): `wt <cmd> --help` — do not hardcode flag lists in this skill.
+- **SPEC-0138:** Superpowers TDD/debug may help *inside* this slice; claiming finished still
+  requires `/wt-verify` (and later `pull-status` on the wt side). Do not mark the portable
+  `done` from Superpowers “verification-before-completion” alone.
 
 ## Verify
 

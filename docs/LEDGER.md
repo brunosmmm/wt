@@ -86,7 +86,6 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0000](./specs/0000-how-we-write-specs.md) | How we write & execute specs | policy | accepted | M0: process | 2026-07-16 |
 | [SPEC-0055](./specs/0055-complete-the-idea-terminal-outcome-model-first.md) | Complete the idea terminal-outcome model (close verb, reason, pointers) | epic | accepted | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0087](./specs/0087-workstreams-and-concern-separation-routing.md) | Workstreams and concern separation (routing, streams, filters, hub; umbrella for priority & sort) | epic | accepted | M4: cli ergonomics | 2026-07-28 |
-| [SPEC-0135](./specs/0135-shipped-terminal-fix-outbound-reconcile-force.md) | SHIPPED terminal, fix outbound reconcile, force state CLI+TUI | feature | in-progress | M5: interactive desk | 2026-08-28 |
 
 ## Done
 
@@ -221,6 +220,10 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0132](./specs/0132-filtered-idea-subtree-export.md) | Filtered idea subtree export | feature | done | M7: release packaging | 2026-08-08 |
 | [SPEC-0133](./specs/0133-wt-release-archive-packs-code-and-idea-slice.md) | wt release-archive packs code and idea slice | feature | done | M7: release packaging | 2026-08-08 |
 | [SPEC-0134](./specs/0134-mtime-cached-load-tasks-and-non-blocking-desk.md) | Mtime-cached load_tasks and non-blocking desk reload | feature | done | M5: interactive desk | 2026-08-28 |
+| [SPEC-0135](./specs/0135-shipped-terminal-fix-outbound-reconcile-force.md) | SHIPPED terminal, fix outbound reconcile, force state CLI+TUI | feature | done | M5: interactive desk | 2026-08-28 |
+| [SPEC-0136](./specs/0136-release-archive-optional-install-script-bundled.md) | Release archive optional install script points wt at bundled ideas/ | feature | done | M7: release archive | 2026-08-30 |
+| [SPEC-0137](./specs/0137-wt-projects-add-cli-register-outbox-targets-dry.md) | wt projects add: CLI register outbox targets (dry-run + --yes) | feature | done | M4: cli ergonomics | 2026-08-30 |
+| [SPEC-0138](./specs/0138-superpowers-coexist-with-wt-lifecycle-vs-tactics.md) | Superpowers coexist with wt: lifecycle vs tactics | feature | done | M4: cli ergonomics | 2026-08-30 |
 
 ## Superseded / rejected
 

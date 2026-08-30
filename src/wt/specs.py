@@ -210,8 +210,8 @@ def promote_idea(cfg, selector, *, internal=False, target=None, epic=False, titl
 
     raise ValueError(
         f"idea {task.id} is associated with project {project!r}, which has no outbound target. "
-        f"Configure outbox_targets[{project!r}].repo_path in config.yaml, or pass "
-        f"--target <proj> / --internal.")
+        f"Run `wt projects add {project} --repo <path> --yes` (dry-run without --yes), "
+        f"or pass --target <proj> / --internal.")
 
 
 def _merge_wrapped_lines(text):

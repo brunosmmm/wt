@@ -32,6 +32,11 @@ implement            you or the agent
 In a Cursor/Claude session you can say the stage instead of remembering flags:
 “new work on IDEA-003”, “generate SPEC-0023”, “export THJALFI-0001”.
 
+**Superpowers coexistence (SPEC-0138):** if Cursor injects Superpowers skills, they are
+tactics only. Governing design stays in wt (`docs/specs/` / outbox portables). Agents:
+`/wt-orient` — do not write governing docs under `docs/superpowers/`; “keep working” →
+`wt hub` / `wt next`; claim done via `/wt-verify`.
+
 ## Idea states → what you do
 
 | State | Meaning | Your move |
@@ -62,21 +67,25 @@ COLUMNS=200 wt ideas | less -S    # piping: Rich falls back to 80 cols without C
 
 `outbox_targets[project].repo_path` is also the **explore research root** for that project
 (`wt idea show` → `research`; SPEC-0042). Meta-Tools is internal — explore uses this wt repo.
-Projects with a `:PROJECT:` but no `outbox_targets` entry get `research.root: null` until you
-configure the target (or explore from conversation only).
+Projects with a `:PROJECT:` but no usable `repo_path` get `research.root: null` / `outbound:
+false` until you register them (or explore from conversation only).
 
 ```bash
 wt idea "…" --project Meta-Tools          # internal tooling
-wt idea "…" --project Example               # outbound if Example is in outbox_targets
+wt idea "…" --project Example               # outbound if Example has a repo_path
 wt projects --json                        # agent map: name → research/outbound (SPEC-0095)
+# register a missing project (SPEC-0137) — dry-run first, then --yes
+wt projects add Example --repo ~/work/example           # prints plan; does not write
+wt projects add Example --repo ~/work/example --yes     # commits to ~/.config/wt/config.yaml
+wt projects add StubName --yes                      # association stub (outbound: false)
 wt spec new --from-idea IDEA-00N          # routing follows the idea's :PROJECT:
 wt spec new --from-idea IDEA-00N --internal   # force docs/specs/ even with a project
 ```
 
 **Multi-project chats (SPEC-0095):** if the conversation names ≥2 tracked projects or paths,
 preview a project map (`wt projects --json`), fan out as an epic + per-project children, and
-do not write Summary until that map is confirmed. Unknown paths → warn and ask. Soft-warn if
-continuing a single-root explore anyway.
+do not write Summary until that map is confirmed. Unknown paths → `wt projects add …` (confirm
+plan, then `--yes`). Soft-warn if continuing a single-root explore anyway.
 
 ## Commands you actually need
 

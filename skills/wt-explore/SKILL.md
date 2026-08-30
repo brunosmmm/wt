@@ -23,13 +23,14 @@ If the idea is already explored (non-empty Summary) and you want an accepted spe
    the show payload includes `research` (`root`, `source`, optional `note` / `spec_dir` /
    `scheme`). If `research.root` is set, **analyze that tree first** (outbound:
    `outbox_targets[project].repo_path`; Meta-Tools: this wt checkout). If `root` is null, do
-   **not** invent a path — use conversation + the `note`, or ask the human to configure
-   `outbox_targets`.
-3. **Multi-project gate (SPEC-0095):** if the chat (or Summary draft) names ≥2 tracked projects
-   or repo paths, run `wt projects --json`, **preview a project map**, and soft-warn before
-   continuing a single-root explore. Prefer fan-out: umbrella epic + per-project children
-   (each with its own `:PROJECT:` / research.root). Paths not in the map → warn and ask.
-   **Do not write Summary until the project map is confirmed** when this gate fires.
+   **not** invent a path — use conversation + the `note`, or register via
+   `wt projects add NAME --repo PATH` (dry-run, then `--yes` after human OK; SPEC-0137).
+3. **Multi-project gate (SPEC-0095 / SPEC-0137):** if the chat (or Summary draft) names ≥2
+   tracked projects or repo paths, run `wt projects --json`, **preview a project map**, and
+   soft-warn before continuing a single-root explore. Prefer fan-out: umbrella epic +
+   per-project children (each with its own `:PROJECT:` / research.root). Paths not in the map
+   → warn, propose `wt projects add …`, confirm, `--yes`. **Do not write Summary until the
+   project map is confirmed** when this gate fires.
 4. Research / think (code under `research.root` when set, docs, conversation). Keep disposition
    questions **scoped per project** (do not mix “which repos?” with “which data model?”).
 5. Write back:
@@ -55,6 +56,9 @@ Exact flags: `wt idea --help` and `wt idea <subcommand> --help`.
   prefer authxxing org directly.
 - Promotion belongs in `wt-new-work` only after Summary is non-empty.
 - See `docs/WORKFLOW.md` (explore stage).
+- **SPEC-0138:** durable learning belongs on the idea (Summary/Log), not a governing
+  `docs/superpowers/specs` file. Superpowers brainstorming is fine as dialogue; park
+  outcomes here.
 
 ## Verify
 

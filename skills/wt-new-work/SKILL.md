@@ -57,6 +57,9 @@ still authxx the spec's substance** (Context/Decision/Design/Acceptance criteria
   `wt spec seed-children <id>` turns Breakdown bullets into child ideas (SPEC-0043);
   optional `(project: Name)` per bullet (SPEC-0097).
 - Never hand-edit the generated block in `docs/LEDGER.md`.
+- **SPEC-0138:** the governing design is this wt spec (or outbound portable) — never
+  `docs/superpowers/specs` / `plans`. If Superpowers brainstorming already ran, authxx into
+  the wt scaffold; do not treat a Superpowers design doc as accepted authxxity.
 
 ## Verify
 

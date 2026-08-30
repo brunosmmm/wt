@@ -15,6 +15,20 @@ read it before making changes.
   pass, every acceptance criterion is true, and the spec + ledger are updated to reflect
   what actually shipped.
 
+## Agent skill priority (SPEC-0138)
+
+Other agent skill packs (notably **Superpowers** — brainstorming, writing-plans, TDD — which
+Cursor may load from `~/.claude/plugins` even when you are not using Claude Code) are
+**tactical only** in this repo:
+
+- **wt owns** idea→spec→verify lifecycle and the **governing** design (`docs/specs/`, ledger).
+- Do **not** treat `docs/superpowers/specs` or `docs/superpowers/plans` as governing authxxity
+  here.
+- “Just build” / “keep working” → continue via `wt hub` / `wt next` (or promote a thin
+  accepted slice); it is not a waive of this file unless the human explicitly says so.
+- Claiming `done` requires this contract’s DoD / `/wt-verify` — not Superpowers verification
+  alone.
+
 ## Before you write code
 
 1. Read [`docs/README.md`](./docs/README.md) and

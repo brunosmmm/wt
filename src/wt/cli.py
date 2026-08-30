@@ -941,17 +941,38 @@ def idea_ext_lint_cmd(cfg, selector, all_ideas, strict):
         raise click.ClickException(str(e))
 
 
-@cli.command("projects")
+class ProjectsGroup(click.Group):
+    """`wt projects [filters…]` lists; `wt projects add|list …` are subcommands (SPEC-0137).
+
+    Prepends `list` in `parse_args` so flags like `--json` bind to the list command
+    (same pattern as IdeasGroup).
+    """
+
+    def parse_args(self, ctx, args):
+        args = list(args)
+        if not args or args[0] not in self.commands:
+            args = ["list", *args]
+        return super().parse_args(ctx, args)
+
+
+@cli.group("projects", cls=ProjectsGroup)
+def projects_group():
+    """List known projects or register an outbox target (SPEC-0095 / SPEC-0137).
+
+    \b
+    wt projects                      Rich list of mapping buckets + topic counts
+    wt projects --json               wt.projects.v1 for agents
+    wt projects add NAME             dry-run plan (association stub)
+    wt projects add NAME --repo P --yes   write outbox_targets[NAME]
+    """
+
+
+@projects_group.command("list")
 @click.option("--json", "as_json", is_flag=True,
               help="emit wt.projects.v1 JSON (SPEC-0095; includes outbox + research)")
 @click.pass_obj
-def projects_cmd(cfg, as_json):
-    """List known projects: mapping buckets (Rich), or full routing map with --json.
-
-    \b
-    wt projects           Rich list of mapping buckets + topic counts
-    wt projects --json    wt.projects.v1 for agents (SPEC-0095)
-    """
+def projects_list_cmd(cfg, as_json):
+    """List known projects: mapping buckets (Rich), or full routing map with --json."""
     if as_json:
         import json
         import sys
@@ -972,6 +993,51 @@ def projects_cmd(cfg, as_json):
         return
     for p in projects:
         console.print(f"[white]{p}[/]  [dim]({counts.get(p, 0)} topic(s))[/]")
+
+
+@projects_group.command("add")
+@click.argument("name")
+@click.option("--repo", "repo", default=None,
+              help="destination repo path (sets outbox_targets[NAME].repo_path)")
+@click.option("--scheme", default=None, help="optional export scheme name")
+@click.option("--spec-dir", "spec_dir", default=None,
+              help="optional specs subdirectory inside the repo")
+@click.option("--force", is_flag=True,
+              help="allow missing repo path or overwrite conflicting repo_path")
+@click.option("--yes", "do_write", is_flag=True,
+              help="commit the plan to config.yaml (default is dry-run)")
+@click.option("--json", "as_json", is_flag=True, help="emit the plan/result as JSON")
+@click.pass_obj
+def projects_add_cmd(cfg, name, repo, scheme, spec_dir, force, do_write, as_json):
+    """Register or update outbox_targets[NAME] (SPEC-0137). Dry-run unless --yes."""
+    import json
+    import sys
+    from .rules import apply_project_add, plan_project_add
+    try:
+        plan = plan_project_add(cfg, name, repo=repo, scheme=scheme, spec_dir=spec_dir,
+                                force=force)
+    except ValueError as e:
+        raise click.ClickException(str(e))
+    if do_write:
+        apply_project_add(cfg, plan)
+        plan = {**plan, "written": True}
+    else:
+        plan = {**plan, "written": False}
+    if as_json:
+        json.dump({"schema": "wt.projects.add.v1", **plan}, sys.stdout, indent=2,
+                  ensure_ascii=False)
+        sys.stdout.write("\n")
+        return
+    action = plan["action"]
+    console.print(f"[bold]plan[/]  {action}  outbox_targets[{name!r}]")
+    console.print(f"  config: {plan['config_path']}")
+    if plan["before"] is not None:
+        console.print(f"  before: {plan['before']!r}")
+    console.print(f"  after:  {plan['after']!r}")
+    if do_write:
+        console.print(f"[green]✓ wrote[/] {plan['config_path']}")
+    else:
+        console.print("[dim]not written — re-run with --yes to commit[/]")
 
 
 class IdeasGroup(click.Group):

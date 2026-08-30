@@ -56,13 +56,40 @@ idea  →  explore  →  accepted spec  →  (internal: generate → PROMOTED)
 4. **Multi-project gate (SPEC-0095):** if the conversation names ≥2 tracked projects or repo
    paths, run `wt projects --json` (`wt.projects.v1`) early, preview a project map, and fan out
    as an **epic + per-project children** — Breakdown bullets carry `(project: Name)`
-   (SPEC-0097); do not collapse into one `:PROJECT:` / one `research.root`. Unknown paths →
-   warn and ask (never invent `outbox_targets`). Soft-warn if you continue a single-root
-   explore anyway.
-5. Spec substance conventions: `AGENTS.md` + `docs/specs/SCHEMA.md`.
+   (SPEC-0097); do not collapse into one `:PROJECT:` / one `research.root`. Soft-warn if you
+   continue a single-root explore anyway.
+5. **Missing project (SPEC-0137):** never invent `outbox_targets` by hand-editing YAML. Show
+   a dry-run plan with `wt projects add NAME [--repo PATH]`, get human agreement, then
+   `… --yes`. Re-run `wt projects --json`. Stub (no `--repo`) registers the name;
+   `--repo` sets research/outbound. `outbound` in JSON means non-empty `repo_path`.
+6. Spec substance conventions: `AGENTS.md` + `docs/specs/SCHEMA.md`.
+7. **Coexistence with Superpowers (SPEC-0138):** Claude’s Superpowers plugin may inject
+   brainstorming/TDD skills into Cursor even when the model is not Claude Code. When wt
+   governs the work (project in `wt projects --json`, or repo `AGENTS.md` + specs/outbox):
+
+   | Concern | Owner |
+   |---------|--------|
+   | Capture / explore / promote / export / verify / next / hub | **wt** |
+   | Governing design artifact | **wt** portable or `docs/specs/` — **not** `docs/superpowers/**` |
+   | Brainstorm Q&A, TDD, systematic debug (inside a slice) | Superpowers OK as *tactics* |
+   | Claiming `done` | **`/wt-verify`** (+ outbound `pull-status`) — Superpowers “verification” alone is not enough |
+
+   - **Priority:** wt lifecycle skills win over Superpowers process skills for *what work
+     exists* and *whether it is done*.
+   - **Hard gate:** before the first feature `Write`/`StrReplace` for new behavior, ensure the
+     project is registered and there is a governing idea (non-empty Summary) or an
+     accepted/in-progress spec/portable — unless the human **explicitly** waives wt for this
+     slice. “Just build” / “keep working” is **not** a waive: run `wt hub --json` / `wt next`
+     and continue that item (or promote a thin accepted slice first).
+   - **Path forbid:** do not write governing design to `docs/superpowers/specs` or
+     `docs/superpowers/plans` when wt is in play. Optional non-governing notes may go under
+     `docs/design/` if the repo already uses that.
 
 ## Verify
 
 You can name the pipeline stages (including explore), where ideas/specs/tasks live, and which
 `wt-*` skill covers the transition you're about to make. Prefer `wt <cmd> --help` over guessing.
-Know that multi-repo chats need `wt projects --json` + fan-out before Summary.
+Know that multi-repo chats need `wt projects --json` + fan-out before Summary, and that new
+projects are registered with `wt projects add` (dry-run then `--yes`), not by editing config.
+Know that Superpowers must not replace wt lifecycle or governing docs when wt is in play
+(SPEC-0138).

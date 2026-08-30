@@ -18,13 +18,14 @@ already exists and needs more research, use `/wt-explore`.
 1. **Confirm intent** — seed from this conversation, or the topic named in `$ARGUMENTS`.
 2. **Optional related check:** `/wt-related` (`wt ideas --query "…" --json`) if the topic may
    already be parked; see `wt ideas --help`.
-3. **Multi-project gate (SPEC-0095):** scan the chat for ≥2 project names or repo paths. Run
-   `wt projects --json` and match them. If ≥2 hits (or one hit + an unmatched path), **preview a
-   project map** before any Summary: which umbrella epic, which child per `:PROJECT:`, which
-   paths are unknown (warn + ask — do not invent `outbox_targets`). Fan-out shape = epic +
-   `seed-children` after accept, not one collapsed idea. Soft-warn if the human insists on a
-   single project anyway. Breakdown bullets use `(project: Name)` when children span projects
-   (SPEC-0097).
+3. **Multi-project gate (SPEC-0095 / SPEC-0137):** scan the chat for ≥2 project names or repo
+   paths. Run `wt projects --json` and match them. If ≥2 hits (or one hit + an unmatched path),
+   **preview a project map** before any Summary: which umbrella epic, which child per
+   `:PROJECT:`, which paths are unknown. For unknown paths: propose
+   `wt projects add NAME --repo PATH` (show dry-run), get agreement, then `--yes` — do **not**
+   hand-edit `config.yaml` or invent entries silently. Fan-out shape = epic + `seed-children`
+   after accept. Soft-warn if the human insists on a single project anyway. Breakdown bullets
+   use `(project: Name)` when children span projects (SPEC-0097).
 4. **Draft** — one-sentence title; optional project/tags/priority only from **explicit** cues
    or the confirmed project map (do not invent associations). Exact flags: `wt idea --help`.
 5. **Preview** — show the proposed title, flags, project map (if multi), and any Summary /
@@ -53,6 +54,8 @@ already exists and needs more research, use `/wt-explore`.
 - Never `wt spec new`, never set a spec to `accepted`, never `wt spec generate`.
 - Title-only seed is valid when the chat was thin; Summary is recommended, not required.
 - Sibling skills: `/wt-capture` (one-liner), `/wt-explore` (enrich existing id).
+- **SPEC-0138:** if Superpowers brainstorming ran, park decisions here (or `/wt-new-work`) —
+  do **not** write a governing design under `docs/superpowers/specs` or `plans`.
 
 ## Verify
 
