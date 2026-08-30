@@ -1,0 +1,103 @@
+---
+pagetitle: "wt — Idea → Spec → Implementation Workflow"
+format:
+  revealjs:
+    theme: [default, wt-infographic.scss]
+    slide-number: false
+    controls: false
+    progress: false
+    center: false
+    width: 1400
+    height: 900
+    margin: 0.04
+    embed-resources: true
+---
+
+## {.center}
+
+<div class="title-row">
+<span class="title-main">wt — Idea → Spec → Implementation Workflow</span>
+<span class="title-sub">Capture anywhere, hand off to the owning repo, close the loop</span>
+</div>
+
+```{mermaid}
+%%| fig-width: 13
+flowchart LR
+    classDef stage fill:#2a78d6,stroke:#0b0b0b,stroke-width:1px,color:#ffffff,rx:8,ry:8
+    classDef handoff fill:#1baf7a,stroke:#0b0b0b,stroke-width:1px,color:#ffffff,rx:8,ry:8
+    classDef gate fill:#eda100,stroke:#0b0b0b,stroke-width:1px,color:#0b0b0b,rx:8,ry:8
+    classDef terminal fill:#e6e6e2,stroke:#52514e,stroke-width:1px,color:#0b0b0b,stroke-dasharray:4 3,rx:8,ry:8
+    classDef ref fill:#ffffff,stroke:#eda100,stroke-width:1px,color:#0b0b0b,stroke-dasharray:2 2
+
+    subgraph MACHINE["Your machine"]
+
+    subgraph ORGF["Org files (~/work/org)"]
+    Capture["⚙️/🤖 Capture<br/>wt idea · wt-capture / wt-seed"]:::stage
+    Explore["🤖 Explore<br/>wt idea log/summary · wt-explore"]:::stage
+    Dropped["🤖 Dropped<br/>wt idea close --as drop"]:::terminal
+    Researched["🤖 Researched<br/>wt idea close --as researched"]:::terminal
+    Close["🤖 Close the loop<br/>wt spec fit-log"]:::stage
+    PullClock["⚙️ pull-clock<br/>→ CLOCK: on idea"]:::stage
+    end
+
+    subgraph DATAD["wt data dir (outbox)"]
+    SpecGate{{"🤖 Spec accepted?<br/>wt spec new · wt-new-work"}}:::gate
+    Rework["🤖 wt-rework<br/>epic incomplete"]:::gate
+    Export["⚙️ Export — hand off<br/>wt spec export · wt-export"]:::stage
+    PullStatus["⚙️ pull-status<br/>→ outbox frontmatter"]:::stage
+    end
+
+    subgraph CFG["Config (~/.config/wt)"]
+    Schemes["schemes / mappings"]:::ref
+    end
+
+    Capture --> Explore
+    Explore --> SpecGate
+    SpecGate -- "epic incomplete" --> Rework
+    Rework -.-> SpecGate
+    SpecGate --> Export
+    Schemes -. "reads" .-> Export
+    PullStatus --> Close
+    PullClock --> Close
+    Close -. "fit signal" .-> Explore
+
+    Explore -.-> Dropped
+    SpecGate -.-> Researched
+    Dropped -. "reopen" .-> Explore
+    Researched -. "reopen" .-> Explore
+
+    end
+
+    subgraph OWNER["Owning repo"]
+    Implement["🤖 Implement<br/>wt-implement-spec<br/>no wt CLI · no org access"]:::handoff
+    end
+
+    Export ==>|"spec file copied over"| Implement
+    Implement ==>|"status"| PullStatus
+    Implement ==>|"time log"| PullClock
+
+    style MACHINE fill:#fcfcfb,stroke:#8ea9c7,stroke-width:1px
+    style ORGF fill:#eef3fb,stroke:#2a78d6,stroke-width:1px
+    style DATAD fill:#eaf7f0,stroke:#1baf7a,stroke-width:1px
+    style CFG fill:#fdf3e4,stroke:#eda100,stroke-width:1px
+    style OWNER fill:#e9f9f2,stroke:#1baf7a,stroke-width:2px
+```
+
+::: {.legend}
+
+| Stage | CLI | Skill |
+|---|---|---|
+| **Capture** | `wt idea "…"` | `wt-capture`, `wt-seed` |
+| **Explore** | `wt idea log / summary / questions` | `wt-explore` |
+| **Accept spec** | `wt spec new --from-idea` | `wt-new-work`, `wt-rework` |
+| **Export (handoff)** | `wt spec export` | `wt-export` |
+| **Implement** | — | `wt-implement-spec` *(runs in the owning repo)* |
+| **Close the loop** | `wt spec pull-status/pull-clock/fit-log` · `wt idea close` | — |
+
+**🤖 = needs human/AI judgment · ⚙️ = deterministic wt CLI (mechanical, no judgment).** wt's CLI never *decides* anything — every write (state, property, clock entry) is a drift-guarded, idempotent record of a decision already made. Judgment lives entirely in the Skills layer: what to explore, whether a design actually holds up, whether the code is really done, whether it actually worked.
+
+**Triage, anywhere:** `wt hub --json` · `wt next` — read-only, non-mutating.
+**Terminal exits are healthy outcomes, not failures:** *dropped* = won't-do, reasoned; *researched* = explored fully, value folded elsewhere via a pointer.
+**"Your machine" is not one place** — ideas/Log/Clock live in **org files**, draft specs live in the **wt data dir** (outbox), and export schemes live in **config**; none of this is the wt tool's own source code. Only **implementation** crosses into the **owning repo** — a genuinely different codebase, no shared files, no `wt` CLI. Only three things ever cross that boundary: the spec file going out, and status + time log coming back.
+
+:::

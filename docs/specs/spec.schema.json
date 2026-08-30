@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/user/work-tracking/docs/specs/spec.schema.json",
+  "title": "wt spec frontmatter",
+  "description": "Schema for the YAML frontmatter block of a docs/specs/NNNN-slug.md file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "status", "owner", "created"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^SPEC-[0-9]{4}$",
+      "description": "Canonical id, e.g. SPEC-0001. Must match the file's number."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short human title."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "proposed", "accepted", "in-progress", "done", "superseded", "rejected"],
+      "description": "Lifecycle stage. See SCHEMA.md for the state machine."
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Person accountable for the spec."
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "ISO date the spec was created."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "ISO date of the last substantive edit (optional)."
+    },
+    "milestone": {
+      "type": "string",
+      "description": "Optional grouping / phase label used by the ledger (e.g. 'M1: packaging')."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["feature", "epic", "policy", "spike"],
+      "description": "Spec category; controls kind-specific lint rules. Absent = 'feature'."
+    },
+    "parent": {
+      "type": "string",
+      "pattern": "^SPEC-[0-9]{4}$",
+      "description": "The epic (kind: epic) this spec is a child of."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Free-form labels (e.g. ingest, reporting, infra)."
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^SPEC-[0-9]{4}$" },
+      "uniqueItems": true,
+      "description": "Specs that must land before this one."
+    },
+    "supersedes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^SPEC-[0-9]{4}$" },
+      "uniqueItems": true,
+      "description": "Specs whose decisions this one replaces."
+    },
+    "superseded_by": {
+      "type": "string",
+      "pattern": "^SPEC-[0-9]{4}$",
+      "description": "Set on an old spec when a newer one replaces it. Requires status=superseded."
+    },
+    "source_idea": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The org idea this spec was promoted from (its :ID: or file:line), set by `wt spec new --from-idea` (SPEC-0013)."
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "A superseded spec must name what replaced it.",
+      "if": { "properties": { "status": { "const": "superseded" } } },
+      "then": { "required": ["superseded_by"] }
+    }
+  ]
+}

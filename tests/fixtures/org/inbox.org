@@ -1,0 +1,5 @@
+#+TITLE: Inbox
+#+TODO: CATEGORIZE REFILE TODO | DONE DISCARDED
+
+* REFILE Create ticket to add TPS25751 in pre-SP2 device-tree :uncategorized:
+* DISCARDED old inbox note :uncategorized:

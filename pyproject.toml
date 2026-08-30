@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wt"
+version = "0.1.0"
+description = "Passive work-time tracker from Claude Code / Cursor transcripts and Outlook meetings."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8",
+    "rich>=13",
+    "pyyaml>=6",
+    "orgparse>=0.4",
+]
+
+[project.optional-dependencies]
+# SPEC-0099: the interactive desk (`wt tui`) is opt-in. Base installs — agents, CI —
+# stay on click/rich/pyyaml/orgparse only.
+tui = ["textual>=8,<9"]
+
+[project.scripts]
+wt = "wt.cli:cli"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "jsonschema>=4",
+    # SPEC-0115: a terminal emulator, so a test can assert what a REAL terminal renders. Textual
+    # repaints incrementally, so you cannot reconstruct a screen from raw pty bytes by picking a
+    # frame — which is how a broken tree mode passed headless pilots and shipped.
+    "pyte>=0.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

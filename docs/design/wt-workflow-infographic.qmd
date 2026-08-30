@@ -1,0 +1,325 @@
+---
+pagetitle: "wt End-to-End Idea-to-Software Workflow"
+format:
+  revealjs:
+    theme: [default, wt-infographic.scss]
+    slide-number: false
+    controls: false
+    progress: false
+    center: false
+    width: 1360
+    height: 900
+    margin: 0.03
+    embed-resources: true
+---
+
+## {.center}
+
+<svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="9" r="6"></circle>
+<path d="M9 21h6M10 18h4M12 15v3"></path>
+</symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="10" cy="10" r="6"></circle>
+<line x1="21" y1="21" x2="14.5" y2="14.5"></line>
+</symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M6 2h9l5 5v15H6z"></path>
+<path d="M15 2v5h5"></path>
+<line x1="9" y1="13" x2="15" y2="13"></line>
+<line x1="9" y1="17" x2="15" y2="17"></line>
+</symbol>
+<symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"></path>
+<path d="M3 8l9 5 9-5"></path>
+<line x1="12" y1="13" x2="12" y2="21"></line>
+</symbol>
+<symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="8 6 2 12 8 18"></polyline>
+<polyline points="16 6 22 12 16 18"></polyline>
+</symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="23 4 23 10 17 10"></polyline>
+<polyline points="1 20 1 14 7 14"></polyline>
+<path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10M1 14l5.36 4.36A9 9 0 0 0 20.49 15"></path>
+</symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"></path>
+</symbol>
+<symbol id="i-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="15" y1="9" x2="9" y2="15"></line>
+<line x1="9" y1="9" x2="15" y2="15"></line>
+</symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polygon points="12 2 15 9 22 9.5 17 14.5 18.5 21.5 12 17.5 5.5 21.5 7 14.5 2 9.5 9 9"></polygon>
+</symbol>
+<symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="3" width="7" height="7"></rect>
+<rect x="14" y="3" width="7" height="7"></rect>
+<rect x="3" y="14" width="7" height="7"></rect>
+<rect x="14" y="14" width="7" height="7"></rect>
+</symbol>
+<symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<line x1="8" y1="6" x2="21" y2="6"></line>
+<line x1="8" y1="12" x2="21" y2="12"></line>
+<line x1="8" y1="18" x2="21" y2="18"></line>
+<circle cx="3" cy="6" r="1"></circle>
+<circle cx="3" cy="12" r="1"></circle>
+<circle cx="3" cy="18" r="1"></circle>
+</symbol>
+<symbol id="i-corner-up-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="9 14 4 9 9 4"></polyline>
+<path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+</symbol>
+</svg>
+
+<div class="canvas">
+
+<div class="header-row">
+<div class="header-title">
+<div class="title-main">wt End-to-End Idea-to-Software Workflow</div>
+<div class="title-sub">Turning a stray thought into finished, working software — and learning from the results.</div>
+</div>
+<div class="loop-callout">
+<div class="loop-callout-title"><svg class="icon"><use href="#i-refresh"></use></svg>A Loop, Not a Line</div>
+<div class="loop-callout-sub">What we learn at the end informs what we do next.</div>
+</div>
+</div>
+
+<div class="stage-row">
+
+<div class="stage-col" data-node="capture">
+<div class="stage-head"><span class="stage-num capture">1</span><span class="stage-name capture">Capture</span></div>
+<div class="stage-card capture">
+<div class="stage-icon"><svg class="icon"><use href="#i-bulb"></use></svg></div>
+<div class="stage-desc">Jot the idea down the moment it occurs.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt idea</code></li>
+<li><code>wt-capture</code> skill</li>
+<li><code>wt-seed</code> skill</li>
+</ul>
+</div>
+</div>
+
+<div class="stage-col" data-node="explore">
+<div class="stage-head"><span class="stage-num explore">2</span><span class="stage-name explore">Explore</span></div>
+<div class="stage-card explore">
+<div class="stage-icon"><svg class="icon"><use href="#i-search"></use></svg></div>
+<div class="stage-desc">Research it and write down what we learn.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt idea log</code> / <code>summary</code></li>
+<li><code>wt-explore</code> skill</li>
+</ul>
+</div>
+</div>
+
+<div class="stage-col" data-node="spec">
+<div class="stage-head"><span class="stage-num spec">3</span><span class="stage-name spec">Spec</span></div>
+<div class="stage-card spec">
+<div class="stage-icon"><svg class="icon"><use href="#i-doc"></use></svg></div>
+<div class="stage-desc">Write the Spec: Decision, Design, Done.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec new</code></li>
+<li><code>wt-new-work</code> skill</li>
+</ul>
+<div class="stage-note"><svg class="icon"><use href="#i-shield"></use></svg>Must be accepted before moving on.</div>
+</div>
+<div class="rework-branch" data-node="rework">
+<div class="rework-title"><svg class="icon"><use href="#i-corner-up-left"></use></svg>Needs revision?</div>
+<div class="rework-skill"><code>wt-rework</code> skill</div>
+<div class="rework-sub">Triggered from Spec &middot; returns to Spec for another pass.</div>
+</div>
+</div>
+
+<div class="stage-col" data-node="export">
+<div class="stage-head"><span class="stage-num export">4</span><span class="stage-name export">Export</span></div>
+<div class="stage-card export">
+<div class="stage-icon"><svg class="icon"><use href="#i-package"></use></svg></div>
+<div class="stage-desc">Hand the Spec to the owning team.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec export</code></li>
+<li><code>wt-export</code> skill</li>
+</ul>
+<div class="stage-note">Self-contained handoff — no access needed back.</div>
+</div>
+</div>
+
+<div class="stage-col" data-node="implement">
+<div class="stage-head"><span class="stage-num implement">5</span><span class="stage-name implement">Implement</span></div>
+<div class="stage-card implement">
+<div class="stage-icon"><svg class="icon"><use href="#i-code"></use></svg></div>
+<div class="stage-desc">Build the solution to the spec.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt-implement-spec</code> skill</li>
+</ul>
+<div class="stage-note">Marks done only when it's true.</div>
+</div>
+</div>
+
+<div class="stage-col" data-node="close">
+<div class="stage-head"><span class="stage-num close">6</span><span class="stage-name close">Close the Loop</span></div>
+<div class="stage-card close">
+<div class="stage-icon"><svg class="icon"><use href="#i-refresh"></use></svg></div>
+<div class="stage-desc">Bring results back; measure real fit.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec pull-status</code></li>
+<li><code>wt spec pull-clock</code> / <code>fit-log</code></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="exit-branch" data-node="exit">
+<div class="exit-caption">Not every idea reaches Implement — that's healthy. Either closes with <code>wt idea close</code>:</div>
+<div class="exit-row">
+<div class="exit-card dropped">
+<div class="exit-head"><svg class="icon"><use href="#i-x-circle"></use></svg>Dropped</div>
+<div class="exit-desc">A reasoned won't-do.</div>
+</div>
+<div class="exit-card researched">
+<div class="exit-head"><svg class="icon"><use href="#i-star"></use></svg>Researched</div>
+<div class="exit-desc">Explored fully; value folded elsewhere.</div>
+</div>
+</div>
+</div>
+
+<div class="visibility-band" data-node="visband">
+<div class="visibility-title">Full Visibility, Read-Only — across every stage above</div>
+<div class="visibility-row">
+<div class="vis-card">
+<div class="vis-head"><svg class="icon"><use href="#i-grid"></use></svg>wt hub</div>
+<div class="vis-desc">Everything in flight.</div>
+</div>
+<div class="vis-card">
+<div class="vis-head"><svg class="icon"><use href="#i-list"></use></svg>wt next</div>
+<div class="vis-desc">What to work on next.</div>
+</div>
+</div>
+</div>
+
+<div class="legend">
+<span class="legend-item"><span class="legend-swatch solid"></span>Normal progression</span>
+<span class="legend-item"><span class="legend-swatch dashed"></span>Optional / branch</span>
+<span class="legend-item"><span class="legend-swatch curved"></span>Feedback</span>
+</div>
+
+<svg class="arrow-overlay" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#9a9a94"></path>
+</marker>
+<marker id="arrPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#4a3aa7"></path>
+</marker>
+<marker id="arrTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#0d7d72"></path>
+</marker>
+</defs>
+<path id="arr-capture-explore" stroke="#9a9a94" stroke-width="1.6" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-explore-spec" stroke="#9a9a94" stroke-width="1.6" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-spec-export" stroke="#9a9a94" stroke-width="1.6" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-export-implement" stroke="#9a9a94" stroke-width="1.6" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-implement-close" stroke="#9a9a94" stroke-width="1.6" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-spec-rework-out" stroke="#4a3aa7" stroke-width="1.6" stroke-dasharray="4 3" fill="none" marker-end="url(#arrPurple)"></path>
+<path id="arr-rework-spec-in" stroke="#4a3aa7" stroke-width="1.6" stroke-dasharray="4 3" fill="none" marker-end="url(#arrPurple)"></path>
+<path id="arr-capture-exit" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-explore-exit" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path id="arr-close-explore" stroke="#0d7d72" stroke-width="2" fill="none" marker-end="url(#arrTeal)"></path>
+</svg>
+
+</div>
+
+<script>
+(function() {
+  function computeArrows() {
+    var canvas = document.querySelector('.canvas');
+    var svg = document.querySelector('.arrow-overlay');
+    if (!canvas || !svg) return;
+    var slides = document.querySelector('.reveal .slides');
+    var scale = 1;
+    if (slides) {
+      var t = getComputedStyle(slides).transform;
+      if (t && t !== 'none') {
+        var m = new DOMMatrixReadOnly(t);
+        scale = m.a || 1;
+      }
+    }
+    var cr = canvas.getBoundingClientRect();
+    function rect(sel) {
+      var el = document.querySelector(sel);
+      var r = el.getBoundingClientRect();
+      return {
+        left: (r.left - cr.left) / scale,
+        right: (r.right - cr.left) / scale,
+        top: (r.top - cr.top) / scale,
+        bottom: (r.bottom - cr.top) / scale,
+        midX: (r.left + r.width / 2 - cr.left) / scale,
+        midY: (r.top + r.height / 2 - cr.top) / scale
+      };
+    }
+    var w = cr.width / scale, h = cr.height / scale;
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+
+    function setPath(id, d) {
+      var p = document.getElementById(id);
+      if (p) p.setAttribute('d', d);
+    }
+    function straight(id, fromSel, toSel) {
+      var a = rect(fromSel), b = rect(toSel);
+      var y = (a.midY + b.midY) / 2;
+      setPath(id, 'M ' + a.right + ' ' + y + ' L ' + b.left + ' ' + y);
+    }
+
+    straight('arr-capture-explore', '[data-node=capture]', '[data-node=explore]');
+    straight('arr-explore-spec', '[data-node=explore]', '[data-node=spec]');
+    straight('arr-spec-export', '[data-node=spec]', '[data-node=export]');
+    straight('arr-export-implement', '[data-node=export]', '[data-node=implement]');
+    straight('arr-implement-close', '[data-node=implement]', '[data-node=close]');
+
+    var spec = rect('[data-node=spec]');
+    var rework = rect('[data-node=rework]');
+    var outX = spec.midX + 26, inX = spec.midX - 26;
+    var reworkOutX = rework.left + 24, reworkInX = rework.right - 24;
+    var midY = (spec.top + rework.bottom) / 2;
+    setPath('arr-spec-rework-out', 'M ' + outX + ' ' + spec.top + ' C ' + outX + ' ' + midY + ', ' + reworkInX + ' ' + midY + ', ' + reworkInX + ' ' + rework.bottom);
+    setPath('arr-rework-spec-in', 'M ' + reworkOutX + ' ' + rework.bottom + ' C ' + reworkOutX + ' ' + midY + ', ' + inX + ' ' + midY + ', ' + inX + ' ' + spec.top);
+
+    var capture = rect('[data-node=capture]');
+    var explore = rect('[data-node=explore]');
+    var exit = rect('[data-node=exit]');
+    setPath('arr-capture-exit', 'M ' + capture.midX + ' ' + capture.bottom + ' L ' + capture.midX + ' ' + (exit.top - 12) + ' L ' + (exit.left + exit.right * 0 + (exit.right - exit.left) * 0.27) + ' ' + (exit.top - 12) + ' L ' + (exit.left + (exit.right - exit.left) * 0.27) + ' ' + exit.top);
+    setPath('arr-explore-exit', 'M ' + explore.midX + ' ' + explore.bottom + ' L ' + explore.midX + ' ' + (exit.top - 12) + ' L ' + (exit.left + (exit.right - exit.left) * 0.73) + ' ' + (exit.top - 12) + ' L ' + (exit.left + (exit.right - exit.left) * 0.73) + ' ' + exit.top);
+
+    var close = rect('[data-node=close]');
+    var visband = rect('[data-node=visband]');
+    var startX = close.midX - 30, startY = close.bottom;
+    var endX = explore.midX - 45, endY = visband.bottom + 20;
+    setPath('arr-close-explore', 'M ' + startX + ' ' + startY + ' C ' + startX + ' ' + (endY + 20) + ', ' + endX + ' ' + (endY + 20) + ', ' + endX + ' ' + endY + ' L ' + endX + ' ' + explore.bottom);
+  }
+  window.addEventListener('load', computeArrows);
+  window.addEventListener('resize', computeArrows);
+  document.addEventListener('slidechanged', computeArrows);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(computeArrows);
+  }
+  setTimeout(computeArrows, 60);
+  setTimeout(computeArrows, 300);
+})();
+</script>

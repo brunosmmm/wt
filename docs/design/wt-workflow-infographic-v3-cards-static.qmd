@@ -1,0 +1,209 @@
+---
+pagetitle: "wt End-to-End Idea-to-Software Workflow"
+format:
+  revealjs:
+    theme: [default, wt-infographic.scss]
+    slide-number: false
+    controls: false
+    progress: false
+    center: false
+    width: 1360
+    height: 900
+    margin: 0.03
+    embed-resources: true
+---
+
+## {.center}
+
+<div class="canvas">
+
+<div class="header-row">
+<div class="header-title">
+<div class="title-main">wt End-to-End Idea-to-Software Workflow</div>
+<div class="title-sub">Turning a stray thought into finished, working software — and learning from the results.</div>
+</div>
+<div class="loop-callout">
+<div class="loop-callout-title">↻ A Loop, Not a Line</div>
+<div class="loop-callout-sub">What we learn at the end informs what we do next. Every cycle makes the next idea better.</div>
+</div>
+</div>
+
+<div class="stage-row">
+
+<div class="stage-col">
+<div class="stage-head"><span class="stage-num capture">1</span><span class="stage-name capture">Capture</span></div>
+<div class="stage-card capture">
+<div class="stage-icon">💡</div>
+<div class="stage-desc">Jot the idea down the moment it occurs.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt idea</code></li>
+<li><code>wt-capture</code> skill</li>
+<li><code>wt-seed</code> skill <span class="dim">(from a conversation)</span></li>
+</ul>
+</div>
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="stage-col">
+<div class="stage-head"><span class="stage-num explore">2</span><span class="stage-name explore">Explore</span></div>
+<div class="stage-card explore">
+<div class="stage-icon">🔍</div>
+<div class="stage-desc">Research, ask questions, and write down what we learn.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt idea log</code></li>
+<li><code>wt idea summary</code></li>
+<li><code>wt idea questions</code></li>
+<li><code>wt-explore</code> skill <span class="dim">(does the research and records it)</span></li>
+</ul>
+</div>
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="stage-col rework-anchor">
+<div class="stage-head"><span class="stage-num spec">3</span><span class="stage-name spec">Spec</span></div>
+<div class="stage-card spec">
+<div class="stage-icon">📄</div>
+<div class="stage-desc"><strong>Create the Spec:</strong> Decision, Design, and Done checklist.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec new</code></li>
+<li><code>wt-new-work</code> skill <span class="dim">(authxxs the spec)</span></li>
+</ul>
+<div class="stage-note">🛡️ Spec must be formally accepted before moving forward.</div>
+</div>
+<div class="rework-callout">
+<div class="rework-title">↩ Needs Revision?</div>
+<div class="rework-skill"><code>wt-rework</code> skill</div>
+<div class="rework-sub">Sends it back for revision if incomplete or wrongly designed.</div>
+</div>
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="stage-col">
+<div class="stage-head"><span class="stage-num export">4</span><span class="stage-name export">Export</span></div>
+<div class="stage-card export">
+<div class="stage-icon">📦</div>
+<div class="stage-desc">Hand off the Spec to the owning team or codebase.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec export</code></li>
+<li><code>wt-export</code> skill</li>
+</ul>
+<div class="stage-note">Self-contained handoff. No special access needed back.</div>
+</div>
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="stage-col">
+<div class="stage-head"><span class="stage-num implement">5</span><span class="stage-name implement">Implement</span></div>
+<div class="stage-card implement">
+<div class="stage-icon">&lt;/&gt;</div>
+<div class="stage-desc">Build the solution according to the spec and plan.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt-implement-spec</code> skill</li>
+</ul>
+<div class="stage-note">Checks work against the plan and only marks it done when it's true.</div>
+</div>
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="stage-col">
+<div class="stage-head"><span class="stage-num close">6</span><span class="stage-name close">Close the Loop</span></div>
+<div class="stage-card close">
+<div class="stage-icon">🔄</div>
+<div class="stage-desc">Bring results back and measure real fit.</div>
+<hr/>
+<div class="stage-how">How:</div>
+<ul>
+<li><code>wt spec pull-status</code></li>
+<li><code>wt spec pull-clock</code> <span class="dim">(pull build progress and effort/time back)</span></li>
+<li><code>wt spec fit-log</code> <span class="dim">(record whether it solved the problem)</span></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="bottom-row">
+
+<div class="exit-block">
+<div class="exit-caption">Not every idea reaches Implement — and that's healthy. An idea can be closed at any time with:</div>
+<div class="exit-row">
+<div class="exit-card dropped">
+<div class="exit-head">⊗ Dropped</div>
+<div class="exit-desc">A reasoned won't-do.</div>
+<div class="exit-how">Closed with: <code>wt idea close</code></div>
+</div>
+<div class="exit-card researched">
+<div class="exit-head">★ Researched</div>
+<div class="exit-desc">Fully explored, but no separate build was needed — its value folded into something else.</div>
+<div class="exit-how">Closed with: <code>wt idea close</code></div>
+</div>
+</div>
+<div class="exit-note">Both are legitimate, healthy outcomes.</div>
+</div>
+
+<div class="visibility-band">
+<div class="visibility-title">Full Visibility, Read-Only</div>
+<div class="visibility-row">
+<div class="vis-card">
+<div class="vis-head">▦ wt hub</div>
+<div class="vis-desc">Overview of everything in flight, across all stages.</div>
+</div>
+<div class="vis-card">
+<div class="vis-head">☰ wt next</div>
+<div class="vis-desc">What to work on next, across all stages.</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<svg class="arrow-overlay" viewBox="0 0 1360 450" width="1360" height="450" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#9a9a94"></path>
+</marker>
+<marker id="arrPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#4a3aa7"></path>
+</marker>
+<marker id="arrTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#0d7d72"></path>
+</marker>
+</defs>
+<path d="M 651 116 L 610 90" stroke="#4a3aa7" stroke-width="1.6" stroke-dasharray="4 3" fill="none" marker-end="url(#arrPurple)"></path>
+<path d="M 98 264 L 98 300 L 331 300 L 331 264" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none"></path>
+<path d="M 214 300 L 214 327" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path d="M 563 329 L 563 266" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path d="M 796 329 L 796 266" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path d="M 1029 329 L 1029 266" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path d="M 1261 329 L 1261 266" stroke="#9a9a94" stroke-width="1.4" stroke-dasharray="4 3" fill="none" marker-end="url(#arrGray)"></path>
+<path d="M 1335 264 C 1300 290, 1300 305, 1332 327" stroke="#0d7d72" stroke-width="2" fill="none" marker-end="url(#arrTeal)"></path>
+</svg>
+
+</div>
+
+<div class="summary-box">
+<div class="summary-strip">
+<div class="sum-chip"><span class="sum-icon">💡</span><span class="sum-label">Idea exists</span><span class="sum-sub">Captured thought</span></div>
+<div class="sum-chip"><span class="sum-icon">🔍</span><span class="sum-label">Understanding</span><span class="sum-sub">Explored and learned</span></div>
+<div class="sum-chip"><span class="sum-icon">📄</span><span class="sum-label">Plan is defined</span><span class="sum-sub">Spec created and accepted</span></div>
+<div class="sum-chip"><span class="sum-icon">📦</span><span class="sum-label">Handoff</span><span class="sum-sub">Exported to the right place</span></div>
+<div class="sum-chip"><span class="sum-icon">&lt;/&gt;</span><span class="sum-label">Work happens</span><span class="sum-sub">Implemented to plan</span></div>
+<div class="sum-chip"><span class="sum-icon">🔄</span><span class="sum-label">Learning captured</span><span class="sum-sub">Results and fit recorded</span></div>
+<div class="sum-chip"><span class="sum-icon">↻</span><span class="sum-label">Loop continues</span><span class="sum-sub">Better insights for better ideas</span></div>
+</div>
+</div>

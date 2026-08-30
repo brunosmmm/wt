@@ -1,0 +1,243 @@
+/*-- scss:defaults --*/
+$presentation-font-size-root: 18px;
+$body-color: #0b0b0b;
+$body-bg: #fcfcfb;
+$link-color: #2a78d6;
+
+/*-- scss:rules --*/
+.reveal h2 { display: none; }
+.reveal .slides section { text-align: left; }
+.reveal .slides { height: 100%; }
+
+// ---- header ---------------------------------------------------------------
+.reveal .header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7em;
+}
+.reveal .header-title { display: flex; flex-direction: column; max-width: 58%; }
+.reveal .title-main { font-size: 1.5em; font-weight: 700; }
+.reveal .title-sub { font-size: 0.66em; color: #52514e; margin-top: 0.15em; }
+
+.reveal .loop-callout {
+  border: 1.5px solid #1baf7a;
+  background: #eafbf3;
+  border-radius: 10px;
+  padding: 0.4em 0.8em;
+  max-width: 34%;
+  display: flex;
+  flex-direction: column;
+}
+.reveal .loop-callout-title { font-weight: 700; color: #0d7d5f; font-size: 0.66em; }
+.reveal .loop-callout-sub { font-size: 0.5em; color: #33322f; margin-top: 0.15em; }
+
+// ---- stage columns (label ABOVE the tinted card) ----------------------------
+.reveal .stage-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.15em;
+}
+.reveal .stage-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.reveal .flow-arrow {
+  flex: 0 0 1.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  color: #9a9a94;
+  padding-top: 1.6em;
+}
+.reveal .stage-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-bottom: 0.3em;
+}
+.reveal .stage-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85em;
+}
+.reveal .stage-name { font-weight: 700; font-size: 0.95em; }
+
+.reveal .stage-card {
+  flex: 1;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+  padding: 0.55em 0.6em;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.5em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.reveal .stage-icon {
+  font-size: 2.1em;
+  text-align: center;
+  margin: 0.15em 0 0.3em 0;
+}
+.reveal .stage-desc { text-align: center; font-size: 1em; margin-bottom: 0.4em; min-height: 2.9em; }
+.reveal .stage-card hr { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 0.35em 0; }
+.reveal .stage-how { font-weight: 700; font-size: 0.95em; margin-bottom: 0.15em; }
+.reveal .stage-card ul { margin: 0; padding-left: 1.1em; font-size: 0.95em; flex: 1; }
+.reveal .stage-card li { margin-bottom: 0.18em; }
+.reveal .stage-card code { font-size: 0.95em; background: rgba(255,255,255,0.65); padding: 0.05em 0.3em; border-radius: 3px; }
+.reveal .dim { color: #6b6a63; font-size: 0.92em; }
+.reveal .stage-note {
+  margin-top: 0.4em;
+  font-size: 0.88em;
+  border-radius: 6px;
+  padding: 0.35em 0.5em;
+  background: rgba(255,255,255,0.55);
+  color: #33322f;
+}
+
+// per-stage colors: border + tinted card background + label colors (fixed order)
+@mixin stage-theme($name, $accent, $tint, $label) {
+  .reveal .stage-card.#{$name} { border-color: $accent; background: $tint; }
+  .reveal .stage-num.#{$name} { background: $accent; }
+  .reveal .stage-name.#{$name} { color: $label; }
+}
+@include stage-theme(capture,   #eda100, #fdf3e0, #a5730a);
+@include stage-theme(explore,   #2a78d6, #eaf2fc, #1d5aa3);
+@include stage-theme(spec,      #4a3aa7, #f1eefc, #4a3aa7);
+@include stage-theme(export,    #1baf7a, #e9f9f2, #0d7d5f);
+@include stage-theme(implement, #eb6834, #fdefe8, #c04f22);
+@include stage-theme(close,     #0d7d72, #e7f6f4, #0d7d72);
+
+// ---- rework side callout (floats above the Spec/Export boundary) ------------
+.reveal .rework-anchor { overflow: visible; }
+.reveal .rework-callout {
+  position: absolute;
+  top: -3.6em;
+  right: -2.9em;
+  width: 7.6em;
+  border: 1.5px dashed #4a3aa7;
+  border-radius: 8px;
+  background: #f7f6fd;
+  padding: 0.3em 0.4em;
+  font-size: 0.4em;
+  text-align: center;
+  color: #4a3aa7;
+  z-index: 2;
+}
+.reveal .rework-title { font-weight: 700; }
+.reveal .rework-skill { margin-top: 0.2em; }
+.reveal .rework-skill code { font-size: 0.95em; background: #ece8f8; padding: 0.05em 0.3em; border-radius: 3px; }
+.reveal .rework-sub { margin-top: 0.2em; color: #5a4a9a; font-size: 0.95em; }
+
+// ---- down-arrows from Capture/Explore into the terminal-exit block ----------
+.reveal .drop-arrows {
+  display: flex;
+  gap: 3.6em;
+  padding-left: 2.6em;
+  margin: 0.15em 0;
+}
+.reveal .drop-arrow { font-size: 0.9em; color: #9a9a94; }
+
+// ---- bottom row: exit-block (left) + visibility-band (right), side by side -
+.reveal .bottom-row {
+  display: flex;
+  gap: 0.7em;
+  align-items: stretch;
+  margin-top: 65px; // fixed px (not em) so it matches the arrow-overlay's px coordinate space
+}
+.reveal .exit-block { flex: 0 0 34%; display: flex; flex-direction: column; }
+.reveal .exit-caption { font-size: 0.42em; font-weight: 600; color: #33322f; margin-bottom: 0.35em; }
+.reveal .exit-row { display: flex; align-items: stretch; gap: 0.5em; flex: 1; }
+.reveal .exit-card {
+  flex: 1;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+  padding: 0.4em 0.55em;
+  font-size: 0.44em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.reveal .exit-card.dropped { border-color: #d03b3b; background: #fdecec; }
+.reveal .exit-card.dropped .exit-head { color: #b32626; }
+.reveal .exit-card.researched { border-color: #eda100; background: #fdf3e0; }
+.reveal .exit-card.researched .exit-head { color: #a5730a; }
+.reveal .exit-head { font-weight: 700; font-size: 1.1em; margin-bottom: 0.25em; }
+.reveal .exit-desc { margin-bottom: 0.3em; }
+.reveal .exit-how { font-size: 0.9em; color: #52514e; }
+.reveal .exit-how code { font-size: 1em; background: rgba(255,255,255,0.6); padding: 0.05em 0.3em; border-radius: 3px; }
+.reveal .exit-note {
+  margin-top: 0.35em;
+  font-size: 0.42em;
+  font-style: italic;
+  color: #52514e;
+  text-align: center;
+}
+
+.reveal .visibility-band {
+  flex: 1;
+  border: 1.5px solid #8ea9c7;
+  background: #f5f8fb;
+  border-radius: 10px;
+  padding: 0.45em 0.7em;
+  display: flex;
+  flex-direction: column;
+}
+.reveal .visibility-title {
+  font-size: 0.46em;
+  font-weight: 700;
+  text-align: center;
+  color: #33322f;
+  margin-bottom: 0.35em;
+}
+.reveal .visibility-row { display: flex; gap: 0.7em; flex: 1; }
+.reveal .vis-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #cfe0ef;
+  border-radius: 8px;
+  padding: 0.35em 0.6em;
+  font-size: 0.46em;
+}
+.reveal .vis-head { font-weight: 700; color: #1d5aa3; margin-bottom: 0.15em; }
+.reveal .vis-desc { color: #33322f; }
+
+// ---- summary strip, boxed --------------------------------------------------
+.reveal .summary-box {
+  margin-top: 0.6em;
+  border: 1px solid #e2e2df;
+  background: #f7f7f5;
+  border-radius: 10px;
+  padding: 0.5em 0.7em;
+}
+.reveal .summary-strip { display: flex; gap: 0.4em; }
+.reveal .sum-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 0.42em;
+}
+.reveal .sum-icon { font-size: 1.3em; margin-bottom: 0.15em; }
+.reveal .sum-label { font-weight: 700; }
+.reveal .sum-sub { color: #7a7972; font-size: 0.92em; }
+
+// ---- canvas + arrow overlay -------------------------------------------------
+.reveal .canvas { position: relative; }
+.reveal .arrow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1360px;
+  height: 450px;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}

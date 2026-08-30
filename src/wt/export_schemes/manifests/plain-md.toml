@@ -1,0 +1,35 @@
+# Declarative example scheme (SPEC-0016): a minimal, flat remap of the canonical spec, no
+# Python required. Exercised by tests/test_export_schemes.py.
+name = "plain-md"
+description = "Minimal flat remap: Context/Goals/Non-goals/Decision/Acceptance/Test plan -> a single Overview/Goals/Non-goals/Decision/Acceptance/Verification doc. Manifest-only."
+required_fields = ["id", "title", "context", "acceptance"]
+naming = "{id}-{slug}.md"
+artifact = "spec"
+
+[[sections]]
+label = "Overview"
+source = "context"
+
+[[sections]]
+label = "Goals"
+source = "goals"
+list = true
+
+[[sections]]
+label = "Non-goals"
+source = "non_goals"
+list = true
+
+[[sections]]
+label = "Decision"
+source = "decision"
+
+[[sections]]
+label = "Acceptance"
+source = "acceptance"
+list = true
+checkbox = true
+
+[[sections]]
+label = "Verification"
+source = "test_plan"

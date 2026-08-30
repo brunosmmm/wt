@@ -1,0 +1,78 @@
+---
+pagetitle: "wt — Idea → Spec → Implementation Workflow"
+format:
+  revealjs:
+    theme: [default, wt-infographic.scss]
+    slide-number: false
+    controls: false
+    progress: false
+    center: false
+    width: 1400
+    height: 900
+    margin: 0.04
+    embed-resources: true
+---
+
+## {.center}
+
+<div class="title-row">
+<span class="title-main">wt — Idea → Spec → Implementation Workflow</span>
+<span class="title-sub">Capture anywhere, hand off to the owning repo, close the loop</span>
+</div>
+
+```{mermaid}
+%%| fig-width: 13
+flowchart LR
+    classDef stage fill:#2a78d6,stroke:#0b0b0b,stroke-width:1px,color:#ffffff,rx:8,ry:8
+    classDef handoff fill:#1baf7a,stroke:#0b0b0b,stroke-width:1px,color:#ffffff,rx:8,ry:8
+    classDef gate fill:#eda100,stroke:#0b0b0b,stroke-width:1px,color:#0b0b0b,rx:8,ry:8
+    classDef terminal fill:#e6e6e2,stroke:#52514e,stroke-width:1px,color:#0b0b0b,stroke-dasharray:4 3,rx:8,ry:8
+
+    Capture["⚙️/🤖 Capture<br/>wt idea · wt-capture / wt-seed"]:::stage
+    Explore["🤖 Explore<br/>wt idea log/summary · wt-explore"]:::stage
+    SpecGate{{"🤖 Spec accepted?<br/>wt spec new · wt-new-work"}}:::gate
+    Rework["🤖 wt-rework<br/>epic incomplete"]:::gate
+
+    Export["⚙️ Export — handoff to owning repo<br/>wt spec export · wt-export"]:::handoff
+    Implement["🤖 Implement<br/>in the owning repo<br/>wt-implement-spec"]:::handoff
+    PullBack{{"⚙️ pull-status · pull-clock"}}:::handoff
+
+    Close["🤖 Close the loop<br/>wt spec fit-log"]:::stage
+
+    Dropped["🤖 Dropped<br/>wt idea close --as drop"]:::terminal
+    Researched["🤖 Researched<br/>wt idea close --as researched"]:::terminal
+
+    Capture --> Explore
+    Explore --> SpecGate
+    SpecGate -- "epic incomplete" --> Rework
+    Rework -.-> SpecGate
+    SpecGate --> Export
+    Export --> Implement
+    Implement --> PullBack
+    PullBack --> Close
+    Close -. "fit signal" .-> Explore
+
+    Explore -.-> Dropped
+    SpecGate -.-> Researched
+    Dropped -. "reopen" .-> Explore
+    Researched -. "reopen" .-> Explore
+```
+
+::: {.legend}
+
+| Stage | CLI | Skill |
+|---|---|---|
+| **Capture** | `wt idea "…"` | `wt-capture`, `wt-seed` |
+| **Explore** | `wt idea log / summary / questions` | `wt-explore` |
+| **Accept spec** | `wt spec new --from-idea` | `wt-new-work`, `wt-rework` |
+| **Export (handoff)** | `wt spec export` | `wt-export` |
+| **Implement** | — | `wt-implement-spec` *(runs in the owning repo)* |
+| **Close the loop** | `wt spec pull-status/pull-clock/fit-log` · `wt idea close` | — |
+
+**🤖 = needs human/AI judgment · ⚙️ = deterministic wt CLI (mechanical, no judgment).** wt's CLI never *decides* anything — every write (state, property, clock entry) is a drift-guarded, idempotent record of a decision already made. Judgment lives entirely in the Skills layer: what to explore, whether a design actually holds up, whether the code is really done, whether it actually worked.
+
+**Triage, anywhere:** `wt hub --json` · `wt next` — read-only, non-mutating.
+**Terminal exits are healthy outcomes, not failures:** *dropped* = won't-do, reasoned; *researched* = explored fully, value folded elsewhere via a pointer.
+**Capture/Explore/Spec authxxing** run with the full `wt` CLI + skills. Once handed off, **implementation happens in the owning repo** with *only* the portable spec + `wt-implement-spec` — reconciliation back happens later, pulled from the wt side.
+
+:::

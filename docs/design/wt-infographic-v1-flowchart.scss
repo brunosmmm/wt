@@ -1,0 +1,59 @@
+/*-- scss:defaults --*/
+$presentation-font-size-root: 22px;
+$body-color: #0b0b0b;
+$body-bg: #fcfcfb;
+$link-color: #2a78d6;
+
+/*-- scss:rules --*/
+.reveal h2 {
+  display: none;
+}
+.reveal .slides section {
+  text-align: left;
+}
+.reveal .slides {
+  height: 100%;
+}
+.reveal .legend {
+  font-size: 0.52em;
+  margin-top: -0.3em;
+}
+.reveal .legend table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.5em;
+}
+.reveal .legend th, .reveal .legend td {
+  padding: 0.15em 0.6em 0.15em 0;
+  border-bottom: 1px solid #e6e6e2;
+  vertical-align: top;
+}
+.reveal .legend th {
+  color: #52514e;
+  font-weight: 600;
+  text-align: left;
+}
+.reveal .legend code {
+  font-size: 0.95em;
+  background: #f0f0ee;
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+}
+.reveal .legend p {
+  margin: 0.25em 0;
+  color: #33322f;
+}
+.reveal .title-row {
+  display: block;
+  margin-bottom: 0.1em;
+}
+.reveal .title-row .title-main {
+  display: block;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+.reveal .title-row .title-sub {
+  display: block;
+  font-size: 0.6em;
+  color: #52514e;
+}

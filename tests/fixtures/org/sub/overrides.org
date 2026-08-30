@@ -1,0 +1,9 @@
+* TODO Task whose key comes from a property, not the heading
+  :PROPERTIES:
+  :JIRA: OVERRIDE-1
+  :END:
+* TODO Mentions ABC-99 in text but TOPIC wins
+  :PROPERTIES:
+  :TOPIC: DEMO-777
+  :END:
+* DONE plain done under fallback keywords

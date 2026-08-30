@@ -1,0 +1,225 @@
+/*-- scss:defaults --*/
+$presentation-font-size-root: 18px;
+$body-color: #0b0b0b;
+$body-bg: #fcfcfb;
+$link-color: #2a78d6;
+
+/*-- scss:rules --*/
+.reveal h2 { display: none; }
+.reveal .slides section { text-align: left; }
+.reveal .slides { height: 100%; }
+
+.reveal .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  margin-right: 0.3em;
+  stroke: currentColor;
+}
+.reveal .stage-icon .icon { width: 1.6em; height: 1.6em; margin-right: 0; }
+
+// ---- header ---------------------------------------------------------------
+.reveal .header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7em;
+}
+.reveal .header-title { display: flex; flex-direction: column; max-width: 58%; }
+.reveal .title-main { font-size: 1.5em; font-weight: 700; }
+.reveal .title-sub { font-size: 0.66em; color: #52514e; margin-top: 0.15em; }
+
+.reveal .loop-callout {
+  border: 1.5px solid #1baf7a;
+  background: #eafbf3;
+  border-radius: 10px;
+  padding: 0.4em 0.8em;
+  max-width: 34%;
+  display: flex;
+  flex-direction: column;
+}
+.reveal .loop-callout-title { font-weight: 700; color: #0d7d5f; font-size: 0.66em; display: flex; align-items: center; }
+.reveal .loop-callout-sub { font-size: 0.5em; color: #33322f; margin-top: 0.15em; }
+
+// ---- stage columns (label ABOVE the tinted card) ----------------------------
+.reveal .stage-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5em;
+  position: relative;
+  z-index: 1;
+}
+.reveal .stage-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.reveal .stage-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-bottom: 0.3em;
+}
+.reveal .stage-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85em;
+}
+.reveal .stage-name { font-weight: 700; font-size: 0.95em; }
+
+.reveal .stage-card {
+  flex: 1;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+  padding: 0.6em 0.65em;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.56em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.reveal .stage-icon {
+  text-align: center;
+  margin: 0.1em 0 0.35em 0;
+  color: inherit;
+}
+.reveal .stage-desc { text-align: center; font-size: 1em; margin-bottom: 0.4em; min-height: 2.2em; font-weight: 600; }
+.reveal .stage-card hr { border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 0.35em 0; }
+.reveal .stage-how { font-weight: 700; font-size: 0.9em; margin-bottom: 0.15em; }
+.reveal .stage-card ul { margin: 0; padding-left: 1.1em; font-size: 0.9em; }
+.reveal .stage-card li { margin-bottom: 0.18em; }
+.reveal .stage-card code { font-size: 0.95em; background: rgba(255,255,255,0.65); padding: 0.05em 0.3em; border-radius: 3px; }
+.reveal .stage-note {
+  margin-top: 0.4em;
+  font-size: 0.82em;
+  border-radius: 6px;
+  padding: 0.35em 0.5em;
+  background: rgba(255,255,255,0.55);
+  color: #33322f;
+  display: flex;
+  align-items: center;
+}
+
+// per-stage colors: border + tinted card background + label colors (fixed order)
+@mixin stage-theme($name, $accent, $tint, $label) {
+  .reveal .stage-card.#{$name} { border-color: $accent; background: $tint; color: $label; }
+  .reveal .stage-num.#{$name} { background: $accent; }
+  .reveal .stage-name.#{$name} { color: $label; }
+}
+@include stage-theme(capture,   #eda100, #fdf3e0, #a5730a);
+@include stage-theme(explore,   #2a78d6, #eaf2fc, #1d5aa3);
+@include stage-theme(spec,      #4a3aa7, #f1eefc, #4a3aa7);
+@include stage-theme(export,    #1baf7a, #e9f9f2, #0d7d5f);
+@include stage-theme(implement, #eb6834, #fdefe8, #c04f22);
+@include stage-theme(close,     #0d7d72, #e7f6f4, #0d7d72);
+
+// ---- rework branch (floats above Spec, clearly touches it both ends) -------
+.reveal .rework-branch {
+  position: absolute;
+  top: -7.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12em;
+  border: 1.5px dashed #4a3aa7;
+  border-radius: 8px;
+  background: #f7f6fd;
+  padding: 0.45em 0.6em;
+  font-size: 0.62em;
+  text-align: center;
+  color: #4a3aa7;
+  z-index: 3;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.reveal .rework-title { font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.reveal .rework-skill { margin-top: 0.25em; }
+.reveal .rework-skill code { font-size: 0.95em; background: #ece8f8; padding: 0.05em 0.3em; border-radius: 3px; }
+.reveal .rework-sub { margin-top: 0.25em; color: #5a4a9a; font-size: 0.9em; }
+
+// ---- exit branch (Dropped / Researched) ------------------------------------
+.reveal .exit-branch {
+  margin-top: 2.2em;
+  width: 46%;
+}
+.reveal .exit-caption { font-size: 0.46em; font-weight: 600; color: #33322f; margin-bottom: 0.35em; }
+.reveal .exit-row { display: flex; align-items: stretch; gap: 0.5em; }
+.reveal .exit-card {
+  flex: 1;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+  padding: 0.4em 0.55em;
+  font-size: 0.46em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.reveal .exit-card.dropped { border-color: #d03b3b; background: #fdecec; }
+.reveal .exit-card.dropped .exit-head { color: #b32626; }
+.reveal .exit-card.researched { border-color: #eda100; background: #fdf3e0; }
+.reveal .exit-card.researched .exit-head { color: #a5730a; }
+.reveal .exit-head { font-weight: 700; font-size: 1.1em; margin-bottom: 0.25em; display: flex; align-items: center; }
+.reveal .exit-desc { color: #33322f; }
+
+// ---- visibility band: full width under all six stages ----------------------
+.reveal .visibility-band {
+  margin-top: 1em;
+  border: 1.5px solid #8ea9c7;
+  background: #f5f8fb;
+  border-radius: 10px;
+  padding: 0.5em 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.reveal .visibility-title {
+  font-size: 0.5em;
+  font-weight: 700;
+  color: #33322f;
+  flex: 0 0 auto;
+}
+.reveal .visibility-row { display: flex; gap: 0.7em; flex: 0 0 auto; margin-left: auto; }
+.reveal .vis-card {
+  flex: 0 0 auto;
+  background: #ffffff;
+  border: 1px solid #cfe0ef;
+  border-radius: 8px;
+  padding: 0.35em 0.7em;
+  font-size: 0.48em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.reveal .vis-head { font-weight: 700; color: #1d5aa3; display: flex; align-items: center; flex: 0 0 auto; }
+.reveal .vis-desc { color: #33322f; }
+
+// ---- legend: replaces the old summary strip --------------------------------
+.reveal .legend {
+  margin-top: 2.4em;
+  display: flex;
+  gap: 1.6em;
+  justify-content: center;
+  font-size: 0.42em;
+  color: #52514e;
+}
+.reveal .legend-item { display: flex; align-items: center; gap: 0.4em; }
+.reveal .legend-swatch { display: inline-block; width: 2em; height: 0; border-top-width: 2px; border-top-style: solid; border-color: #9a9a94; }
+.reveal .legend-swatch.solid { border-top-style: solid; }
+.reveal .legend-swatch.dashed { border-top-style: dashed; border-color: #4a3aa7; }
+.reveal .legend-swatch.curved { border-top-style: solid; border-color: #0d7d72; border-radius: 50%; }
+
+// ---- canvas + arrow overlay -------------------------------------------------
+.reveal .canvas { position: relative; }
+.reveal .arrow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}

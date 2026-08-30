@@ -1,0 +1,13 @@
+#+TITLE: Planned
+#+TODO: TODO INPROGRESS | DONE CANCELED
+
+* TODO Scheduled inside the week
+  SCHEDULED: <2026-07-15 Wed>
+* TODO Deadline inside the week
+  DEADLINE: <2026-07-16 Thu>
+* TODO Overdue deadline before the week
+  DEADLINE: <2026-07-01 Wed>
+* DONE Past deadline but done (not overdue)
+  DEADLINE: <2026-07-02 Thu>
+  CLOSED: [2026-07-02 Thu]
+* TODO No dates at all

@@ -1,0 +1,16 @@
+#+TITLE: Work Estimation Book Keeping
+#+TODO: TODO INPROGRESS | DONE CANCELED
+
+* INPROGRESS [#A] DEMO-504 Backport TPS25750 USB PD Driver :projects:demo:
+  SCHEDULED: <2026-07-20 Mon> DEADLINE: <2026-07-25 Sat>
+  :PROPERTIES:
+  :ID: est-504
+  :OriginalPoints: 2.5
+  :END:
+* INPROGRESS DEMO-506 Add support for TPS25751 in kernel driver
+  :PROPERTIES:
+  :OriginalPoints: 2.0
+  :END:
+* DONE DEMO-500 old finished ticket :projects:
+  CLOSED: [2026-07-01 Wed]
+* CANCELED DEMO-499 abandoned work

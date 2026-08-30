@@ -1,0 +1,10 @@
+#+TITLE: Agenda
+#+TODO: TODO TRIAGE BLOCKED INPROGRESS LONGTERM | NONACTIONABLE DONE WONTDO CANCELED
+
+* Active Projects :projects:
+** INPROGRESS Ship the drone perf fix :projects:demo:
+   DEADLINE: <2026-07-14 Tue>
+** BLOCKED [#B] Waiting on review :projects:demo:
+** NONACTIONABLE Someday maybe idea :projects:misc:
+* Administrative :admin:
+** TODO File expense report :admin:
