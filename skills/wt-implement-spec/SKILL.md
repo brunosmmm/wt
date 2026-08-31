@@ -63,6 +63,10 @@ skill is global; it is the outbound close-the-loop playbook. This skill stays th
 - **SPEC-0138:** Superpowers TDD/debug may help *inside* this slice; claiming finished still
   requires `/wt-verify` (and later `pull-status` on the wt side). Do not mark the portable
   `done` from Superpowers “verification-before-completion” alone.
+- **No Superpowers-only ship:** If the only design artifact is under `docs/superpowers/**`
+  and there is no `docs/specs/<OUTBOUND-ID>-*.md` portable for this slice, **stop** — return
+  to wt (`/wt-explore` → `/wt-new-work` → export) before writing feature code. Do not keep
+  the linked idea at `INCUBATE` while calling Superpowers notes “implemented.”
 
 ## Verify
 

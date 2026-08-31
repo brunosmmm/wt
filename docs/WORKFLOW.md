@@ -134,7 +134,8 @@ default install stays click/rich/pyyaml/orgparse; agents keep the classic comman
 
 ```bash
 uv sync --extra tui          # from a checkout
-uv tool install 'wt[tui]'    # installed tool
+uv tool install '.[tui]'     # from the wt checkout (NOT PyPI `wt` — that is a different tool)
+# or: uv tool install --editable '.[tui]'
 wt tui                       # without the extra: install hint + exit 1
 ```
 
