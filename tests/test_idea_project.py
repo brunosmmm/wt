@@ -206,6 +206,16 @@ def test_known_project_choices_comes_from_the_registry(tmp_path, monkeypatch):
     assert M.known_project_choices(cfg) == ["Meta-Tools", "Example"]
 
 
+def test_known_project_choices_includes_outbox_and_meta_tools_without_mappings(tmp_path):
+    """SPEC-0139: desk choices follow projects_payload, not mappings alone."""
+    cfg = _cfg(tmp_path)
+    (Path(cfg["config_dir"]) / "mappings.yaml").write_text("")
+    cfg["outbox_targets"] = {
+        "DemoBrew": {"repo_path": str(tmp_path / "demobrew")},
+    }
+    assert M.known_project_choices(cfg) == ["DemoBrew", "Meta-Tools"]
+
+
 def test_known_project_choices_degrades_instead_of_crashing(tmp_path):
     """A config with no mappings must give an empty chooser, never break capture."""
     cfg = _cfg(tmp_path)
@@ -263,21 +273,21 @@ def test_metadata_chooser_sets_and_clears_project(tmp_path, monkeypatch):
         app = IdeaDesk(cfg)
         async with app.run_test(size=(100, 24)) as pilot:
             await pilot.pause()
-            await pilot.press("m")                 # kind / priority / project / workstream
+            await pilot.press("m")  # state / kind / priority / project / …
             await pilot.pause()
-            await pilot.press("j")
-            await pilot.press("j")                 # -> project
+            for _ in range(3):                     # state → kind → priority → project
+                await pilot.press("j")
             await pilot.press("enter")
             await pilot.pause()
-            await pilot.press("j")                 # (none) -> Meta-Tools
+            await pilot.press("j")                 # (none) → Meta-Tools
             await pilot.press("enter")
             await pilot.pause()
             assert _project(cfg) == "Meta-Tools"
 
             await pilot.press("m")                 # now clear it
             await pilot.pause()
-            await pilot.press("j")
-            await pilot.press("j")                 # -> project
+            for _ in range(3):
+                await pilot.press("j")             # → project
             await pilot.press("enter")
             await pilot.pause()
             # the chooser opens on the *current* value, so walk back up to (none)

@@ -224,6 +224,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0136](./specs/0136-release-archive-optional-install-script-bundled.md) | Release archive optional install script points wt at bundled ideas/ | feature | done | M7: release archive | 2026-08-30 |
 | [SPEC-0137](./specs/0137-wt-projects-add-cli-register-outbox-targets-dry.md) | wt projects add: CLI register outbox targets (dry-run + --yes) | feature | done | M4: cli ergonomics | 2026-08-30 |
 | [SPEC-0138](./specs/0138-superpowers-coexist-with-wt-lifecycle-vs-tactics.md) | Superpowers coexist with wt: lifecycle vs tactics | feature | done | M4: cli ergonomics | 2026-08-30 |
+| [SPEC-0139](./specs/0139-desk-project-chooser-empty-for-capture-and-m.md) | Desk project chooser uses projects_payload names (capture + m→project) | feature | done | M5: interactive desk | 2026-09-01 |
 
 ## Superseded / rejected
 

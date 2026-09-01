@@ -296,14 +296,19 @@ def capture_idea(cfg, text: str, *, project: str | None = None) -> str:
 
 
 def known_project_choices(cfg) -> list[str]:
-    """Project names for the desk's chooser (SPEC-0018's de-facto registry)."""
-    from ..rules import known_projects
+    """Project names for the desk's chooser (SPEC-0139).
+
+    Same names as `wt projects --json` / `projects_payload` — mappings ∪ outbox_targets ∪
+    Meta-Tools — not mappings-only `known_projects` (SPEC-0018), which left the desk empty
+    when operators only had outbox targets.
+    """
+    from ..rules import projects_payload
 
     try:
-        return list(known_projects(cfg))
-    except (OSError, ValueError, KeyError):
+        return [p["name"] for p in projects_payload(cfg)["projects"]]
+    except (OSError, ValueError, KeyError, TypeError):
         # KeyError: `load_mappings` wants `config_dir`. A config without one is unusual, but
-        # "no mappings configured" must degrade to an empty chooser, never break capture.
+        # "no projects resolvable" must degrade to an empty chooser, never break capture.
         return []
 
 

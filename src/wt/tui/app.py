@@ -1130,9 +1130,14 @@ class IdeaDesk(App):
                 choices = list(IDEA_KINDS)
             elif field == "priority":
                 choices = ["A", "B", "C"]
-            elif field == "project":                      # SPEC-0109
+            elif field == "project":                      # SPEC-0109 / SPEC-0139
                 # NONE_CHOICE first: clearing a mis-set project must be as easy as setting one.
-                choices = [NONE_CHOICE] + M.known_project_choices(self.cfg)
+                names = M.known_project_choices(self.cfg)
+                if not names:
+                    self.notify("no projects configured (mappings / outbox_targets)",
+                                severity="warning")
+                    return
+                choices = [NONE_CHOICE] + names
             else:
                 choices = list(configured_workstreams(self.cfg) or [])
                 if not choices:
@@ -1198,6 +1203,8 @@ class IdeaDesk(App):
                 return
             choices = [NONE_CHOICE] + M.known_project_choices(self.cfg)
             if len(choices) == 1:                  # nothing configured — don't ask a dead question
+                self.notify("no projects configured (mappings / outbox_targets)",
+                            severity="warning")
                 write(text, None)
                 return
 
