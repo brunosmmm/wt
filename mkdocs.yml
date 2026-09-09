@@ -1,0 +1,56 @@
+site_name: wt
+site_description: Passive time tracking and idea → ship workflow
+docs_dir: docs/product
+site_dir: site
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: blue grey
+      accent: teal
+
+plugins:
+  - search
+
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Guides:
+      - guides/index.md
+      - Getting started: guides/getting-started.md
+      - Track time: guides/track-time.md
+      - Idea → ship: guides/idea-to-ship.md
+      - Outbound: guides/outbound.md
+      - Multi-project: guides/multi-project.md
+  - Concepts:
+      - concepts/index.md
+      - Time model & retention: concepts/time-and-retention.md
+  - Capabilities:
+      - capabilities/index.md
+      - Report & topics: capabilities/report.md
+      - Ideas & next: capabilities/ideas.md
+      - Desk (TUI): capabilities/tui.md
+      - Hub: capabilities/hub.md
+      - Projects & outbound: capabilities/projects.md
+      - Sheet sync: capabilities/sheet.md
+      - Clock: capabilities/clock.md
+      - Completion: capabilities/completion.md
+      - Release archive: capabilities/release-archive.md
+      - Tasks & agenda: capabilities/tasks-agenda.md
+      - Meetings: capabilities/meetings.md
+      - Skills: capabilities/skills.md
+  - Reference: reference/index.md
+  - Contribute: contribute/index.md

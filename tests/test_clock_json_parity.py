@@ -213,12 +213,13 @@ def test_metadata_screen_sets_a_value(tmp_path, monkeypatch):
         app = IdeaDesk(cfg)
         async with app.run_test(size=(100, 30)) as pilot:
             await pilot.pause()
-            await pilot.press("m")            # field list: kind / priority / workstream
+            await pilot.press("m")            # state / kind / priority / …
             await pilot.pause()
-            await pilot.press("j")            # → priority
+            await pilot.press("j")
+            await pilot.press("j")            # state → kind → priority
             await pilot.press("enter")
             await pilot.pause()
-            await pilot.press("j")            # → B
+            await pilot.press("j")            # A → B
             await pilot.press("enter")
             await pilot.pause()
             assert _idea(cfg).priority == "B"

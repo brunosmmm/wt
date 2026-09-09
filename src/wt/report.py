@@ -1063,7 +1063,7 @@ def _kind_legend() -> str:
 # so a table whose every kind is "idea" reserves 4 columns, not 12.
 _IDEA_META_COLS = {
     "score":   ("score",   3,  6),     # SPEC-0086 search mode only
-    "id":      ("id",      8,  None),
+    "id":      ("id",      10, None),  # SPEC-0140: room for `◕ `/two-space pad + IDEA-NNN
     "state":   ("state",   8,  None),
     "pri":     ("pri",     3,  3),     # SPEC-0093
     "q":       ("q",       1,  3),     # SPEC-0110: open-question count (SPEC-0103 data)
@@ -1075,6 +1075,12 @@ _IDEA_META_COLS = {
 }
 
 
+def _idea_id_label(prow) -> str:
+    """Id with open-clock mark (SPEC-0103 desk parity / SPEC-0140 CLI)."""
+    prefix = "◕ " if prow.get("clock_open") else "  "
+    return prefix + (prow.get("id") or "")
+
+
 def _meta_widths(prows, keys):
     """Rendered width each metadata column needs for `prows`: the widest cell (bounded by the
     column's cap), never below the column's min_width or its own header."""
@@ -1082,10 +1088,16 @@ def _meta_widths(prows, keys):
     for k in keys:
         header, min_w, cap = _IDEA_META_COLS[k]
         # `updated` renders as a short relative age, not the raw stamp, so measure what is shown.
-        cell = {"updated": "_age", "kind": "_kind"}.get(k, k)
-        # Display width, not character count (SPEC-0085): a 2-cell glyph is one character, so
-        # `len` would under-reserve and Rich would quietly take the difference off the headline.
-        widest = max((cell_len(str(r.get(cell) or "")) for r in prows), default=0)
+        # SPEC-0140: `id` measures `_id` (glyph + id), same pattern as `_kind` / `_age`.
+        if k == "id":
+            widest = max(
+                (cell_len(str(r.get("_id") or _idea_id_label(r))) for r in prows),
+                default=0)
+        else:
+            cell = {"updated": "_age", "kind": "_kind"}.get(k, k)
+            # Display width, not character count (SPEC-0085): a 2-cell glyph is one character, so
+            # `len` would under-reserve and Rich would quietly take the difference off the headline.
+            widest = max((cell_len(str(r.get(cell) or "")) for r in prows), default=0)
         if cap is not None:
             widest = min(widest, cap)
         out[k] = max(min_w, cell_len(header), widest)
@@ -1152,8 +1164,10 @@ def _print_idea_tree(cfg, tree, *, plain=False):
                 stack.extend((c, depth + 1) for c in reversed(node["children"]))
                 continue
             kind = _kind_cell(row.get("kind") or "idea", plain)
+            id_label = _idea_id_label(row)
+            id_style = "cyan" if row.get("clock_open") else "dim"
             console.print(
-                f"{indent}[dim]{marker}[/][dim]{node['id']}[/] {kind} "
+                f"{indent}[dim]{marker}[/][{id_style}]{id_label}[/] {kind} "
                 f"[{style}]{_clip(row.get('heading') or '', budget)}[/]{count}")
             stack.extend((c, depth + 1) for c in reversed(node["children"]))
 
@@ -1238,6 +1252,7 @@ def ideas(cfg, *, state=None, all_done=False, as_json=False, kind=None, plain=Fa
     for tk, prow in zip(rows, prows):                       # SPEC-0077: relative age per row
         prow["_age"] = _age(prow.get("updated"), now=dt.datetime.now(cfg.get("_tz")))
         prow["_kind"] = _kind_cell(prow["kind"], plain)          # SPEC-0085
+        prow["_id"] = _idea_id_label(prow)                       # SPEC-0140
         prow["pri"] = tk.priority or ""                          # SPEC-0093
         n_open = prow.get("open_questions") or 0                 # SPEC-0110
         prow["q"] = str(n_open) if n_open else ""
@@ -1271,7 +1286,11 @@ def ideas(cfg, *, state=None, all_done=False, as_json=False, kind=None, plain=Fa
             if k == "score":
                 cells.append(f"[cyan]{_clip(prow['score'], widths['score'])}[/]")
             elif k == "id":
-                cells.append(f"[dim]{_clip(prow['id'], widths['id'])}[/]")
+                label = _clip(prow.get("_id") or _idea_id_label(prow), widths["id"])
+                if prow.get("clock_open"):
+                    cells.append(f"[cyan]{label}[/]")
+                else:
+                    cells.append(f"[dim]{label}[/]")
             elif k == "state":
                 cells.append(
                     f"[{sst}]{_clip(prow['state'] or '·', widths['state'])}[/]" if sst
@@ -1328,6 +1347,7 @@ def next_ideas(cfg, *, all_done=False, as_json=False, plain=False, state=None, k
     prows = [idea_row(cfg, tk) for tk in rows]
     for prow in prows:                                           # SPEC-0085
         prow["_kind"] = _kind_cell(prow["kind"], plain)
+        prow["_id"] = _idea_id_label(prow)                       # SPEC-0140
     keys = ("id", "state", "kind", "project", "next")
     widths, budget = _idea_table_widths(prows, keys)
 
@@ -1340,7 +1360,10 @@ def next_ideas(cfg, *, all_done=False, as_json=False, plain=False, state=None, k
         st = _state_style(tk)                    # headline: open vs done, unchanged
         sst = _idea_state_style(tk)              # state cell: hue (SPEC-0082)
         proj = prow.get("project", "")
-        t.add_row(f"[dim]{_clip(prow['id'], widths['id'])}[/]",
+        id_label = _clip(prow.get("_id") or _idea_id_label(prow), widths["id"])
+        id_cell = (f"[cyan]{id_label}[/]" if prow.get("clock_open")
+                   else f"[dim]{id_label}[/]")
+        t.add_row(id_cell,
                   f"[{sst}]{_clip(prow['state'] or '·', widths['state'])}[/]" if sst
                   else _clip(prow["state"] or "·", widths["state"]),
                   f"[magenta]{_clip(prow['_kind'], widths['kind'])}[/]",

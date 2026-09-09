@@ -19,6 +19,8 @@ dependencies = [
 # SPEC-0099: the interactive desk (`wt tui`) is opt-in. Base installs — agents, CI —
 # stay on click/rich/pyyaml/orgparse only.
 tui = ["textual>=8,<9"]
+# SPEC-0143: product docs site (`mkdocs.yml` → docs/product/).
+docs = ["mkdocs-material>=9"]
 
 [project.scripts]
 wt = "wt.cli:cli"
@@ -31,6 +33,8 @@ dev = [
     # repaints incrementally, so you cannot reconstruct a screen from raw pty bytes by picking a
     # frame — which is how a broken tree mode passed headless pilots and shipped.
     "pyte>=0.8",
+    # SPEC-0143: strict docs build in CI / local pytest.
+    "mkdocs-material>=9",
 ]
 
 [tool.hatch.build.targets.wheel]

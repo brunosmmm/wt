@@ -78,6 +78,13 @@ progress. This is the single place to see *what has been decided* and *what is i
 - **[SPEC-0131](./specs/0131-release-archive-meta-tools-idea-slice-with-git.md) — Release archive: Meta-Tools idea slice with git code** · done · (2/2 done)
   - [x] [SPEC-0132](./specs/0132-filtered-idea-subtree-export.md) Filtered idea subtree export — done
   - [x] [SPEC-0133](./specs/0133-wt-release-archive-packs-code-and-idea-slice.md) wt release-archive packs code and idea slice — done
+- **[SPEC-0141](./specs/0141-human-product-documentation-site-showcase.md) — Human product documentation site: showcase + workflow guides** · done · (6/6 done)
+  - [x] [SPEC-0142](./specs/0142-docs-product-ia-narrative-and-glossary.md) Docs product IA, narrative, and glossary — done
+  - [x] [SPEC-0143](./specs/0143-mkdocs-material-docs-site-toolchain.md) MkDocs Material docs site toolchain — done
+  - [x] [SPEC-0144](./specs/0144-product-guides-getting-started-through-outbound.md) Product guides: getting started through outbound — done
+  - [x] [SPEC-0145](./specs/0145-capability-showcase-pages-for-major-cli-surfaces.md) Capability showcase pages for major CLI surfaces — done
+  - [x] [SPEC-0146](./specs/0146-command-reference-synced-to-live-cli.md) Command reference synced to live CLI — done
+  - [x] [SPEC-0147](./specs/0147-root-readme-slim-front-door-into-docs-site.md) Root README slim front door into docs site — done
 
 ## Active & planned
 
@@ -225,6 +232,14 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0137](./specs/0137-wt-projects-add-cli-register-outbox-targets-dry.md) | wt projects add: CLI register outbox targets (dry-run + --yes) | feature | done | M4: cli ergonomics | 2026-08-30 |
 | [SPEC-0138](./specs/0138-superpowers-coexist-with-wt-lifecycle-vs-tactics.md) | Superpowers coexist with wt: lifecycle vs tactics | feature | done | M4: cli ergonomics | 2026-08-30 |
 | [SPEC-0139](./specs/0139-desk-project-chooser-empty-for-capture-and-m.md) | Desk project chooser uses projects_payload names (capture + m→project) | feature | done | M5: interactive desk | 2026-09-01 |
+| [SPEC-0140](./specs/0140-cli-idea-tables-show-open-clock-glyph-on-id-desk.md) | CLI idea tables show open-clock glyph on id (desk parity) | feature | done | M4: cli ergonomics | 2026-09-02 |
+| [SPEC-0141](./specs/0141-human-product-documentation-site-showcase.md) | Human product documentation site: showcase + workflow guides | epic | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0142](./specs/0142-docs-product-ia-narrative-and-glossary.md) | Docs product IA, narrative, and glossary | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0143](./specs/0143-mkdocs-material-docs-site-toolchain.md) | MkDocs Material docs site toolchain | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0144](./specs/0144-product-guides-getting-started-through-outbound.md) | Product guides: getting started through outbound | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0145](./specs/0145-capability-showcase-pages-for-major-cli-surfaces.md) | Capability showcase pages for major CLI surfaces | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0146](./specs/0146-command-reference-synced-to-live-cli.md) | Command reference synced to live CLI | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0147](./specs/0147-root-readme-slim-front-door-into-docs-site.md) | Root README slim front door into docs site | feature | done | M8: product documentation | 2026-09-09 |
 
 ## Superseded / rejected
 

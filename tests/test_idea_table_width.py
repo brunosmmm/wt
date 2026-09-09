@@ -143,7 +143,8 @@ def test_truncation_is_marked(tmp_path, width):
     """A cut headline must end in an ellipsis — silent cropping is the failure mode that
     rejected letting Rich flex the column."""
     out = _render(R.ideas, _seeded(tmp_path), width)
-    long_row = next(ln for ln in _rows(out) if "Unified" in ln)
+    # Match by id: at narrow widths the word "Unified" itself may be clipped to "Unifie…".
+    long_row = next(ln for ln in _rows(out) if "IDEA-001" in ln)
     assert "…" in long_row, f"headline cropped without a marker at {width}: {long_row!r}"
 
 
@@ -215,3 +216,28 @@ def test_columns_env_var_controls_width_when_piped(tmp_path):
     proc = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True)
     assert proc.returncode == 0, proc.stderr
     assert max(len(ln) for ln in proc.stdout.splitlines()) > 80
+
+
+# ---- open-clock glyph on id (SPEC-0140) ---------------------------------------------
+
+def test_idea_id_label_marks_open_clock():
+    assert R._idea_id_label({"id": "IDEA-001", "clock_open": True}) == "◕ IDEA-001"
+    assert R._idea_id_label({"id": "IDEA-002", "clock_open": False}) == "  IDEA-002"
+
+
+def test_ideas_and_next_tables_show_open_clock_glyph(tmp_path):
+    cfg = _seeded(tmp_path)
+    W.clock_in(cfg, "IDEA-001")
+    ideas_out = _render(R.ideas, cfg, 200)
+    next_out = _render(R.next_ideas, cfg, 200)
+    for out in (ideas_out, next_out):
+        rows = _rows(out)
+        clocked = [ln for ln in rows if "IDEA-001" in ln]
+        idle = [ln for ln in rows if "IDEA-002" in ln]
+        assert clocked and "◕" in clocked[0]
+        assert idle and "◕" not in idle[0]
+    # JSON id stays bare (agents use clock_open)
+    from wt.report import idea_row, collect_idea_tasks
+    by_id = {r["id"]: r for r in (idea_row(cfg, t) for t in collect_idea_tasks(cfg))}
+    assert by_id["IDEA-001"]["clock_open"] is True
+    assert by_id["IDEA-001"]["id"] == "IDEA-001"

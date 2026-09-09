@@ -7,3 +7,5 @@ build/
 *.egg-info/
 .pytest_cache/
 .cache/
+# SPEC-0143: MkDocs build output
+site/
