@@ -262,6 +262,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0160](./specs/0160-publish-product-docs-github-pages-via-actions.md) | Publish product docs to GitHub Pages via Actions | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0161](./specs/0161-remove-branded-export-adapter-from-public-tree.md) | Remove branded export adapter from the public tree | feature | done | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0162](./specs/0162-document-default-wt-native-portable-workflow.md) | Document default wt-native portable as lightweight verify workflow | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0163](./specs/0163-home-page-thesis-mini-spec-first.md) | Home page thesis: mini-spec workflow first, passive time secondary | feature | done | M8: product documentation | 2026-09-10 |
 
 ## Superseded / rejected
 

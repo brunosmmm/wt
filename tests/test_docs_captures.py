@@ -90,6 +90,7 @@ def test_home_embeds_time_and_ideas_svgs():
     text = HOME.read_text(encoding="utf-8")
     assert "cli-wt-dashboard.svg" in text
     assert "cli-ideas.svg" in text
+    assert "tui-desk.svg" in text
     assert "guides/daily-ops.md" in text
     assert "guides/weekly-ops.md" in text
 

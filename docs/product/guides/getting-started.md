@@ -24,7 +24,38 @@ wt completion install --shell fish   # or bash / zsh
 
 ## Pick a first path
 
-### Path A — see your hours
+### Path A — capture and ship a thought
+
+```bash
+wt idea "short thought"
+wt ideas
+wt next
+```
+
+![ideas](../assets/captures/cli-ideas.svg)
+
+![next](../assets/captures/cli-next.svg)
+
+How the file looks: [Org-mode storage](org-storage.md). Full mini-spec loop:
+[Idea → ship](idea-to-ship.md) (accept → build → **verify**). Another repo:
+[Outbound](outbound.md).
+
+### Path B — agent / automation
+
+```bash
+wt skills install
+wt ideas --json
+wt hub --json
+wt next --json
+```
+
+![hub JSON](../assets/captures/cli-hub.svg)
+
+Install skills, then use `/wt-orient` (or the skill that matches your step) in Cursor/Claude.
+Claim done with `/wt-verify`. Full catalog: [Agent surface](agent-surface.md).
+Humans can stay on the CLI or open `wt tui` ([Desk](../capabilities/tui.md)).
+
+### Path C — see your hours
 
 ```bash
 wt                            # today + this week
@@ -39,39 +70,11 @@ wt map <base-topic> bucket=Acme
 
 Deeper loop: [Track time](track-time.md) and [Weekly ops](weekly-ops.md).
 
-### Path B — capture and triage ideas
-
-```bash
-wt idea "short thought"
-wt ideas
-wt next
-```
-
-![ideas](../assets/captures/cli-ideas.svg)
-
-![next](../assets/captures/cli-next.svg)
-
-How the file looks: [Org-mode storage](org-storage.md). Full pipeline: [Idea → ship](idea-to-ship.md).
-
-### Path C — agent / automation
-
-```bash
-wt skills install
-wt ideas --json
-wt hub --json
-wt next --json
-```
-
-![hub JSON](../assets/captures/cli-hub.svg)
-
-Install skills, then use `/wt-orient` (or the skill that matches your step) in Cursor/Claude.
-Full agent catalog (schemas + recipes): [Agent surface](agent-surface.md).
-Humans can stay on the CLI or open `wt tui` ([Desk](../capabilities/tui.md)).
-
 ## Day one habit
 
 Once install works, prefer the operating guides over one-off commands:
 
+- [Idea → ship](idea-to-ship.md) / [Outbound](outbound.md) — governing spec → verify
 - [Daily ops](daily-ops.md) — agenda → tasks → next/hub → light report
 - [Weekly ops](weekly-ops.md) — map unknowns → review → snapshot → close loops
 

@@ -38,10 +38,15 @@ def test_docs_product_ia_tree_exists():
 
 def test_home_locks_dual_capability_and_clock_wording():
     home = (PRODUCT / "index.md").read_text(encoding="utf-8").lower()
-    assert "passive time tracking" in home or "passive" in home and "time" in home
+    assert "passive" in home and "time" in home
     assert "idea" in home and ("ship" in home or "spec" in home)
+    assert "verify" in home or "test plan" in home
     assert "clock-in" in home or "clock in" in home
     assert "supplemental" in home
+    assert "not an idea catalog" not in home
+    assert "is a cli" not in home  # CLI is one surface, not the whole product
+    assert "tui" in home or "desk" in home
+    assert home.find("ideas") < home.find("passive time")
 
 
 def test_glossary_has_core_terms():
