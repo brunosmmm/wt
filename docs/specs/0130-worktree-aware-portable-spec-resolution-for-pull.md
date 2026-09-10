@@ -33,7 +33,7 @@ Real breakdown of the ~20 "missing" lines, checked one by one:
   stripped from their PRs by an explicit team convention ("keep governing specs in wt outbox;
   this repo PR is code/dashboard only") -- the content was never actually lost since wt's own
   outbox always held the authxxitative copy; (b) a couple (`PROJ-0001`,
-  `DEMO-0029`, plus `EXAMPLE-0006`) simply had never had `wt spec export` run for
+  `DEMO-0001`, plus `EXAMPLE-0006`) simply had never had `wt spec export` run for
   them at all -- `status: accepted` frozen since scaffold time, zero git history anywhere.
   Resolved by re-running `wt spec export <id> --to <repo>` for all of them (dumped as local,
   uncommitted files, no branch touched) -- `wt spec sweep` is now fully clean, zero missing.

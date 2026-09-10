@@ -273,7 +273,7 @@ def digest_cmd(cfg, date, week, last, by):
               shell_complete=C.complete_project)
 @click.option("--epic", help="associate a known epic (SPEC-NNNN or outbound PROJ-NNNN)",
               shell_complete=C.complete_epic)
-@click.option("--key", help="JIRA key (e.g. DEMO-900) to set as the task's topic_key")
+@click.option("--key", help="JIRA key (e.g. DEMO-100) to set as the task's topic_key")
 @click.option("--workstream", help="curated :WORKSTREAM: lane (SPEC-0090)",
               shell_complete=C.complete_workstream)
 @click.pass_obj
@@ -282,10 +282,10 @@ def add_cmd(cfg, text, state, tags, priority, scheduled, deadline, file, project
     """Capture a new task (append a headline to the capture file). TEXT needs no quotes.
 
     \b
-    wt add DEMO-812 wire up the thing
+    wt add DEMO-100 wire up the thing
     wt add "fix the flaky test" --priority A --tag ci --tag flaky
     wt add "prep review" --scheduled 2026-07-20 --file ~/work/org/agenda.org
-    wt add "wire the dashboard" --project Demo-ATS --key DEMO-900
+    wt add "wire the dashboard" --project Demo-ATS --key DEMO-100
     wt add "ops chore" --workstream ops
     """
     try:
@@ -348,7 +348,7 @@ def idea_group():
               shell_complete=C.complete_project)
 @click.option("--epic", help="associate a known epic (SPEC-NNNN or outbound PROJ-NNNN)",
               shell_complete=C.complete_epic)
-@click.option("--key", help="JIRA key (e.g. DEMO-900) to set as the idea's topic_key")
+@click.option("--key", help="JIRA key (e.g. DEMO-100) to set as the idea's topic_key")
 @click.option("--kind", type=click.Choice(list(IDEA_KINDS), case_sensitive=False),
               help="capture kind label (default: idea; SPEC-0044)")
 @click.option("--workstream", help="curated :WORKSTREAM: lane (SPEC-0090)",
@@ -1684,14 +1684,14 @@ def spec_schemes_cmd(cfg):
 @click.argument("spec_id", shell_complete=C.complete_spec_id)
 @click.option("--file", type=click.Path(exists=False),
               help="target .org file (default: org_capture_file)")
-@click.option("--key", help="JIRA key (e.g. DEMO-900) to set as each task's topic_key")
+@click.option("--key", help="JIRA key (e.g. DEMO-100) to set as each task's topic_key")
 @click.pass_obj
 def spec_generate_cmd(cfg, spec_id, file, key):
     """Generate org tasks from a spec's breakdown (epic) / acceptance criteria (feature).
 
     \b
     wt spec generate SPEC-0011                   tasks from the epic's breakdown
-    wt spec generate SPEC-0020 --key DEMO-900    feature spec, tasks keyed to a JIRA id
+    wt spec generate SPEC-0020 --key DEMO-100    feature spec, tasks keyed to a JIRA id
     wt spec generate SPEC-0011 --file ~/work/org/agenda.org
     """
     try:
@@ -1876,7 +1876,7 @@ def state_cmd(cfg, selector, new_state, no_closed):
     """Set a task's TODO state. SELECTOR is an :ID:, file:line, JIRA key, or heading substring.
 
     \b
-    wt state DEMO-504 DONE
+    wt state DEMO-100 DONE
     wt state est-504 INPROGRESS --no-closed
     """
     try:

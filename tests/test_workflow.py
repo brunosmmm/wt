@@ -216,8 +216,8 @@ def test_next_complete_outbound_epic_exported(tmp_path):
     _write_outbound_epic(
         cfg, exported=True, breakdown_open=False,
         children=[
-            {"id": "DEMO-0002", "status": "done"},
-            {"id": "DEMO-0003", "status": "superseded"},
+            {"id": "DEMO-0001", "status": "done"},
+            {"id": "DEMO-0001", "status": "superseded"},
         ],
     )
     idea = _idea(state="PROMOTED", is_done=True,

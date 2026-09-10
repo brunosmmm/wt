@@ -25,7 +25,7 @@ def test_parses_real_tree_without_crashing():
 def test_headline_jira_key_becomes_topic_key():
     tasks = load_tasks(load_config())
     keyed = [t for t in tasks if t.topic_key and KEY_RE.fullmatch(t.topic_key)]
-    # the real tree has JIRA-in-headline tasks (e.g. DEMO-504); if present, they must resolve
+    # the real tree has JIRA-in-headline tasks (e.g. DEMO-100); if present, they must resolve
     for t in keyed:
         assert KEY_RE.search(t.heading) or any(
             t.properties.get(p) == t.topic_key for p in ("TOPIC", "JIRA", "REPO"))

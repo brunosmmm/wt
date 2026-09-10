@@ -65,7 +65,7 @@ that idea to `PROMOTED`.
 
 ```
 wt spec generate SPEC-0011                         # tasks from the epic's breakdown
-wt spec generate SPEC-0020 --key DEMO-900          # feature spec, tasks keyed to a JIRA id
+wt spec generate SPEC-0020 --key DEMO-100          # feature spec, tasks keyed to a JIRA id
 wt spec generate SPEC-0011 --file ~/work/org/agenda.org
 ```
 
@@ -136,5 +136,5 @@ Implemented as designed, no material deviations:
   the join invariant via `org.join_time`, `source_idea` → `PROMOTED`, custom `--file` target,
   CLI). Manual: ran `generate_from_spec` against the real `docs/specs/0011-*.md` (copied into a
   tmp `specs_dir`) into a tmp org file — produced the parent heading + 6 children keyed
-  `DEMO-900`; `join_time(tasks, {"DEMO-900": 5400.0})` attributed the full 5400s to that key with
+  `DEMO-100`; `join_time(tasks, {"DEMO-100": 5400.0})` attributed the full 5400s to that key with
   no `untracked` entries; a second run added 0 new tasks.

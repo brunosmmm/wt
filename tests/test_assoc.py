@@ -99,11 +99,11 @@ def test_known_epics_lists_kind_epic_specs(tmp_path):
 def test_add_idea_captures_project_epic_key_and_reparses(tmp_path):
     cfg = _cfg(tmp_path, mappings={"repoA": "Logging"})
     _write_epic(pathlib.Path(cfg["specs_dir"]), "0011", "SPEC-0011")
-    W.add_idea(cfg, "adaptive logging", project="Logging", epic="SPEC-0011", key="DEMO-817")
+    W.add_idea(cfg, "adaptive logging", project="Logging", epic="SPEC-0011", key="DEMO-100")
     t = _find(cfg, "adaptive logging")
     assert t.project == "Logging"
     assert t.epic == "SPEC-0011"
-    assert t.topic_key == "DEMO-817"
+    assert t.topic_key == "DEMO-100"
 
 
 def test_add_task_project_overrides_structural_project(tmp_path):
@@ -197,10 +197,10 @@ def test_cli_idea_with_associations(tmp_path, monkeypatch):
     import wt.cli as cli_mod
     monkeypatch.setattr(cli_mod, "load_config", lambda: cfg)
     r = CliRunner().invoke(cli, ["idea", "adaptive logging", "--project", "Logging",
-                                "--epic", "SPEC-0011", "--key", "DEMO-817"])
+                                "--epic", "SPEC-0011", "--key", "DEMO-100"])
     assert r.exit_code == 0, r.output
     t = _find(cfg, "adaptive logging")
-    assert t.project == "Logging" and t.epic == "SPEC-0011" and t.topic_key == "DEMO-817"
+    assert t.project == "Logging" and t.epic == "SPEC-0011" and t.topic_key == "DEMO-100"
 
 
 def test_cli_add_with_unknown_project_still_succeeds(tmp_path, monkeypatch):
@@ -238,8 +238,8 @@ def test_digest_by_project_groups_captured_project(tmp_path, monkeypatch):
     from wt import report as R
     from wt.console import console
     cfg = _cfg(tmp_path, mappings={"repoA": "Logging"})
-    W.add_task(cfg, "DEMO-900 wire it up", project="Demo-ATS")
-    monkeypatch.setattr(R, "_scope_topic_secs", lambda c, days: {"DEMO-900": 3600.0})
+    W.add_task(cfg, "DEMO-100 wire it up", project="Demo-ATS")
+    monkeypatch.setattr(R, "_scope_topic_secs", lambda c, days: {"DEMO-100": 3600.0})
     prev = console._width
     console._width = 240
     try:

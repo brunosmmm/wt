@@ -89,7 +89,7 @@ Positional `date`, `--week/-w`, `--last`, `--by`, `@click.pass_obj`.
 - [x] `wt digest` joins tracked hours to tasks by `topic_key` over the scope and renders
       hours per task; `--by project` groups by `Task.project`.
 - [x] For a JIRA-keyed task, its joined hours **equal** that topic's hours in `wt report` for
-      the same scope (the epic integration invariant — verified: DEMO-817 = 14.0976h both ways).
+      the same scope (the epic integration invariant — verified: DEMO-100 = 14.0976h both ways).
 - [x] Tracked topics with no matching task appear in an "untracked in org" section; open
       JIRA-linked tasks with no tracked time appear in a "no tracked time" section.
 - [x] Scope flags (`date`/`-w`/`--last`) behave like `wt report`.
@@ -121,7 +121,7 @@ Positional `date`, `--week/-w`, `--last`, `--by`, `@click.pass_obj`.
 - The "no tracked time" panel is limited to **open, JIRA-linked** tasks with 0h (the useful
   signal), not every dateless task.
 - Verified against real tracked data by pointing a temp org file's task at the tracked key
-  `DEMO-817`: join hours == `assemble` hours (14.0976h), confirming the invariant.
+  `DEMO-100`: join hours == `assemble` hours (14.0976h), confirming the invariant.
 
 ## Definition of done
 

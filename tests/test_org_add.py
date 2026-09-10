@@ -49,9 +49,9 @@ def test_add_honors_all_options_and_reparses(tmp_path):
 
 def test_jira_key_in_text_becomes_topic_key(tmp_path):
     cfg = _cfg(tmp_path)
-    W.add_task(cfg, "DEMO-812 wire up the thing")
+    W.add_task(cfg, "DEMO-100 wire up the thing")
     keyed = filter_tasks(load_tasks(cfg), has_key=True)
-    assert any(t.topic_key == "DEMO-812" for t in keyed)
+    assert any(t.topic_key == "DEMO-100" for t in keyed)
 
 
 def test_default_state_from_target_files_keywords(tmp_path):
@@ -94,9 +94,9 @@ def test_cli_add(tmp_path, monkeypatch):
     cfg = _cfg(tmp_path)
     import wt.cli as cli_mod
     monkeypatch.setattr(cli_mod, "load_config", lambda: cfg)
-    r = CliRunner().invoke(cli, ["add", "DEMO-99", "do", "the", "thing", "--priority", "B"])
+    r = CliRunner().invoke(cli, ["add", "DEMO-100", "do", "the", "thing", "--priority", "B"])
     assert r.exit_code == 0, r.output
-    assert "DEMO-99" in r.output
-    assert _find(cfg, "DEMO-99").priority == "B"
+    assert "DEMO-100" in r.output
+    assert _find(cfg, "DEMO-100").priority == "B"
     r2 = CliRunner().invoke(cli, ["add", "x", "--state", "NOPE"])
     assert r2.exit_code != 0 and "invalid state" in r2.output

@@ -17,7 +17,7 @@ The foundation of the [SPEC-0004](./0004-org-task-management.md) epic: turn the 
 org-mode files into a normalized, read-only `Task` model that every other child spec queries.
 Nothing in `wt` parses org today. The real `~/work/org/` tree has **per-file** `#+TODO`
 keyword sets, **grouped tags** (`:projects:demo:`), JIRA keys **in the headline text**
-(`* INPROGRESS DEMO-504`), `:PROPERTIES:` drawers, and `CLOSED` timestamps.
+(`* INPROGRESS DEMO-100`), `:PROPERTIES:` drawers, and `CLOSED` timestamps.
 
 ## Goals / Non-goals
 
@@ -121,7 +121,7 @@ tag=None, project=None, priority=None, done=None) -> list[Task]` used later by S
       each task's `is_done` computed against its **own file's** done keywords.
 - [x] Grouped tags (`:projects:demo:`) split into individual tags; priority, `CLOSED`, and
       `:PROPERTIES:` are captured.
-- [x] `topic_key` = JIRA key from the headline (`DEMO-504`), overridden when a
+- [x] `topic_key` = JIRA key from the headline (`DEMO-100`), overridden when a
       `:TOPIC:`/`:JIRA:`/`:REPO:` property is present.
 - [x] `id` uses `:ID:` when present, else `file:line`.
 
@@ -156,13 +156,13 @@ tag=None, project=None, priority=None, done=None) -> list[Task]` used later by S
 - `filter_tasks` exposes `done=` and `has_key=` bools (SPEC-0006 maps `--all`→`done=False`
   default and `--key`→`has_key=True`).
 - `project` walks `node.parent` to the nearest **level-1** heading; a top-level task falls back
-  to the file stem (confirmed on real data: `DEMO-504` → `estimations`).
+  to the file stem (confirmed on real data: `DEMO-100` → `estimations`).
 
 ## Definition of done
 
 - [x] Acceptance criteria all met.
 - [x] Test plan executed; automated tests pass (`uv run pytest` → 27 passed); manual step
-      performed (`load_tasks` over real `~/work/org`: 95 tasks, `DEMO-504`/`DEMO-506` keyed).
+      performed (`load_tasks` over real `~/work/org`: 95 tasks, `DEMO-100`/`DEMO-100` keyed).
 - [x] No regressions (pre-existing 12 tests still pass).
 - [x] Spec body updated to match what shipped.
 - [x] `docs/LEDGER.md` updated (status + date).

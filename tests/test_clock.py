@@ -161,7 +161,7 @@ def test_parse_clock_log_skips_unmatched_trailing_clock_in():
 
 
 def test_parse_clock_log_accepts_unbracketed_timestamps():
-    """Bug found against a real portable spec (DEMO-0007): agents in practice also
+    """Bug found against a real portable spec (DEMO-0001): agents in practice also
     write plain, unbracketed timestamps — the parser silently returned zero pairs for these
     before this fix, though the guidance's own example shows brackets."""
     from wt.explore import parse_clock_log
@@ -206,7 +206,7 @@ def test_parse_clock_log_accepts_org_weekday_timestamps():
 
 
 def test_parse_clock_log_skips_unfilled_placeholder():
-    """Bug found against real portable specs (e.g. DEMO-0010): the guidance's own
+    """Bug found against real portable specs (e.g. DEMO-0001): the guidance's own
     literal example `CLOCK-IN: [timestamp]` / `CLOCK-OUT: [timestamp]` was sometimes left
     verbatim, unfilled, in the Clock Log section — that's an unused template, not real clock
     data, and must not raise or be counted as a pair."""

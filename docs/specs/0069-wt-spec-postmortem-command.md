@@ -18,7 +18,7 @@ Promoted from idea `IDEA-082` (Dedicated post-mortem/defect annotation mechanism
   :ID: IDEA-082
   :END:
 ** Summary
-Gap found while investigating a real bug (SPEC-0063's parse_clock_log silently dropping unbracketed timestamps against DEMO-0007, fixed in commit 2395182): wt has no dedicated mechanism for recording 'a defect was found in already-`done` work.' Today the only option is `wt idea log <ID> --note ...` — a generic dated Log entry that:
+Gap found while investigating a real bug (SPEC-0063's parse_clock_log silently dropping unbracketed timestamps against DEMO-0001, fixed in commit 2395182): wt has no dedicated mechanism for recording 'a defect was found in already-`done` work.' Today the only option is `wt idea log <ID> --note ...` — a generic dated Log entry that:
 
 1. Lives only on the **idea's** org node, never on the **spec** file itself (the schema has no post-mortem/lessons-learned section for specs at all).
 2. Requires the person/agent finding the bug to already know (or go hunt down) which idea originally owned the affected area — there is no reverse index from 'this code path' or 'this SPEC-NNNN' back to its source idea.

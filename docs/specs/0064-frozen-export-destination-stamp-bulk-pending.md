@@ -19,7 +19,7 @@ Promoted from idea `IDEA-077` (Frozen export-destination stamp + bulk pending-ex
   :ID: IDEA-077
   :END:
 ** Summary
-Two gaps found while reviewing DEMO-0007's clocking flow:
+Two gaps found while reviewing DEMO-0001's clocking flow:
 
 1. Idea's :PROPERTIES: only stamp :PROJECT: and :SPEC: — the actual filesystem destination is **live-resolved** through config.yaml's outbox_targets[PROJECT].repo_path at read time, never frozen. If that config entry changes later, historical ideas silently point to the wrong place. The outbound spec's own frontmatter **does** freeze `target_repo`, but the idea itself does not.
 2. `wt next` already reminds an EXPORTED/in-progress idea to run `wt spec pull-status`, but there is no equivalent reminder for `wt spec pull-clock` anywhere (next/hub/digest) — it only gets run if a human remembers.

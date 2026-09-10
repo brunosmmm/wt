@@ -19,7 +19,7 @@ sometimes **which epic**, and you want the JIRA **key** pinned for the time-join
 *has* these entities — it just doesn't let you attach them at capture:
 
 - **Known projects** = the distinct values of the facet **bucket** axis in `mappings.yaml`
-  (e.g. `Demo-ATS`, `DemoCloud`, `Logging`, `qcs8550-resources`). Base topics (repo/JIRA) are
+  (e.g. `Demo-ATS`, `DemoCloud`, `Logging`, `device-resources`). Base topics (repo/JIRA) are
   auto-detected during time tracking; the human-friendly *project* is the bucket you mapped via
   `wt map`. This is the de-facto project registry.
 - **Known epics** = specs with `kind: epic` (`SPEC-0004`, `SPEC-0011`).
@@ -87,8 +87,8 @@ and list the known set on an unknown value, then proceed.
 ### CLI (`src/wt/cli.py`)
 
 ```
-wt idea "adaptive logging" --project Logging --epic SPEC-0011 --key DEMO-817
-wt add  "wire the dashboard" --project Demo-ATS --key DEMO-900
+wt idea "adaptive logging" --project Logging --epic SPEC-0011 --key DEMO-100
+wt add  "wire the dashboard" --project Demo-ATS --key DEMO-100
 wt projects                      # list known buckets (+ topic counts)
 ```
 
@@ -121,7 +121,7 @@ wt projects                      # list known buckets (+ topic counts)
   returns the mapping's buckets; promotion sets `parent:` for a valid epic and skips + warns for
   an invalid one (spec still passes `spec_lint.validate`); `wt projects` output. CLI via
   `CliRunner`.
-- **Manual verification:** `wt idea "…" --project Logging --epic SPEC-0011 --key DEMO-817` in a
+- **Manual verification:** `wt idea "…" --project Logging --epic SPEC-0011 --key DEMO-100` in a
   temp workspace, then `wt ideas` + re-parse; `wt projects` against the real `mappings.yaml`.
 - **Regression guard:** `uv run pytest` green; existing `wt add`/`wt idea`/digest unaffected when
   the new flags are omitted.

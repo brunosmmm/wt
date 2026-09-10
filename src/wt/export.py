@@ -330,7 +330,7 @@ def pull_clock(cfg, outbound_id, *, to=None):
     pairs = EX.parse_clock_log(clock_log)
 
     # Safety net: a Clock Log with CLOCK-IN lines that don't all resolve into parsed pairs
-    # used to fail silently (bug found against a real DEMO-0007 log) — warn loudly
+    # used to fail silently (bug found against a real DEMO-0001 log) — warn loudly
     # rather than letting `0 added` read as "nothing to do" when there's actually unparsed
     # content. One legitimate still-open trailing CLOCK-IN is not an error (docstring above).
     n_clock_in = sum(1 for line in clock_log.splitlines() if line.strip().startswith("CLOCK-IN:"))

@@ -500,7 +500,7 @@ def test_pull_clock_reconciles_markdown_log_onto_linked_idea(tmp_path):
 
 
 def test_pull_clock_reconciles_unbracketed_timestamps(tmp_path):
-    """Bug found against a real portable spec (DEMO-0007): agents in practice write
+    """Bug found against a real portable spec (DEMO-0001): agents in practice write
     plain, unbracketed CLOCK-IN/CLOCK-OUT timestamps and pull_clock used to silently report
     0 added for them."""
     cfg = _cfg(tmp_path, outbox_targets={

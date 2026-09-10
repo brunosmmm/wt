@@ -473,7 +473,7 @@ def test_ideas_listing_shows_project_and_refs(tmp_path):
     cfg["specs_dir"] = str(tmp_path / "specs")
     cfg["project_axis"] = "bucket"
     W.add_idea(cfg, "web dashboard for Example tools", project="AI-workstreams",
-               epic="SPEC-0011", key="DEMO-901")
+               epic="SPEC-0011", key="DEMO-100")
     out = _render(R.ideas, cfg)
     assert "AI-workstreams" in out
     assert "IDEA-001" in out
@@ -482,7 +482,7 @@ def test_ideas_listing_shows_project_and_refs(tmp_path):
     # key/epic live on the Task; JSON consumers use idea_row + org fields
     from wt.org import load_tasks
     idea = next(t for t in load_tasks(cfg) if t.is_idea)
-    assert idea.topic_key == "DEMO-901"
+    assert idea.topic_key == "DEMO-100"
     assert idea.epic == "SPEC-0011"
 
 
@@ -504,7 +504,7 @@ def test_add_idea_id_is_first_property(tmp_path):
     cfg["config_dir"] = cfg["data_dir"]
     cfg["specs_dir"] = str(tmp_path / "specs")
     cfg["project_axis"] = "bucket"
-    W.add_idea(cfg, "with associations", project="Logging", key="DEMO-1")
+    W.add_idea(cfg, "with associations", project="Logging", key="DEMO-100")
     content = open(cfg["org_ideas_file"]).read()
     props_block = content.split(":PROPERTIES:")[1].split(":END:")[0]
     lines = [l.strip() for l in props_block.strip().splitlines()]

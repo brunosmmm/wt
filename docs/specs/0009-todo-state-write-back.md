@@ -103,7 +103,7 @@ wt done <selector>            shorthand: set to the file's first done keyword
   stamp; (d) invalid state raises and leaves the file unchanged; (e) ambiguous selector raises;
   (f) a backup file exists. CLI via `CliRunner` (exit codes + messages).
 - **Manual verification:** on a **copy** of a real `~/work/org` file, `uv run wt state
-  DEMO-504 DONE` then `git diff`/`diff` confirms a one-line change + CLOSED stamp; re-open in
+  DEMO-100 DONE` then `git diff`/`diff` confirms a one-line change + CLOSED stamp; re-open in
   Emacs org confirms it's still valid.
 - **Regression guard:** `uv run pytest` stays green; read path (0005–0008) unaffected.
 
@@ -122,7 +122,7 @@ wt done <selector>            shorthand: set to the file's first done keyword
   files), indented `len(stars)+1` spaces, and is only managed on the line **immediately** below
   the headline (the common layout); `--no-closed` disables. Priority cookies/tags/body are
   preserved (drift guard verifies the on-disk keyword before rewriting).
-- Verified on a copy of the real `estimations.org`: `wt state DEMO-504 DONE` produced a
+- Verified on a copy of the real `estimations.org`: `wt state DEMO-100 DONE` produced a
   2-line diff (keyword + inserted CLOSED), nothing else moved.
 
 ## Definition of done

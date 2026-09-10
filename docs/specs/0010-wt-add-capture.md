@@ -43,7 +43,7 @@ modeled as a standalone feature spec building on its `org`/`org_write` foundatio
 Add `org_write.add_task(cfg, text, *, state, tags, priority, scheduled, deadline, file)` that
 builds a single level-1 headline and appends it to the target file (default
 `cfg["org_capture_file"]`, seeded to `~/work/org/inbox.org`). A `@cli.command("add")` handler
-wires it with a `nargs=-1` text argument (so `wt add DEMO-812 do the thing` needs no quotes).
+wires it with a `nargs=-1` text argument (so `wt add DEMO-100 do the thing` needs no quotes).
 
 ## Design
 
@@ -72,7 +72,7 @@ target. It lives under `~/work/org`, so captured tasks are visible to `load_task
 ### CLI (`src/wt/cli.py`)
 
 ```
-wt add DEMO-812 wire up the thing
+wt add DEMO-100 wire up the thing
 wt add "fix the flaky test" --priority A --tag ci --tag flaky
 wt add "prep review" --scheduled 2026-07-20 --file ~/work/org/agenda.org
 wt add "triage" --state TRIAGE          # validated against the file's #+TODO
@@ -99,7 +99,7 @@ path (like `wt state`/`wt done`).
 - [x] `--tag` (repeatable), `--priority`, `--scheduled`, `--deadline`, and `--file` are honored
       and produce org-valid output (re-parses via `orgparse`/`load_tasks`).
 - [x] A JIRA key in the text becomes the task's `topic_key` (so it joins `wt digest`) —
-      verified: captured `DEMO-812` shows up in `filter_tasks(has_key=True)`.
+      verified: captured `DEMO-100` shows up in `filter_tasks(has_key=True)`.
 - [x] The capture file is created if missing; an existing file is backed up before append and
       written atomically; unrelated content is untouched.
 
@@ -111,8 +111,8 @@ path (like `wt state`/`wt done`).
   lines (byte-equality of the prefix) and adds exactly the new headline (+ planning line);
   a missing file is created (no backup) while an existing one gets a backup. CLI via
   `CliRunner` (exit code + confirmation; error path for bad state).
-- **Manual verification:** on a **temp** cfg (not the real inbox), `wt add DEMO-812 demo` then
-  `wt tasks --key` shows `DEMO-812`; confirm the file is org-valid.
+- **Manual verification:** on a **temp** cfg (not the real inbox), `wt add DEMO-100 demo` then
+  `wt tasks --key` shows `DEMO-100`; confirm the file is org-valid.
 - **Regression guard:** `uv run pytest` stays green; read path + `wt state`/`done` untouched.
 
 ## Rollout / migration

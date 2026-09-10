@@ -16,7 +16,7 @@ tags: [tasks, org, reporting]
 (base topics = JIRA key / repo / repo:branch / loose label). It has no notion of **what
 work is planned or in flight** — that lives in the user's **org-mode** files under
 `~/work/org/`. The strategic payoff: those org headlines already carry the same JIRA keys
-`wt` uses as topic keys (`* INPROGRESS DEMO-504`), so we can **join already-tracked time to
+`wt` uses as topic keys (`* INPROGRESS DEMO-100`), so we can **join already-tracked time to
 tasks with zero manual clocking**.
 
 This is a large, multi-part feature (parse + model, list/filter, agenda, time join, digests,
@@ -28,7 +28,7 @@ Findings from exploring the real `~/work/org/` that shape the design:
   NONACTIONABLE DONE WONTDO CANCELED` in `agenda.org`; `TODO INPROGRESS | DONE CANCELED` in
   `estimations.org`; `CATEGORIZE REFILE TODO | DONE DISCARDED` in `inbox.org`).
 - Tags are **grouped** (`:projects:demo:`), nesting is shallow (≤2).
-- **JIRA keys live in the headline text** (`* INPROGRESS DEMO-504`), *not* in properties.
+- **JIRA keys live in the headline text** (`* INPROGRESS DEMO-100`), *not* in properties.
 - Properties exist but are domain-specific (`:OriginalPoints:`), `CLOSED` is used, and there
   is **no** scheduling/clocking data yet.
 - Subdirectories exist (`ai/`, `ats/`, `journal/`, …) holding more `.org` files.
@@ -116,7 +116,7 @@ Sequencing: 0005 → {0006, 0007} (v1, parallelizable) → 0008 → 0009.
       done-state resolution, grouped-tag splitting, and `topic_key` extraction.
 - [x] `wt tasks` and `wt agenda` run against the real tree and render useful output.
 - [x] For a task with a JIRA key, `wt`'s joined hours (SPEC-0008) equal that topic's hours in
-      `wt report` for the same scope (verified: DEMO-817 = 14.0976h both ways).
+      `wt report` for the same scope (verified: DEMO-100 = 14.0976h both ways).
 - [x] TODO-state write-back (SPEC-0009) round-trips a file with no unintended diff.
 - [x] All child specs are `done`/`superseded`.
 
@@ -124,8 +124,8 @@ Sequencing: 0005 → {0006, 0007} (v1, parallelizable) → 0008 → 0009.
 
 - **Integration/e2e:** with the child unit suites green, an integration check parses the real
   `~/work/org/` (guarded to skip if absent) and asserts: (a) tasks are found across multiple
-  files with differing `#+TODO` sets; (b) a known JIRA-keyed task (`DEMO-504`) yields
-  `topic_key == "DEMO-504"`; (c) the join sanity check — a task's joined hours equal that
+  files with differing `#+TODO` sets; (b) a known JIRA-keyed task (`DEMO-100`) yields
+  `topic_key == "DEMO-100"`; (c) the join sanity check — a task's joined hours equal that
   topic's `wt report` hours for the same scope.
 - **Manual verification:** `uv run wt tasks`, `uv run wt agenda`, and a digest run against
   `~/work/org`, eyeballed for correctness.

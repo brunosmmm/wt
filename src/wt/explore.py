@@ -991,7 +991,7 @@ def _parse_clock_timestamp(raw: str) -> dt.datetime | None:
     weekday token made `datetime.fromisoformat` raise, and `wt spec sweep` silently
     swallowed it as `+0 clock` instead of surfacing the failure). Returns `None` for the
     guidance's own unfilled `[timestamp]` placeholder (found left verbatim in several real
-    portable specs, e.g. DEMO-0010 — a template that was never actually used, not
+    portable specs, e.g. DEMO-0001 — a template that was never actually used, not
     a parse error worth surfacing)."""
     text = _strip_brackets(raw)
     if text.lower() in _PLACEHOLDER_TOKENS:
@@ -1009,7 +1009,7 @@ def parse_clock_log(text: str) -> list[tuple[dt.datetime, dt.datetime]]:
     error. Timestamps are ISO 8601 (`datetime.fromisoformat`), with a tolerant fallback for
     org-mode's `YYYY-MM-DD Day HH:MM` form; the guidance's own example wraps them in `[...]`
     but agents in practice also write them plain (bug found in real usage against
-    DEMO-0007 — brackets silently made every line invisible to a stricter,
+    DEMO-0001 — brackets silently made every line invisible to a stricter,
     bracket-required regex) — both forms are accepted here. An unfilled `[timestamp]`
     placeholder (the guidance's own literal example, sometimes left verbatim) resets any
     pending `CLOCK-IN` and is skipped, not parsed."""
