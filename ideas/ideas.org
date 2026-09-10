@@ -1,0 +1,21 @@
+#+TITLE: wt bundled ideas (demo)
+#+TODO: IDEA INCUBATE SPECCED | PROMOTED EXPORTED SHIPPED DROPPED RESEARCHED
+#+TODO: OPEN | RESOLVED
+
+* IDEA Bundled demo idea so a fresh checkout is non-empty :demo:
+  :PROPERTIES:
+  :ID: IDEA-001
+  :CREATED: [2026-09-09 Wed]
+  :UPDATED: [2026-09-09 Wed]
+  :PROJECT: Meta-Tools
+  :KIND: idea
+  :END:
+** Summary
+Placeholder shipped with the release archive / git tree. Point your real
+~org_ideas_file~ at a path *outside* the checkout (see defaults under
+~/work/org/ai/) so live captures are never committed to the public repo.
+** Open questions
+
+** Log
+*** [2026-09-09 Wed]
+Replaced accidental live multi-project corpus with this Meta-Tools-only stub.

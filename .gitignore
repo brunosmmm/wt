@@ -10,5 +10,5 @@ build/
 # SPEC-0143: MkDocs build output
 site/
 
-# Live idea corpora must not live in this checkout — keep org_ideas_* outside the tree.
-ideas/ideas-*.org
+# Rotated live idea files (dated) — never commit from a checkout used as data-dir
+ideas/ideas-20*.org
