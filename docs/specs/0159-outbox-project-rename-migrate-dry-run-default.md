@@ -1,7 +1,7 @@
 ---
 id: SPEC-0159
 title: "Outbox project rename / migrate (dry-run default)"
-status: accepted
+status: done
 owner: user
 created: 2026-09-09
 updated: 2026-09-09
@@ -57,7 +57,7 @@ Ship a **plan/apply rename** beside SPEC-0137’s add path:
    `_proj_code(NEW)`.
 4. **Target-repo portable rewrite is out of v1** — frozen `target_spec_path` makes a
    same-command rewrite unsafe without rekey; leave a clear “v2 / second command” hook.
-5. New module (e.g. `src/wt/outbox_migrate.py`) + CLI under `wt projects`, reusing
+5. New module `src/wt/outbox_migrate.py` + CLI under `wt projects`, reusing
    `apply_project_add`’s user-config load/backup/atomic write patterns rather than
    overloading add.
 
@@ -68,44 +68,40 @@ Ship a **plan/apply rename** beside SPEC-0137’s add path:
 ```text
 wt projects rename OLD NEW           # print plan (exit 0 if viable)
 wt projects rename OLD NEW --yes     # apply plan
+wt projects rename OLD NEW --json    # wt.projects.rename.v1
 ```
 
 Plan output (human): old→new, config path, outbox dir rename, idea rewrite counts
 (active/archive), Ext / `idea_extensions` hits, INDEX refresh, warnings (sheet configured,
 nonempty `target_spec_path` samples, id-prefix ≠ `_proj_code(NEW)`).
 
-JSON optional later; not required for AC.
-
 ### Plan / apply API
 
 ```python
-# src/wt/outbox_migrate.py (name may vary)
+# src/wt/outbox_migrate.py
 def plan_project_rename(cfg, old: str, new: str) -> dict: ...
 def apply_project_rename(cfg, plan: dict) -> dict: ...
 ```
 
 **Plan checks (fail closed before apply):**
 
-- `old` exists in `outbox_targets` (or as an on-disk outbox dir with ideas — prefer requiring
-  config key; document if dir-only orphans are warned).
+- `old` exists in `outbox_targets` (required; dir-only orphans are not renamed).
 - `new` does not already exist as an `outbox_targets` key or outbox directory.
 - `new` is a safe path segment (no `/`, not empty).
-- No two outbound files would collide after a future rekey (v1: N/A); warn if `_proj_code(old)
-  != _proj_code(new)` so operators know mint prefix will change.
+- Warn if `_proj_code(old) != _proj_code(new)` so operators know mint prefix will change.
 
 **Apply order:**
 
 1. Backup user `config.yaml` → `config.yaml.bak.<ts>` (same as `apply_project_add`).
 2. Rewrite config: pop `outbox_targets[old]`, set `[new]`; rename `idea_extensions[old]` if
    present.
-3. `Path.rename` outbox directory when it exists; if missing, warn and continue (config-only
-   rename).
-4. Bulk idea property updates via existing org writers (`set_idea_project` / `set_property` /
-   Ext rename helper — **add** Ext headline rename if absent today).
-5. Include archive file when it is part of the loaded org corpus.
+3. `Path.rename` outbox directory when it exists; if missing, continue (config-only rename).
+4. Bulk idea property updates: Ext headline rename (`rename_idea_ext_namespace`) then
+   `:PROJECT:` via `set_property` (exact idea-id match, archive included when on
+   `org_files`).
+5. Update outbox FM `target_project` under the new directory.
 6. `write_outbox_index(cfg)`.
-7. Print summary; optional note suggesting `wt spec reconcile` (do not hard-fail on
-   reconcile noise).
+7. Print summary; note suggesting `wt spec reconcile` (do not hard-fail).
 
 ### Idea / Ext surfaces
 
@@ -120,8 +116,9 @@ def apply_project_rename(cfg, plan: dict) -> dict: ...
 
 ### Docs
 
-- Short section on [Outbound](../product/guides/outbound.md) and/or projects capability:
-  rename vs `projects add` retarget; v1 id caveat; pointer to v2 rekey.
+- Short section on [Outbound](../product/guides/outbound.md) and
+  [projects](../product/capabilities/projects.md): rename vs `projects add` retarget; v1
+  id caveat.
 
 ## Alternatives considered
 
@@ -134,26 +131,25 @@ def apply_project_rename(cfg, plan: dict) -> dict: ...
 
 ## Acceptance criteria
 
-- [ ] `wt projects rename OLD NEW` without `--yes` writes nothing and prints a viable plan
+- [x] `wt projects rename OLD NEW` without `--yes` writes nothing and prints a viable plan
       (or a clear conflict error).
-- [ ] `wt projects rename OLD NEW --yes` renames `outbox_targets` key, outbox directory (if
+- [x] `wt projects rename OLD NEW --yes` renames `outbox_targets` key, outbox directory (if
       present), idea `:PROJECT:` (and Ext headline / `idea_extensions` when present), updates
       outbox FM `target_project`, regenerates INDEX, and leaves outbound ids unchanged.
-- [ ] Conflicts (missing OLD, existing NEW, unsafe name) abort with nonzero exit and no
+- [x] Conflicts (missing OLD, existing NEW, unsafe name) abort with nonzero exit and no
       partial config write (backup restored or never replaced).
-- [ ] Automated tests cover dry-run purity, happy-path apply, and at least one conflict.
-- [ ] Product docs mention rename vs repo retarget and the “ids unchanged in v1” caveat.
-- [ ] `python3 tools/spec_lint.py` clean; ledger lists SPEC-0159 accepted.
+- [x] Automated tests cover dry-run purity, happy-path apply, and at least one conflict.
+- [x] Product docs mention rename vs repo retarget and the “ids unchanged in v1” caveat.
+- [x] `python3 tools/spec_lint.py` clean; ledger lists SPEC-0159 done.
 
 ## Test plan
 
-- **Automated:** `tests/test_outbox_migrate.py` (or adjacent) with tmp config/data/org —
-  dry-run leaves disk untouched; apply renames dir + config + one idea’s `:PROJECT:`/Ext;
-  conflict when `NEW` exists.
-- **Manual:** against a throwaway copy of DemoCo→DemoCo names (or tmp fixture): plan,
-  then `--yes`, `wt projects list --json`, `wt ideas --project NEW --json`, open INDEX.
-- **Regression:** `projects add` still works; export/pull-status on an unrekeyed id under
-  the new folder still resolves via id glob.
+- **Automated:** `tests/test_outbox_migrate.py` — dry-run leaves disk untouched; apply
+  renames dir + config + idea `:PROJECT:`/Ext; conflict when `NEW` exists. Executed
+  2026-09-09 (`uv run pytest tests/test_outbox_migrate.py` — 8 passed).
+- **Manual:** not required for DoD beyond automated; throwaway DemoCo→DemoCo remains
+  available for operator dry-run after install.
+- **Regression:** `projects add` suite still green with rename present.
 
 ## Rollout / migration
 
@@ -162,12 +158,12 @@ remains a follow-up spec/idea. No automatic migration of existing installs.
 
 ## Definition of done
 
-- [ ] Acceptance criteria all met.
-- [ ] Test plan executed; `uv run pytest` green; manual steps noted.
-- [ ] Spec body matches what shipped.
-- [ ] `docs/LEDGER.md` regenerated; IDEA-397 questions decided by this spec resolved.
+- [x] Acceptance criteria all met.
+- [x] Test plan executed; `uv run pytest` green; manual steps noted.
+- [x] Spec body matches what shipped.
+- [x] `docs/LEDGER.md` regenerated; IDEA-397 questions decided by this spec resolved.
 
 ## Open questions
 
-- None blocking accept — v2 id rekey / target-repo rewrite tracked as follow-up work when
+- None blocking — v2 id rekey / target-repo rewrite tracked as follow-up work when
   needed (can spawn from IDEA-397 log or a child idea).

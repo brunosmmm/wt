@@ -957,13 +957,15 @@ class ProjectsGroup(click.Group):
 
 @cli.group("projects", cls=ProjectsGroup)
 def projects_group():
-    """List known projects or register an outbox target (SPEC-0095 / SPEC-0137).
+    """List known projects or register an outbox target (SPEC-0095 / SPEC-0137 / SPEC-0159).
 
     \b
     wt projects                      Rich list of mapping buckets + topic counts
     wt projects --json               wt.projects.v1 for agents
     wt projects add NAME             dry-run plan (association stub)
     wt projects add NAME --repo P --yes   write outbox_targets[NAME]
+    wt projects rename OLD NEW       dry-run bucket rename (SPEC-0159)
+    wt projects rename OLD NEW --yes apply rename
     """
 
 
@@ -1040,8 +1042,60 @@ def projects_add_cmd(cfg, name, repo, scheme, spec_dir, force, do_write, as_json
         console.print("[dim]not written — re-run with --yes to commit[/]")
 
 
+@projects_group.command("rename")
+@click.argument("old")
+@click.argument("new")
+@click.option("--yes", "do_write", is_flag=True,
+              help="apply the rename (default is dry-run)")
+@click.option("--json", "as_json", is_flag=True, help="emit the plan/result as JSON")
+@click.pass_obj
+def projects_rename_cmd(cfg, old, new, do_write, as_json):
+    """Rename outbox_targets[OLD]→[NEW] + outbox dir + idea :PROJECT: (SPEC-0159).
+
+    Dry-run unless --yes. Does not rekey outbound ids (DEMO-* stays DEMO-*).
+    """
+    import json
+    import sys
+    from .outbox_migrate import apply_project_rename, plan_project_rename
+    try:
+        plan = plan_project_rename(cfg, old, new)
+    except ValueError as e:
+        raise click.ClickException(str(e))
+    if do_write:
+        try:
+            plan = apply_project_rename(cfg, plan)
+        except ValueError as e:
+            raise click.ClickException(str(e))
+    else:
+        plan = {**plan, "written": False}
+    if as_json:
+        json.dump({"schema": "wt.projects.rename.v1", **plan}, sys.stdout, indent=2,
+                  ensure_ascii=False)
+        sys.stdout.write("\n")
+        return
+    console.print(f"[bold]plan[/]  rename  {plan['old']!r} → {plan['new']!r}")
+    console.print(f"  config: {plan['config_path']}")
+    console.print(f"  outbox: {plan['outbox_old']} → {plan['outbox_new']}"
+                  f"  ({'exists' if plan['outbox_exists'] else 'missing — config-only'})")
+    console.print(f"  ideas:  {plan['idea_count']} :PROJECT: rewrite(s); "
+                  f"{plan['ext_headline_hits']} Ext headline(s); "
+                  f"idea_extensions key={'yes' if plan['idea_extensions_key'] else 'no'}")
+    for w in plan.get("warnings") or []:
+        console.print(f"  [yellow]![/] {w}")
+    if do_write:
+        console.print(
+            f"[green]✓ applied[/] ideas={plan.get('ideas_updated', 0)} "
+            f"ext={plan.get('ext_renamed', 0)} "
+            f"fm_target_project={plan.get('fm_target_project_updated', 0)} "
+            f"outbox_renamed={plan.get('outbox_renamed', False)}")
+        console.print("[dim]outbound ids unchanged (v1); optional: wt spec reconcile[/]")
+    else:
+        console.print("[dim]not written — re-run with --yes to apply[/]")
+
+
 class IdeasGroup(click.Group):
     """`wt ideas [filters…]` lists; `wt ideas export|list …` are explicit subcommands (SPEC-0132).
+
 
     Prepends `list` in `parse_args` so flags like `--json` are not rejected as unknown
     *group* options before the subcommand is chosen (same problem `IdeaGroup` avoids by

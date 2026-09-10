@@ -27,6 +27,12 @@ wt projects add Acme --repo ~/work/acme --yes    # write outbox_targets
 `repo_path` is both the **export destination** and the explore **research root**. Stubs
 without a repo stay non-outbound until you add one.
 
+To **rename the bucket** (config key + `<data_dir>/outbox/OLD` + idea `:PROJECT:` / Ext
+headlines), use `wt projects rename OLD NEW` (dry-run) then `--yes`. That is different from
+`projects add` retargeting the same key’s `repo_path`. In v1, outbound ids and filenames
+stay as minted (e.g. `DEMO-0001` under the new folder); future mints use the new
+bucket’s code. Target-repo portable rewrite / id rekey is not part of rename.
+
 ## 2. Capture with `:PROJECT:`
 
 ```bash

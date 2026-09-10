@@ -105,7 +105,6 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0055](./specs/0055-complete-the-idea-terminal-outcome-model-first.md) | Complete the idea terminal-outcome model (close verb, reason, pointers) | epic | accepted | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0087](./specs/0087-workstreams-and-concern-separation-routing.md) | Workstreams and concern separation (routing, streams, filters, hub; umbrella for priority & sort) | epic | accepted | M4: cli ergonomics | 2026-07-28 |
 | [SPEC-0148](./specs/0148-example-heavy-docs-svg-captures-and-workflow.md) | Example-heavy docs: SVG captures and workflow architecture | epic | accepted | M8: product documentation | 2026-09-09 |
-| [SPEC-0159](./specs/0159-outbox-project-rename-migrate-dry-run-default.md) | Outbox project rename / migrate (dry-run default) | feature | accepted | M8: product documentation | 2026-09-09 |
 
 ## Done
 
@@ -263,6 +262,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0156](./specs/0156-architecture-and-lifecycle-pages.md) | Architecture and lifecycle pages | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0157](./specs/0157-agent-surface-guide-schemas-skills-map-json.md) | Agent surface guide: schemas, skills map, JSON recipes | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0158](./specs/0158-outbound-multi-project-depth-and-wave-c-captures.md) | Outbound/multi-project depth and Wave C captures | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0159](./specs/0159-outbox-project-rename-migrate-dry-run-default.md) | Outbox project rename / migrate (dry-run default) | feature | done | M8: product documentation | 2026-09-09 |
 
 ## Superseded / rejected
 

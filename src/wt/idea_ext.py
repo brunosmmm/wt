@@ -98,6 +98,40 @@ def _validate_write(cfg, project: str, mapping: dict[str, str]) -> None:
         raise ValueError("; ".join(problems))
 
 
+def rename_idea_ext_namespace(cfg, selector, old: str, new: str, *, task=None) -> bool:
+    """Rename `** Ext <old>` → `** Ext <new>` on an idea (SPEC-0159). Values preserved.
+
+    Returns True when a headline was renamed, False when no Ext <old> was present.
+    Raises if Ext <new> already exists (would collide).
+    Pass `task=` to skip selector resolve (bulk migrate).
+    """
+    task = task if task is not None else _require_idea(cfg, selector)
+    if not task.is_idea:
+        raise ValueError(f"{selector!r} is not an idea")
+    old = (old or "").strip()
+    new = (new or "").strip()
+    if not old or not new:
+        raise ValueError("old and new Ext namespace names must be non-empty")
+    if old == new:
+        return False
+    lines = open(task.file).read().splitlines(keepends=True)
+    head_idx, content_start, body_end = _idea_content_start(lines, task)
+    old_idx = None
+    for idx, name in _iter_ext_headlines(lines, content_start, body_end):
+        if name == new:
+            raise ValueError(f"Ext namespace {new!r} already exists on idea")
+        if name == old:
+            old_idx = idx
+    if old_idx is None:
+        return False
+    stars = _stars(lines, old_idx)
+    nl = "\n" if lines[old_idx].endswith("\n") else ""
+    lines[old_idx] = f"{stars} Ext {new}{nl}"
+    stamp_updated(cfg, lines, head_idx, _stars(lines, head_idx))
+    _atomic_backup_write(cfg, task.file, "".join(lines))
+    return True
+
+
 def set_idea_extension(cfg, selector, key: str, value: str, *, project: str | None = None):
     """Set one Ext key under `** Ext <project>`. Schema-validates when configured."""
     task = _require_idea(cfg, selector)
