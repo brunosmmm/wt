@@ -12,7 +12,7 @@ last-write-wins).
 SPEC-0059: a section may also be `static` — fixed boilerplate text (org-specific contracts,
 review style, verification scripts) with `{{field}}` / `{{field:checkbox}}` placeholders
 substituted from `CanonicalSpec`, for templates where wt-sourced content is interleaved with
-content wt can't derive (e.g. the org-project task-spec template)."""
+content wt can't derive (e.g. a richer org-specific task-spec template)."""
 import re
 import tomllib
 from pathlib import Path

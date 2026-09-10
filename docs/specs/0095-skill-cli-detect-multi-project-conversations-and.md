@@ -15,7 +15,7 @@ tags: [skills, projects, routing, explore]
 
 Agents collapse multi-repo conversations into one idea / one `research.root` (SPEC-0042),
 even when several already-tracked projects are named (Example + PFW-Intelligence/example-console +
-Org-Project + an unconfigured path like `~/work/pfw-bsp-ats`). Dispositions (IDEA-117):
+a configured outbound project + an unconfigured path like `~/work/other-repo`). Dispositions (IDEA-117):
 skills + CLI map; warn+ask for unknown paths; fan-out as epic + seed-children; soft warn on
 multi-project (continue); require project-map preview before Summary.
 

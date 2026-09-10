@@ -13,7 +13,7 @@ supersedes: []
 
 ## Context
 
-Promoted from `IDEA-071`. `SPEC-0029` (`REMOVED-extended` export scheme) was designed and
+Promoted from `IDEA-071`. `SPEC-0029` (a richer REMOVED export scheme) was designed and
 accepted 2026-07-22 but never built — `wt spec schemes` still only lists `plain-md`,
 `REMOVED`, `wt-native`. Its design calls for a new Python module vendored inside
 `src/wt/export_schemes/` plus a template file baked into the wt package — every org-specific
@@ -31,7 +31,7 @@ Exploration established two facts that make this cheap:
 - `register(scheme)` is a plain dict assignment — last registration wins on a name collision —
   so loading built-ins first and the user dir second gives "user overrides built-in" for free.
 
-Out of scope here (deliberately, per exploration): the real org-project template is
+Out of scope here (deliberately, per exploration): a real org-specific richer template is
 mostly static boilerplate with no `CanonicalSpec` source field to hang it on — extending
 `TemplateScheme`'s manifest shape to express that is `IDEA-017`'s follow-on spec's job, not
 this one's.

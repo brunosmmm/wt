@@ -166,7 +166,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0056](./specs/0056-generic-wt-idea-close-verb-researched-state-reason.md) | Generic wt idea close verb + RESEARCHED state + reason | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0057](./specs/0057-relationship-pointers-folded-into-superseded-by.md) | Relationship pointers: folded-into / superseded-by | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0058](./specs/0058-export-schemes-should-be-loadable-from-the-user.md) | Export schemes loadable from the user config dir | feature | done | M3: idea→spec pipeline | 2026-07-24 |
-| [SPEC-0059](./specs/0059-org-project-REMOVED-template-as-a.md) | Org-project REMOVED template as a config-dir manifest | feature | done | M3: idea→spec pipeline | 2026-07-24 |
+| [SPEC-0059](./specs/0059-customer-REMOVED-template-as-a-config-manifest.md) | Extended REMOVED template as a config-dir manifest | feature | done | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0060](./specs/0060-agent-clock-in-clock-out-guidance-for-wt-tracked.md) | Agent clock-in/clock-out for wt-tracked work (org + markdown, reconciled) | epic | done | M4: cli ergonomics | 2026-07-25 |
 | [SPEC-0061](./specs/0061-org-side-clock-in-clock-out-primitive.md) | Org-side clock-in/clock-out primitive | feature | done | M4: cli ergonomics | 2026-07-25 |
 | [SPEC-0062](./specs/0062-markdown-clock-log-convention-and-guidance.md) | Markdown Clock Log convention and guidance | feature | done | M4: cli ergonomics | 2026-07-25 |
@@ -269,7 +269,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 
 | ID | Title | Kind | Status | Milestone | Updated |
 |----|-------|------|--------|-----------|---------|
-| [SPEC-0029](./specs/0029-org-project-REMOVED-export-scheme.md) | Org-project REMOVED export scheme | feature | superseded | M3: idea→spec pipeline | 2026-07-24 |
+| [SPEC-0029](./specs/0029-customer-REMOVED-export-scheme.md) | Repo-specific REMOVED export scheme (withdrawn) | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0083](./specs/0083-light-theme-substitution-for-dim-idea-state-styles.md) | Theme-adapt the idea state palette: substitute dim on light backgrounds | feature | rejected | M4: cli ergonomics | 2026-07-28 |
 | [SPEC-0084](./specs/0084-theme-the-recessive-styling-in-the-idea-views.md) | Theme every recessive style in the idea views, not just the state palette | feature | rejected | M4: cli ergonomics | 2026-07-28 |
 

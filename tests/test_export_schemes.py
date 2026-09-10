@@ -798,22 +798,20 @@ def test_REMOVED_extended_manifest_renders_full_shape():
     scheme = TemplateScheme(_load_manifest(manifest_path))
     assert scheme.name == "REMOVED-extended"
 
-    spec = _canon(id="DEMO-0001", title="Fix gimbal comms timeout",
-                 context="Gimbal comms drops after 30s idle.",
-                 goals=["Comms stays alive past 30s idle"],
-                 decision="Reset the keepalive timer.", design="Touches linux_gimbal/ only.",
-                 acceptance=["Idle comms survive 5min soak test"],
+    spec = _canon(id="DEMO-0001", title="Fix idle timeout",
+                 context="Connection drops after 30s idle.",
+                 goals=["Connection stays alive past 30s idle"],
+                 decision="Reset the keepalive timer.", design="Touches the session layer only.",
+                 acceptance=["Idle connection survives 5min soak test"],
                  depends_on=["DEMO-0000 (branch setup)"],
-                 verification_commands="pytest ats_tests/test_gimbal_idle.py -v")
+                 verification_commands="pytest tests/test_idle.py -v")
     out = _render_one({**_load_manifest(manifest_path)}, spec)
 
-    assert "Gimbal comms drops after 30s idle" in out      # wt-sourced Context
+    assert "Connection drops after 30s idle" in out      # wt-sourced Context
     assert "layer-dependency-flow" in out                  # fixed Architectural Contracts
-    assert "- Comms stays alive past 30s idle" in out       # wt-sourced functional requirement
-    assert "mcu-stm32-testing" in out                       # fixed NFR preset boilerplate
-    assert "- [ ] Idle comms survive 5min soak test" in out  # wt-sourced AC (checkbox)
-    assert "HIL_FAILED" in out                              # fixed AC boilerplate
-    assert "pytest ats_tests/test_gimbal_idle.py -v" in out  # substituted verification command
+    assert "- Connection stays alive past 30s idle" in out       # wt-sourced functional requirement
+    assert "- [ ] Idle connection survives 5min soak test" in out  # wt-sourced AC (checkbox)
+    assert "pytest tests/test_idle.py -v" in out  # substituted verification command
     assert "DEMO-0000 (branch setup)" in out                # wt-sourced dependency
 
     ctx_relpath_scheme = TemplateScheme(_load_manifest(manifest_path))
@@ -823,7 +821,7 @@ def test_REMOVED_extended_manifest_renders_full_shape():
     ctx = Ctx()
     ctx.canonical = spec
     files = ctx_relpath_scheme.render(ctx, {})
-    assert files[0].relpath == "specs/tasks/DEMO-0001-fix-gimbal-comms-timeout.md"
+    assert files[0].relpath == "specs/tasks/DEMO-0001-fix-idle-timeout.md"
 
 
 def test_REMOVED_extended_manifest_is_config_dir_installable(tmp_path, monkeypatch):

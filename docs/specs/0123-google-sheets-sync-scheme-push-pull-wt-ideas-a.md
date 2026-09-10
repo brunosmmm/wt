@@ -46,7 +46,7 @@ schemes, e.g. ~/.config/wt/schemes/REMOVED-extended.toml):
   wt, a new sibling to `src/wt/export_schemes/` (generic/portable, ships with wt).
 - **Manifest** (this sheet's actual column mapping) — NOT committed to wt's repo; lives in
   `~/.config/wt/schemes/` (e.g. a new `example-pretriage-sheet.toml`), since it's specific to
-  this one external sheet, same reasoning as the org-specific REMOVED manifest already
+  this one external sheet, same reasoning as the extended REMOVED example manifest already
   living there rather than in-tree.
 - **Connection details** (spreadsheet_id, tab, which manifest to use) — a new key under
   `outbox_targets.Example` in `~/.config/wt/config.yaml`, alongside the existing
