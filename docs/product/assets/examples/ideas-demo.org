@@ -1,31 +1,132 @@
 #+TODO: IDEA INCUBATE SPECCED | PROMOTED EXPORTED SHIPPED DROPPED
 #+TODO: OPEN | RESOLVED
 
-* INCUBATE Ship SVG captures for product docs
+* INCUBATE [#A] Ship SVG captures for product docs
   :PROPERTIES:
   :ID: IDEA-001
-  :CREATED: [2026-09-09 Wed 19:46]
-  :UPDATED: [2026-09-09 Wed 19:46]
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-09 Wed 20:27]
+  :PROJECT: Acme
+  :EPIC: Docs
+  :KIND: improvement
+  :END:
+  :LOGBOOK:
+  CLOCK: [2026-09-09 Wed 20:27]
   :END:
 ** Summary
-Docs should show real CLI/TUI output and explain how org files hold the durable idea record.
+Docs should show real CLI/TUI output and explain how org files hold the durable idea record — Summary, Questions, and Log included. The desk is the human triage surface; agents stay on CLI + --json.
 ** Open questions
 *** OPEN Do we embed org excerpts as fenced code or SVG?
-*** OPEN Should rotation knobs appear in the guide?
+*** RESOLVED Should rotation knobs appear in the guide?
+*** OPEN Wide capture (140 cols) enough for project+epic?
+*** RESOLVED Cache-bust the SVG filename on content changes?
 ** Log
-*** [2026-09-09 Wed 19:46]
-Seeded demo enrichment for product-doc captures.
-*** [2026-09-09 Wed 19:46]
-Summary gates promote; Log holds the explore trail.
-* IDEA Passive hours from transcripts
+*** [2026-09-09 Wed 20:27]
+Sketched capture pipeline: fixture → Rich/Textual SVG → docs assets.
+*** [2026-09-09 Wed 20:27]
+Summary stays the promote gate; Log is the explore trail.
+*** [2026-09-09 Wed 20:27]
+Desk is the human triage surface; agents stay on CLI + --json.
+*** [2026-09-09 Wed 20:27]
+Verified detail pane shows Summary, Questions, and Log together.
+*** [2026-09-09 Wed 20:27]
+Pointed research root at /home/demo/work/acme for outbound routing.
+*** [2026-09-09 Wed 20:27]
+Queued follow-up: cache-bust SVG URLs when captures change.
+* IDEA [#B] Passive hours from transcripts
   :PROPERTIES:
   :ID: IDEA-002
-  :CREATED: [2026-09-09 Wed 19:46]
-  :UPDATED: [2026-09-09 Wed 19:46]
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-09 Wed 09:10]
+  :PROJECT: Partner
+  :EPIC: Time
+  :KIND: idea
   :END:
-* SPECCED Outbound export to partner repo
+** Summary
+Demo fixture note for Passive hours from transcripts.
+** Open questions
+
+** Log
+* SPECCED [#B] Outbound export to partner repo
   :PROPERTIES:
   :ID: IDEA-003
-  :CREATED: [2026-09-09 Wed 19:46]
-  :UPDATED: [2026-09-09 Wed 19:46]
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-08 Tue 16:40]
+  :PROJECT: Acme
+  :EPIC: Docs
+  :KIND: idea
   :END:
+** Summary
+Demo fixture note for Outbound export to partner repo.
+** Open questions
+
+** Log
+* IDEA [#C] Desk filter presets for triage
+  :PROPERTIES:
+  :ID: IDEA-004
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-08 Tue 11:05]
+  :PROJECT: Acme
+  :EPIC: Docs
+  :KIND: improvement
+  :END:
+** Summary
+Demo fixture note for Desk filter presets for triage.
+** Open questions
+
+** Log
+* INCUBATE [#B] Weekly review digest mailer
+  :PROPERTIES:
+  :ID: IDEA-005
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-07 Mon 14:22]
+  :PROJECT: Partner
+  :EPIC: Time
+  :KIND: idea
+  :END:
+** Summary
+Demo fixture note for Weekly review digest mailer.
+** Open questions
+
+** Log
+* SPECCED [#A] Clock glyph on CLI idea tables
+  :PROPERTIES:
+  :ID: IDEA-006
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-06 Sun 19:50]
+  :PROJECT: Acme
+  :EPIC: Time
+  :KIND: improvement
+  :END:
+** Summary
+Demo fixture note for Clock glyph on CLI idea tables.
+** Open questions
+
+** Log
+* IDEA [#B] Hub JSON schema for agents
+  :PROPERTIES:
+  :ID: IDEA-007
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-05 Sat 10:15]
+  :PROJECT: Acme
+  :EPIC: Docs
+  :KIND: idea
+  :END:
+** Summary
+Demo fixture note for Hub JSON schema for agents.
+** Open questions
+
+** Log
+* IDEA [#C] Archive rotation dry-run flag
+  :PROPERTIES:
+  :ID: IDEA-008
+  :CREATED: [2026-09-09 Wed 20:27]
+  :UPDATED: [2026-09-04 Fri 13:30]
+  :PROJECT: Partner
+  :KIND: chore
+  :END:
+** Summary
+Demo fixture note for Archive rotation dry-run flag.
+** Open questions
+
+** Log

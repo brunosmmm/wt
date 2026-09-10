@@ -56,4 +56,4 @@ Save deep mapping and review for [Weekly ops](weekly-ops.md).
 wt tui                    # requires the tui extra
 ```
 
-![desk](../assets/captures/tui-desk.svg)
+![desk](../assets/captures/tui-desk.svg?v=4)

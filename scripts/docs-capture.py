@@ -22,10 +22,28 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "docs" / "product" / "assets" / "captures"
 DEFAULT_EXAMPLES = ROOT / "docs" / "product" / "assets" / "examples"
 
+
+def _enable_capture_color() -> None:
+    """Docs SVGs must keep hue. Agent/CI shells often export NO_COLOR=1, which makes Textual
+    install a Monochrome line filter — every desk screenshot collapses to greys. Rich CLI
+    captures are less affected (force_terminal + truecolor), but clear the flag for both."""
+    import os
+
+    os.environ.pop("NO_COLOR", None)
+    # FORCE_COLOR=0 is also common in piped/agent environments; prefer colorful captures.
+    if os.environ.get("FORCE_COLOR") == "0":
+        os.environ.pop("FORCE_COLOR", None)
+
+# (title, state, project, priority, kind, epic) — dense enough that the desk capture reads "busy".
 DEMO_IDEAS = [
-    ("Ship SVG captures for product docs", "INCUBATE"),
-    ("Passive hours from transcripts", "IDEA"),
-    ("Outbound export to partner repo", "SPECCED"),
+    ("Ship SVG captures for product docs", "INCUBATE", "Acme", "A", "improvement", "Docs"),
+    ("Passive hours from transcripts", "IDEA", "Partner", "B", "idea", "Time"),
+    ("Outbound export to partner repo", "SPECCED", "Acme", "B", "idea", "Docs"),
+    ("Desk filter presets for triage", "IDEA", "Acme", "C", "improvement", "Docs"),
+    ("Weekly review digest mailer", "INCUBATE", "Partner", "B", "idea", "Time"),
+    ("Clock glyph on CLI idea tables", "SPECCED", "Acme", "A", "improvement", "Time"),
+    ("Hub JSON schema for agents", "IDEA", "Acme", "B", "idea", "Docs"),
+    ("Archive rotation dry-run flag", "IDEA", "Partner", "C", "chore", ""),
 ]
 
 TZ = ZoneInfo("America/New_York")
@@ -94,17 +112,24 @@ def _demo_cfg(tmp: Path) -> dict:
         "_root": str(claude),
         "_cursor_root": None,
         "outbox_targets": {
+            # Stable display paths for SVG captures (no /tmp noise in the desk detail pane).
             "Acme": {
-                "repo_path": str(work / "acme"),
+                "repo_path": "/home/demo/work/acme",
                 "scheme": "wt-native",
             },
             "Partner": {
-                "repo_path": str(tmp / "partner-repo"),
+                "repo_path": "/home/demo/work/partner",
                 "scheme": "plain-md",
             },
         },
     })
     (tmp / "partner-repo").mkdir(parents=True, exist_ok=True)
+    (work / "acme").mkdir(parents=True, exist_ok=True)
+    # Seed facet registry so idea :PROJECT: Acme/Partner don't warn as unknown (SPEC-0018).
+    (config / "mappings.yaml").write_text(
+        "acme:\n  bucket: Acme\npartner-notes:\n  bucket: Partner\n",
+        encoding="utf-8",
+    )
     return cfg
 
 
@@ -187,32 +212,74 @@ def _seed_ideas(cfg: dict) -> str:
     from wt import org_write as W
     from wt.org import load_tasks
 
-    for title, _state in DEMO_IDEAS:
-        W.add_idea(cfg, title)
+    for title, _state, project, priority, kind, epic in DEMO_IDEAS:
+        W.add_idea(cfg, title, project=project, priority=priority, kind=kind,
+                   epic=epic or None)
     tasks = [t for t in load_tasks(cfg) if t.is_idea]
     by_title = {t.heading: t for t in tasks}
-    for title, state in DEMO_IDEAS:
+    for title, state, *_rest in DEMO_IDEAS:
         task = by_title.get(title) or next(t for t in tasks if title in (t.heading or ""))
         if (task.state or "IDEA") != state:
             W.set_state(cfg, task, state)
 
+    by_id = {}
     show_id = None
     for t in load_tasks(cfg):
-        if t.is_idea and "Ship SVG captures" in (t.heading or ""):
-            show_id = t.properties.get("ID") or t.id
-            break
+        if not t.is_idea:
+            continue
+        iid = t.properties.get("ID") or t.id
+        by_id[iid] = t
+        if "Ship SVG captures" in (t.heading or ""):
+            show_id = iid
     if not show_id:
         raise RuntimeError("demo seed missing show target")
+
+    # Sibling summaries first, then backdate UPDATED with a fresh resolve (set_summary
+    # invalidates the cached Task line offsets).
+    sibling_ids = [iid for iid in by_id if iid != show_id]
+    for iid in sibling_ids:
+        heading = by_id[iid].heading or ""
+        EX.set_summary(cfg, iid, f"Demo fixture note for {heading[:48]}.")
+
+    age_stamps = [
+        "[2026-09-09 Wed 09:10]",
+        "[2026-09-08 Tue 16:40]",
+        "[2026-09-08 Tue 11:05]",
+        "[2026-09-07 Mon 14:22]",
+        "[2026-09-06 Sun 19:50]",
+        "[2026-09-05 Sat 10:15]",
+        "[2026-09-04 Fri 13:30]",
+    ]
+    for age_i, iid in enumerate(sibling_ids):
+        task = next(
+            t for t in load_tasks(cfg)
+            if (t.properties.get("ID") or t.id) == iid
+        )
+        W.set_property(cfg, task, "UPDATED", age_stamps[age_i % len(age_stamps)], touch=False)
 
     EX.set_summary(
         cfg, show_id,
         "Docs should show real CLI/TUI output and explain how org files hold the "
-        "durable idea record.",
+        "durable idea record — Summary, Questions, and Log included. The desk is the "
+        "human triage surface; agents stay on CLI + --json.",
     )
     EX.add_question(cfg, show_id, "Do we embed org excerpts as fenced code or SVG?")
     EX.add_question(cfg, show_id, "Should rotation knobs appear in the guide?")
-    EX.append_log(cfg, show_id, "Seeded demo enrichment for product-doc captures.")
-    EX.append_log(cfg, show_id, "Summary gates promote; Log holds the explore trail.")
+    EX.add_question(cfg, show_id, "Wide capture (140 cols) enough for project+epic?")
+    EX.add_question(cfg, show_id, "Cache-bust the SVG filename on content changes?")
+    EX.resolve_question(cfg, show_id, 2)
+    EX.resolve_question(cfg, show_id, 4)
+    for note in (
+        "Sketched capture pipeline: fixture → Rich/Textual SVG → docs assets.",
+        "Summary stays the promote gate; Log is the explore trail.",
+        "Desk is the human triage surface; agents stay on CLI + --json.",
+        "Verified detail pane shows Summary, Questions, and Log together.",
+        "Pointed research root at /home/demo/work/acme for outbound routing.",
+        "Queued follow-up: cache-bust SVG URLs when captures change.",
+    ):
+        EX.append_log(cfg, show_id, note)
+    # Open clock last so ◕ shows on the enriched row (and UPDATED stays freshest).
+    W.clock_in(cfg, show_id)
     return show_id
 
 
@@ -383,19 +450,32 @@ def capture_cli(cfg: dict, out: Path, show_id: str) -> list[Path]:
     return written
 
 
-def capture_tui(cfg: dict, out: Path) -> list[Path]:
+def capture_tui(cfg: dict, out: Path, show_id: str) -> list[Path]:
     from wt.tui import textual_available
 
     if not textual_available():
         print("skip tui-desk.svg (textual extra not installed)", file=sys.stderr)
         return []
 
+    from textual.widgets import DataTable
+
     from wt.tui.app import IdeaDesk
 
     async def _run() -> str:
         app = IdeaDesk(cfg)
-        async with app.run_test(size=(100, 30)) as pilot:
-            await pilot.pause()
+        # Wide enough that state/project columns survive DROP_ORDER clipping.
+        async with app.run_test(size=(140, 36)) as pilot:
+            for _ in range(80):
+                if app._pairs and not app._reload_in_flight:
+                    break
+                await pilot.pause()
+            else:
+                raise RuntimeError("desk never loaded idea rows for docs capture")
+            # Select the enriched idea (freshness sort alone is not enough once siblings update).
+            app.paint(keep_id=show_id)
+            index = next(i for i, (r, _) in enumerate(app._pairs) if r.id == show_id)
+            app.query_one("#list", DataTable).move_cursor(row=index)
+            app.show_detail(index)
             await pilot.pause()
             return app.export_screenshot(title="wt tui")
 
@@ -446,6 +526,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--examples", type=Path, default=DEFAULT_EXAMPLES)
     args = parser.parse_args(argv)
     args.out.mkdir(parents=True, exist_ok=True)
+    _enable_capture_color()
 
     with tempfile.TemporaryDirectory(prefix="wt-docs-capture-") as tmp:
         cfg = _demo_cfg(Path(tmp))
@@ -454,7 +535,7 @@ def main(argv: list[str] | None = None) -> int:
         written.extend(capture_time_ops(cfg, args.out))
         written.extend(capture_wave_c(cfg, args.out))
         written.extend(capture_cli(cfg, args.out, show_id))
-        written.extend(capture_tui(cfg, args.out))
+        written.extend(capture_tui(cfg, args.out, show_id))
         written.extend(export_org_examples(cfg, args.examples))
 
     for path in written:
