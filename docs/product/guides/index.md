@@ -14,6 +14,8 @@ Workflow-first paths through wt. Prefer these over digging in SPECs.
 | [Outbound](outbound.md) | Register project → export → implement portable → SHIPPED |
 | [Multi-project](multi-project.md) | Fan-out epics and research roots |
 
+Default outbound shape (verify-before-done): [Default portable (`wt-native`)](../concepts/portable-default.md).
+
 Cheatsheet still in-repo: `docs/WORKFLOW.md` (same pipeline, denser).
 
 Architecture diagrams: [Workflow architecture](../concepts/workflows.md).

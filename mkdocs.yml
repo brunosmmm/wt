@@ -50,6 +50,7 @@ nav:
       - concepts/index.md
       - Storage architecture: concepts/architecture.md
       - Lifecycle & DoD: concepts/lifecycle.md
+      - Default portable (wt-native): concepts/portable-default.md
       - Workflow architecture: concepts/workflows.md
       - Time model & retention: concepts/time-and-retention.md
   - Capabilities:

@@ -6,7 +6,7 @@ project). For another codebase, use [Outbound](outbound.md).
 ## Pipeline
 
 ```
-capture → explore → authxx accepted spec → generate tasks → build → verify
+capture → explore → author accepted spec → generate tasks → build → verify
 ```
 
 Full picture (roles and handoffs): [Workflow architecture](../concepts/workflows.md).

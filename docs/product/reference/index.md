@@ -1,6 +1,6 @@
 # Command reference
 
-Live CLI is authxxitative: `wt --help` and `wt <command> --help`. This page is a
+Live CLI is authoritative: `wt --help` and `wt <command> --help`. This page is a
 **curated index** of top-level commands (synced by test to `wt --help`). It does not
 duplicate every flag.
 

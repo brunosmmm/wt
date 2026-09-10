@@ -6,7 +6,7 @@ One-page cheatsheet for **humans**. Agent playbooks live in `skills/` (`wt-orien
 ## The pipeline
 
 ```
-capture → explore (durable) → decide → authxx → generate → build → verify → (export if outbound)
+capture → explore (durable) → decide → author → generate → build → verify → (export if outbound)
 
 wt idea "…"          park a thought (seconds)
 /wt-seed             Cursor: distill conversation → idea (+ optional Summary/Log)
@@ -43,7 +43,7 @@ tactics only. Governing design stays in wt (`docs/specs/` / outbox portables). A
 |-------|---------|-----------|
 | `IDEA` | parked, not yet incubating | capture; optionally start explore |
 | `INCUBATE` | exploring (durable notes on the idea) | `/wt-explore` / `wt idea log` — **not** promote yet ([SPEC-0024](./specs/0024-formal-explore-stage-wt-explore-skill.md), [SPEC-0031](./specs/0031-rename-idea-explore-to-log-datetime-log-stamps.md)) |
-| `SPECCED` | a draft/accepted spec exists (`:SPEC:` set) | finish authxxing → `accepted`, then generate (internal) or export (outbound); if design wrong or epic incomplete → `/wt-rework` |
+| `SPECCED` | a draft/accepted spec exists (`:SPEC:` set) | finish authoring → `accepted`, then generate (internal) or export (outbound); if design wrong or epic incomplete → `/wt-rework` |
 | `PROMOTED` | internal: org tasks exist (`wt spec generate`) | build; track time against tasks; incomplete epic → `/wt-rework` (extend), not bare `wt tasks` |
 | `EXPORTED` | outbound: handed off via `wt spec export` | build in the **target repo** on the portable spec (update `status` + AC); `wt spec pull-status` / `sweep` when portable is `done` → **SHIPPED** |
 | `SHIPPED` | finished (post-export or outbound reconcile) | ignore (`wt ideas` hides these by default); force via `wt idea state … SHIPPED` or desk `m` → state |
@@ -103,7 +103,7 @@ wt agenda                    # dated tasks for today
 
 # Spec (CLI; or use /wt-new-work in Cursor)
 wt spec new --from-idea IDEA-00N
-# …authxx Decision/Design/AC/Test plan…
+# …author Decision/Design/AC/Test plan…
 # set status: accepted in the spec frontmatter
 python3 tools/spec_lint.py --write-ledger
 
@@ -113,10 +113,12 @@ wt tasks
 # implement; mark tasks done with `wt done …`
 
 # Outbound only (do NOT generate on PROJ-NNNN)
+# Default scheme is wt-native: portable + contract; AC + Test plan; verify before done
+# (docs/product/concepts/portable-default.md). Override with --scheme / outbox target.
 wt spec export PROJ-NNNN          # → idea EXPORTED; portable file in target repo
-# foreign agent updates portable status / AC in the target
-wt spec pull-status PROJ-NNNN     # optional: mirror portable status → outbox
-wt spec schemes
+# foreign agent updates portable status / AC in the target; close with /wt-verify
+wt spec pull-status PROJ-NNNN     # required when portable is done → idea SHIPPED
+wt spec schemes                   # wt-native (default), plain-md
 # Optional id pin when a scheme allocates X.Y.Z ids:
 # neighbors (e.g. 1.3.2 after 1.3.1) without juggling task_base —
 #   frontmatter: task_id: "1.3.2"
@@ -197,7 +199,7 @@ wt ideas --json         # the hint per row, for agents (no `next` column on the 
 `wt next` is the home of the hint. `wt ideas` dropped its `next` column (SPEC-0075) so the
 headline gets that width back; the hint is still in `wt ideas --json`.
 
-Hints follow the state table above (`wt spec new …`, `authxx … → accepted`,
+Hints follow the state table above (`wt spec new …`, `author … → accepted`,
 `wt spec generate …` for internal, `wt spec export …` / `implement in …` /
 `wt spec pull-status …` for outbound, `/wt-rework …` for incomplete epics,
 `wt tasks` for PROMOTED). Copy/paste the `next` cell.

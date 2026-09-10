@@ -37,7 +37,7 @@ def _render_contract(outbound_id, project, source_path, dest_spec_name, content_
     return f"""# Consuming this spec — {outbound_id}
 
 This spec was **exported** by `wt` (work-tracking), a separate tool's spec pipeline — it was
-not authxxed in this repo. Treat it as an implementation brief / governing spec (if this repo
+not authored in this repo. Treat it as an implementation brief / governing spec (if this repo
 has its own spec-first workflow, fold it in per that workflow).
 
 ## How to treat it
@@ -53,7 +53,7 @@ has its own spec-first workflow, fold it in per that workflow).
   anything done without doing so.
 - If you deviate from the Design, record the deviation in the spec body (or your own PR) —
   don't diverge silently.
-- The wt authxx can later run `wt spec pull-status {outbound_id}` to mirror this file's
+- The wt author can later run `wt spec pull-status {outbound_id}` to mirror this file's
   `status` back into their outbox — optional, not automatic.
 - Do **not** run `wt spec generate` on this outbound id.
 

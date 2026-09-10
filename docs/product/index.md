@@ -23,6 +23,7 @@ They share triage (`wt ideas`, `wt next`, `wt hub`) and an optional desk (`wt tu
 | Dig into hours | [Track time](guides/track-time.md) |
 | Turn a thought into shipped work | [Idea → ship](guides/idea-to-ship.md) |
 | Hand work to another repo | [Outbound](guides/outbound.md) |
+| Understand the default portable / verify loop | [Default portable (`wt-native`)](concepts/portable-default.md) |
 
 ## Also
 

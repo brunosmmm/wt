@@ -91,7 +91,7 @@ wt idea log IDEA-NNN --note "…"
 ### Promote → build (internal)
 
 ```bash
-wt spec new --from-idea IDEA-NNN          # then authxx + status: accepted
+wt spec new --from-idea IDEA-NNN          # then author + status: accepted
 wt spec generate SPEC-NNNN
 wt idea clock-in IDEA-NNN
 # …implement…

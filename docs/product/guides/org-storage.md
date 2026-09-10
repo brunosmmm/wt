@@ -10,7 +10,7 @@ Agents and the CLI speak JSON; **humans can still read and edit the files**.
 ## Official Org documentation
 
 wt leans on plain Org syntax — it does not redefine Org. When you want the
-authxxitative rules for headlines, TODO keywords, properties, drawers, or
+authoritative rules for headlines, TODO keywords, properties, drawers, or
 clocking, use the upstream manuals:
 
 | Resource | Use it for |

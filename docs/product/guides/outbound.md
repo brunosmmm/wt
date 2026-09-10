@@ -49,17 +49,23 @@ Do **not** `wt spec generate` on outbound portables — that path is for interna
 
 ```bash
 # edit outbox portable → status: accepted
-wt spec schemes                      # wt-native (default), plain-md, …
+wt spec schemes                      # wt-native (default), plain-md
 wt spec export ACME-NNNN             # scheme from outbox_targets or --scheme
 # idea → EXPORTED; file lands in target docs/specs/
 ```
 
 ![export schemes](../assets/captures/cli-spec-schemes.svg)
 
+Unless the project sets `scheme:` (or you pass `--scheme`), export uses **`wt-native`**:
+the lightweight governing portable (AC + Test plan) plus a consumption contract. That is
+wt’s default outbound workflow — it tries to **enforce verification** before `done`, not
+merely file-drop text. Details: [Default portable (`wt-native`)](../concepts/portable-default.md).
+
 ## 4. Implement in the target repo
 
 In the foreign checkout: drive AC + Test plan on the portable (skill `/wt-implement-spec`
 if skills are installed there). Prefer the portable’s status/`done` as source of truth.
+Close with `/wt-verify` (or the same checklist by hand) before marking the portable `done`.
 
 ## 5. Required close-the-loop
 
@@ -86,11 +92,11 @@ wt spec fit-log ACME-NNNN --note "…"
 
 | Scheme | Role |
 |--------|------|
-| `wt-native` | Default portable + contract |
-| `plain-md` | Flat remap for simple foreign layouts |
-| `wt-native` | downstream seed + optional project-plan fragment |
+| `wt-native` | **Default.** Identity portable + consumption contract; requires Decision, AC, Test plan — lightweight verify-before-done workflow |
+| `plain-md` | Optional flat remap for simple foreign layouts (weaker required fields) |
 
-`wt spec schemes` lists required fields and emit artifacts.
+`wt spec schemes` lists required fields and emit artifacts. Concept deep-dive:
+[Default portable (`wt-native`)](../concepts/portable-default.md).
 
 ## Related
 

@@ -35,7 +35,7 @@ sequenceDiagram
   U->>CLI: wt idea "…"
   U->>CLI: summary / log / questions
   U->>CLI: wt spec new --from-idea
-  U->>Spec: authxx Decision + AC + Test plan
+  U->>Spec: author Decision + AC + Test plan
   U->>Spec: status accepted
   U->>CLI: wt spec generate
   CLI->>Org: tasks
@@ -55,6 +55,10 @@ flowchart TD
   F --> G[wt spec pull-status / sweep]
   G --> H[Idea SHIPPED]
 ```
+
+Default export scheme is **`wt-native`**: lightweight portable (AC + Test plan) +
+consumption contract that expects verify before `done`. See
+[Default portable](portable-default.md).
 
 ## Desk vs CLI
 

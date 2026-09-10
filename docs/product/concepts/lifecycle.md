@@ -70,7 +70,7 @@ Never silently rewrite a past-`draft` decision — supersede instead (see repo `
 | Layer | “Done” means | Typical command / evidence |
 |-------|----------------|----------------------------|
 | **Spec (internal)** | Every AC true; test plan run; ledger shows `done`; body matches what shipped | `wt spec verify`, pytest, `--write-ledger` |
-| **Spec (outbound portable)** | AC/test plan in the **target** repo; portable `status: done` | implement + verify in foreign checkout |
+| **Spec (outbound portable)** | AC/test plan in the **target** repo; portable `status: done` | implement + verify in foreign checkout ([default `wt-native`](portable-default.md)) |
 | **Idea (internal)** | Often `PROMOTED` after generate; `SHIPPED` when the outcome is truly finished | `wt spec generate`, then settle idea |
 | **Idea (outbound)** | `EXPORTED` after export; **`SHIPPED` only after** pull-status/sweep shows portable done | `wt spec export`, `pull-status` / `sweep` |
 | **Passive time** | N/A — hours keep accruing; “done” is mapping + snapshot hygiene | `wt map`, `wt snapshot` |
@@ -84,3 +84,4 @@ still `EXPORTED`. Product docs and skills treat verify + reconcile as the claim-
 - Where files live: [Storage architecture](architecture.md)
 - Day/week loops: [Daily ops](../guides/daily-ops.md) · [Weekly ops](../guides/weekly-ops.md)
 - Pipelines: [Idea → ship](../guides/idea-to-ship.md) · [Outbound](../guides/outbound.md)
+- Default export shape: [Default portable (`wt-native`)](portable-default.md)

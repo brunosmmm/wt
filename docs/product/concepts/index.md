@@ -13,7 +13,9 @@ Core vocabulary for wt product docs. Prefer these terms; link SPECs only when ex
 | **Ledger** | Index of internal specs (`docs/LEDGER.md`). |
 | **Internal** | Spec in this wt repo; generate → org tasks → often `PROMOTED`. |
 | **Outbound** | Spec in data-dir outbox; export → foreign portable. |
-| **Portable** | Exported markdown spec in a foreign repo. |
+| **Portable** | Exported markdown spec in a foreign repo (working copy for build + status). |
+| **`wt-native`** | **Default** export scheme: portable + contract; AC + Test plan; verify before `done`. |
+| **`plain-md`** | Optional flat export remap for simple foreign layouts. |
 | **Outbox** | Per-project dir under the XDG data dir for outbound drafts. |
 | **Hub** | Read-only triage across ideas + specs (`wt hub --json`). |
 | **Desk / TUI** | Interactive ideas UI (`wt tui`). |
@@ -32,6 +34,7 @@ Core vocabulary for wt product docs. Prefer these terms; link SPECs only when ex
 |------|----------|
 | [Storage architecture](architecture.md) | Config / data / org / specs topology; project senses |
 | [Lifecycle & DoD](lifecycle.md) | Idea keywords, spec status, done matrix |
+| [Default portable (`wt-native`)](portable-default.md) | Default outbound scheme = lightweight verify workflow |
 | [Workflow architecture](workflows.md) | Dual systems + sequence diagrams |
 | [Time model & retention](time-and-retention.md) | Passive history, snapshots, meetings |
 
