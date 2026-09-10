@@ -9,3 +9,6 @@ build/
 .cache/
 # SPEC-0143: MkDocs build output
 site/
+
+# Live idea corpora must not live in this checkout — keep org_ideas_* outside the tree.
+ideas/ideas-*.org
