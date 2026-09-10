@@ -16,7 +16,7 @@ depends_on: [SPEC-0017, SPEC-0051, SPEC-0095, SPEC-0117, SPEC-0137]
 
 Promoted from `IDEA-312`. Cursor may load Claude's **Superpowers** plugin via a session
 hook even when the chat model is not Claude Code, steering agents into
-`docs/superpowers/**` and past wt's idea→verify loop (DemoBrew transcript evidence).
+`docs/superpowers/**` and past wt's idea→verify loop (a prior project transcript evidence).
 
 ## Goals / Non-goals
 
@@ -24,7 +24,7 @@ hook even when the chat model is not Claude Code, steering agents into
 hard gate; forbid governing `docs/superpowers/**` when wt is in play.
 
 **Non-goals** — Disabling Superpowers; patching upstream Superpowers; tool-level Write blocks;
-DemoBrew doc migration.
+prior-project doc migration.
 
 ## Decision
 
