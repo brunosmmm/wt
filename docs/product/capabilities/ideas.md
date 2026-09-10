@@ -20,4 +20,9 @@ Parking a thought without breaking flow; morning triage; agent `--json` lists.
 Open clocks show `◕` on the idea id in CLI tables (and on the desk). Ideas are seeds;
 actionable one-liners belong in `wt add` — see [Tasks & agenda](tasks-agenda.md).
 
-Workflow: [Idea → ship](../guides/idea-to-ship.md).
+Workflow: [Idea → ship](../guides/idea-to-ship.md). Storage layout:
+[Org-mode storage](../guides/org-storage.md).
+
+![wt ideas](../assets/captures/cli-ideas.svg)
+
+![wt idea show](../assets/captures/cli-idea-show.svg)

@@ -251,7 +251,7 @@ def test_generate_refuses_outbound_id(tmp_path):
     """SPEC-0041: generate must not run on PROJ-NNNN (use export)."""
     cfg = _cfg(tmp_path)
     try:
-        S.generate_from_spec(cfg, "THJALFI-0001")
+        S.generate_from_spec(cfg, "ACME-0001")
         assert False, "expected ValueError"
     except ValueError as e:
         assert "outbound" in str(e).lower()

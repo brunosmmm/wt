@@ -68,13 +68,13 @@ def test_promote_idea_with_configured_project_goes_outbound(tmp_path):
 
 
 def test_promote_idea_target_override_goes_outbound(tmp_path):
-    cfg = _cfg(tmp_path, outbox_targets={"thjalfi": {"repo_path": "/tmp/thjalfi-repo"}})
+    cfg = _cfg(tmp_path, outbox_targets={"acme": {"repo_path": "/tmp/acme-repo"}})
     _seed_idea(cfg, "adversarial reviewer")  # no :PROJECT:
 
-    path, spec_id, kind = S.promote_idea(cfg, "adversarial reviewer", target="thjalfi")
+    path, spec_id, kind = S.promote_idea(cfg, "adversarial reviewer", target="acme")
 
     assert kind == "outbound"
-    assert spec_id.startswith("THJALFI-")
+    assert spec_id.startswith("ACME-")
 
 
 # ---- promote_idea: internal route ----------------------------------------------------

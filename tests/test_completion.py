@@ -51,7 +51,7 @@ def _cfg(tmp_path, *, mappings=None, outbox_targets=None):
         "outbox_dir": str(outbox),
         "config_dir": str(config_dir),
         "project_axis": "bucket",
-        "outbox_targets": outbox_targets or {"thjalfi": {"repo_path": "/tmp/thjalfi"}},
+        "outbox_targets": outbox_targets or {"acme": {"repo_path": "/tmp/acme"}},
     }
 
 
@@ -133,11 +133,11 @@ def test_cli_completion_install(tmp_path):
 # ---- dynamic completers ---------------------------------------------------------------
 
 def test_complete_project(tmp_path):
-    cfg = _cfg(tmp_path, mappings={"thjalfi": {"bucket": "Thjalfi"},
+    cfg = _cfg(tmp_path, mappings={"acme": {"bucket": "Acme"},
                                    "other": {"bucket": "Logging"}})
-    items = C.complete_project(_ctx(cfg), None, "Th")
+    items = C.complete_project(_ctx(cfg), None, "Ac")
     values = [i.value for i in items]
-    assert values == ["Thjalfi"]
+    assert values == ["Acme"]
 
 
 def test_complete_idea_id(tmp_path):
@@ -167,10 +167,10 @@ def test_complete_spec_id(tmp_path):
 
 def test_complete_outbound_id(tmp_path):
     cfg = _cfg(tmp_path)
-    scaffold_outbound(cfg, "thjalfi", title="Outbound completion test")
-    items = C.complete_outbound_id(_ctx(cfg), None, "THJALFI-")
+    scaffold_outbound(cfg, "acme", title="Outbound completion test")
+    items = C.complete_outbound_id(_ctx(cfg), None, "ACME-")
     values = [i.value for i in items]
-    assert any(v.startswith("THJALFI-") for v in values)
+    assert any(v.startswith("ACME-") for v in values)
 
 
 def test_complete_scheme_and_emit():
@@ -190,8 +190,8 @@ def test_complete_todo_and_idea_state(tmp_path):
 
 def test_complete_outbox_target(tmp_path):
     cfg = _cfg(tmp_path)
-    values = [i.value for i in C.complete_outbox_target(_ctx(cfg), None, "th")]
-    assert values == ["thjalfi"]
+    values = [i.value for i in C.complete_outbox_target(_ctx(cfg), None, "ac")]
+    assert values == ["acme"]
 
 
 def test_path_option_has_path_type():
@@ -216,9 +216,9 @@ def test_completers_soft_fail_on_broken_cfg():
 
 
 def test_complete_mapped_topic(tmp_path):
-    cfg = _cfg(tmp_path, mappings={"thjalfi": "Thjalfi", "drone": {"bucket": "X", "area": "y"}})
-    values = [i.value for i in C.complete_mapped_topic(_ctx(cfg), None, "th")]
-    assert values == ["thjalfi"]
+    cfg = _cfg(tmp_path, mappings={"acme": "Acme", "drone": {"bucket": "X", "area": "y"}})
+    values = [i.value for i in C.complete_mapped_topic(_ctx(cfg), None, "ac")]
+    assert values == ["acme"]
 
 
 # ---- SPEC-0039: idea selectors + compliance ------------------------------------------

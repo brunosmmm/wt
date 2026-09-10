@@ -21,4 +21,10 @@ before Claude deletes transcripts.
 | `wt export` | CSV/JSON dataset of date/topic/hours/facets |
 | `wt digest` | Hours joined to org tasks by JIRA key |
 
-Workflow: [Track time](../guides/track-time.md).
+![Bare wt dashboard](../assets/captures/cli-wt-dashboard.svg)
+
+![Weekly report](../assets/captures/cli-report-week.svg)
+
+![Unmapped topics](../assets/captures/cli-topics-unmapped.svg)
+
+Workflow: [Track time](../guides/track-time.md) · [Weekly ops](../guides/weekly-ops.md).

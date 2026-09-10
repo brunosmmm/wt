@@ -1,0 +1,8 @@
+#+TODO: IDEA INCUBATE SPECCED | PROMOTED EXPORTED SHIPPED DROPPED
+
+* SHIPPED Example archived idea
+  :PROPERTIES:
+  :ID: IDEA-900
+  :END:
+** Summary
+Terminal states land in the archive file so the active ideas.org stays triage-sized.

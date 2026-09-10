@@ -35,15 +35,15 @@ def _cfg(tmp_path):
         "org_ideas_file": str(org / "ideas.org"),
         "specs_dir": str(specs),
         "outbox_dir": str(tmp_path / "outbox"),
-        "outbox_targets": {"thjalfi": {"repo_path": str(tmp_path / "target")}},
+        "outbox_targets": {"acme": {"repo_path": str(tmp_path / "target")}},
         "config_dir": str(tmp_path / "config"),
     }
 
 
 def test_fit_log_appends_to_source_idea(tmp_path):
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "ship me", project="thjalfi")
-    path, oid = S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001", title="Ship me")
+    W.add_idea(cfg, "ship me", project="acme")
+    path, oid = S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001", title="Ship me")
     assert "source_idea: IDEA-001" in path.read_text()
 
     idea_id, ideas_path = E.fit_log(cfg, oid, "used it; still too coarse")
@@ -56,7 +56,7 @@ def test_fit_log_appends_to_source_idea(tmp_path):
 
 def test_fit_log_missing_idea_errors(tmp_path):
     cfg = _cfg(tmp_path)
-    path, oid = S.scaffold_outbound(cfg, "thjalfi", title="Orphan export")
+    path, oid = S.scaffold_outbound(cfg, "acme", title="Orphan export")
     # strip source_idea if any
     text = path.read_text()
     text = "\n".join(ln for ln in text.splitlines() if not ln.startswith("source_idea:"))
@@ -67,10 +67,10 @@ def test_fit_log_missing_idea_errors(tmp_path):
 
 def test_fit_log_cli(tmp_path, monkeypatch):
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "cli fit", project="thjalfi")
-    S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001", title="Cli fit")
+    W.add_idea(cfg, "cli fit", project="acme")
+    S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001", title="Cli fit")
     monkeypatch.setattr("wt.cli.load_config", lambda: cfg)
-    r = CliRunner().invoke(cli, ["spec", "fit-log", "THJALFI-0001", "--note", "missed filters"])
+    r = CliRunner().invoke(cli, ["spec", "fit-log", "ACME-0001", "--note", "missed filters"])
     assert r.exit_code == 0, r.output
     assert "fit-log" in r.output
 
@@ -106,8 +106,8 @@ def test_postmortem_appends_to_internal_spec_source_idea(tmp_path):
 
 def test_postmortem_appends_to_outbound_spec_source_idea(tmp_path):
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "outbound postmortem target", project="thjalfi")
-    _path, oid = S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001",
+    W.add_idea(cfg, "outbound postmortem target", project="acme")
+    _path, oid = S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001",
                                       title="Outbound postmortem target")
 
     idea_id, _ = E.postmortem(cfg, oid, "found a bug in the shipped export path")
@@ -118,7 +118,7 @@ def test_postmortem_appends_to_outbound_spec_source_idea(tmp_path):
 
 def test_postmortem_missing_source_idea_errors(tmp_path):
     cfg = _cfg(tmp_path)
-    path, oid = S.scaffold_outbound(cfg, "thjalfi", title="Orphan export")
+    path, oid = S.scaffold_outbound(cfg, "acme", title="Orphan export")
     text = path.read_text()
     text = "\n".join(ln for ln in text.splitlines() if not ln.startswith("source_idea:"))
     path.write_text(text + ("\n" if not text.endswith("\n") else ""))
@@ -131,8 +131,8 @@ def test_postmortem_missing_source_idea_errors(tmp_path):
 def test_pull_status_archives_idea_when_status_first_becomes_done(tmp_path):
     import os
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "ship me", project="thjalfi")
-    _path, oid = S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001", title="Ship me")
+    W.add_idea(cfg, "ship me", project="acme")
+    _path, oid = S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001", title="Ship me")
     dest_spec, _ = E.export_spec(cfg, oid)
     dest_spec.write_text(dest_spec.read_text().replace("status: draft", "status: done", 1))
 
@@ -154,8 +154,8 @@ def test_pull_status_archives_idea_when_status_first_becomes_done(tmp_path):
 def test_pull_status_second_call_does_not_rearchive(tmp_path):
     import os
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "ship me twice", project="thjalfi")
-    _path, oid = S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001", title="Ship me twice")
+    W.add_idea(cfg, "ship me twice", project="acme")
+    _path, oid = S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001", title="Ship me twice")
     dest_spec, _ = E.export_spec(cfg, oid)
     dest_spec.write_text(dest_spec.read_text().replace("status: draft", "status: done", 1))
 
@@ -171,8 +171,8 @@ def test_pull_status_second_call_does_not_rearchive(tmp_path):
 def test_pull_status_not_yet_done_does_not_archive(tmp_path):
     import os
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "still in progress", project="thjalfi")
-    _path, oid = S.scaffold_outbound(cfg, "thjalfi", from_idea="IDEA-001", title="In progress")
+    W.add_idea(cfg, "still in progress", project="acme")
+    _path, oid = S.scaffold_outbound(cfg, "acme", from_idea="IDEA-001", title="In progress")
     dest_spec, _ = E.export_spec(cfg, oid)
     dest_spec.write_text(dest_spec.read_text().replace("status: draft", "status: in-progress", 1))
 
@@ -187,7 +187,7 @@ def test_pull_status_done_with_no_linked_idea_still_succeeds(tmp_path, capsys):
     """A done-status pull with no resolvable source idea must still return normally — the
     archival side effect failing is not allowed to break pull_status's own contract."""
     cfg = _cfg(tmp_path)
-    _path, oid = S.scaffold_outbound(cfg, "thjalfi", title="No linked idea")
+    _path, oid = S.scaffold_outbound(cfg, "acme", title="No linked idea")
     dest_spec, _ = E.export_spec(cfg, oid)
     dest_spec.write_text(dest_spec.read_text().replace("status: draft", "status: done", 1))
 

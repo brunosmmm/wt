@@ -37,20 +37,20 @@ def _cfg(tmp_path, *, outbox_targets=None):
         "specs_dir": str(specs),
         "config_dir": str(tmp_path / "config"),
         "outbox_dir": str(outbox),
-        "outbox_targets": outbox_targets or {"thjalfi": {"repo_path": "/tmp/thjalfi"}},
+        "outbox_targets": outbox_targets or {"acme": {"repo_path": "/tmp/acme"}},
         "project_axis": "bucket",
     }
 
 
 def _write_outbound_epic(cfg, *, breakdown_lines):
-    proj = Path(cfg["outbox_dir"]) / "thjalfi"
+    proj = Path(cfg["outbox_dir"]) / "acme"
     proj.mkdir(parents=True, exist_ok=True)
     boxes = "\n".join(f"- [ ] {line}" for line in breakdown_lines)
-    path = proj / "THJALFI-0001-epic.md"
+    path = proj / "ACME-0001-epic.md"
     path.write_text(
-        "---\nid: THJALFI-0001\ntitle: Epic\nstatus: accepted\nowner: t\n"
+        "---\nid: ACME-0001\ntitle: Epic\nstatus: accepted\nowner: t\n"
         "created: 2026-07-24\nkind: epic\n"
-        "target_project: thjalfi\ntarget_repo: /tmp/thjalfi\n---\n\n"
+        "target_project: acme\ntarget_repo: /tmp/acme\n---\n\n"
         "## Context\n\nx\n\n## Decision\n\nx\n\n"
         f"## Breakdown / sub-specs\n\n{boxes}\n\n"
         "## Acceptance criteria\n\n- [ ] done\n\n## Test plan\n\nN/A\n",
@@ -63,21 +63,21 @@ def test_known_epics_includes_outbound(tmp_path):
     cfg = _cfg(tmp_path)
     _write_outbound_epic(cfg, breakdown_lines=["Slice A"])
     ids = S.known_epics(cfg)
-    assert "THJALFI-0001" in ids
+    assert "ACME-0001" in ids
 
 
 def test_scaffold_outbound_epic_uses_template(tmp_path):
     cfg = _cfg(tmp_path)
-    W.add_idea(cfg, "big program", project="thjalfi")
+    W.add_idea(cfg, "big program", project="acme")
     # need Summary for promote without force - add via explore or force
     path, oid = S.scaffold_outbound(
-        cfg, "thjalfi", from_idea="big program", epic=True, force=True,
+        cfg, "acme", from_idea="big program", epic=True, force=True,
         title="Big program epic",
     )
-    assert oid.startswith("THJALFI-")
+    assert oid.startswith("ACME-")
     fm, body = split_frontmatter(path.read_text())
     assert fm["kind"] == "epic"
-    assert fm["target_project"] == "thjalfi"
+    assert fm["target_project"] == "acme"
     assert "## Breakdown / sub-specs" in body
 
 
@@ -87,16 +87,16 @@ def test_seed_ideas_from_epic_idempotent(tmp_path):
         "Critical-only alerting — retire digest",
         "Periodic AI mining",
     ])
-    added = S.seed_ideas_from_epic(cfg, "THJALFI-0001")
+    added = S.seed_ideas_from_epic(cfg, "ACME-0001")
     assert len(added) == 2
     ideas = [t for t in load_tasks(cfg) if t.is_idea]
-    assert all(t.properties.get("EPIC") == "THJALFI-0001" for t in ideas if t.properties.get("ID") in added)
-    assert all(t.properties.get("PROJECT") == "thjalfi" for t in ideas if t.properties.get("ID") in added)
+    assert all(t.properties.get("EPIC") == "ACME-0001" for t in ideas if t.properties.get("ID") in added)
+    assert all(t.properties.get("PROJECT") == "acme" for t in ideas if t.properties.get("ID") in added)
     headings = {t.heading for t in ideas if t.properties.get("ID") in added}
     assert "Critical-only alerting" in headings
     assert "Periodic AI mining" in headings
 
-    again = S.seed_ideas_from_epic(cfg, "THJALFI-0001")
+    again = S.seed_ideas_from_epic(cfg, "ACME-0001")
     assert again == []
 
 
@@ -104,10 +104,10 @@ def test_cli_seed_children(tmp_path, monkeypatch):
     cfg = _cfg(tmp_path)
     _write_outbound_epic(cfg, breakdown_lines=["Only slice"])
     monkeypatch.setattr("wt.cli.load_config", lambda: cfg)
-    r = CliRunner().invoke(cli, ["spec", "seed-children", "THJALFI-0001"])
+    r = CliRunner().invoke(cli, ["spec", "seed-children", "ACME-0001"])
     assert r.exit_code == 0, r.output
     assert "1 child idea" in r.output
-    r2 = CliRunner().invoke(cli, ["spec", "seed-children", "THJALFI-0001"])
+    r2 = CliRunner().invoke(cli, ["spec", "seed-children", "ACME-0001"])
     assert r2.exit_code == 0, r2.output
     assert "no new child" in r2.output.lower() or "0" in r2.output
 
@@ -125,7 +125,7 @@ def test_parse_breakdown_project():
 
 def test_seed_per_bullet_project_annotation(tmp_path):
     cfg = _cfg(tmp_path, outbox_targets={
-        "thjalfi": {"repo_path": "/tmp/thjalfi"},
+        "acme": {"repo_path": "/tmp/acme"},
         "Example": {"repo_path": "/tmp/example"},
         "PFW-Intelligence": {"repo_path": "/tmp/pfw"},
     })
@@ -134,15 +134,15 @@ def test_seed_per_bullet_project_annotation(tmp_path):
         "Consumer (project: PFW-Intelligence) — renderer",
         "Default slice — uses epic target_project",
     ])
-    added = S.seed_ideas_from_epic(cfg, "THJALFI-0001")
+    added = S.seed_ideas_from_epic(cfg, "ACME-0001")
     assert len(added) == 3
     by_head = {t.heading: t for t in load_tasks(cfg) if t.is_idea}
     assert by_head["Producer"].properties.get("PROJECT") == "Example"
     assert by_head["Consumer"].properties.get("PROJECT") == "PFW-Intelligence"
-    assert by_head["Default slice"].properties.get("PROJECT") == "thjalfi"
+    assert by_head["Default slice"].properties.get("PROJECT") == "acme"
     assert "(project:" not in by_head["Producer"].heading
     # Idempotent after annotated seed
-    assert S.seed_ideas_from_epic(cfg, "THJALFI-0001") == []
+    assert S.seed_ideas_from_epic(cfg, "ACME-0001") == []
 
 
 def test_seed_unknown_project_annotation_hard_fails(tmp_path):
@@ -152,4 +152,4 @@ def test_seed_unknown_project_annotation_hard_fails(tmp_path):
         "Bad (project: NotARealProject) — nope",
     ])
     with pytest.raises(ValueError, match="unknown project"):
-        S.seed_ideas_from_epic(cfg, "THJALFI-0001")
+        S.seed_ideas_from_epic(cfg, "ACME-0001")

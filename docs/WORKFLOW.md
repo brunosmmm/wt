@@ -30,7 +30,7 @@ implement            you or the agent
 ```
 
 In a Cursor/Claude session you can say the stage instead of remembering flags:
-“new work on IDEA-003”, “generate SPEC-0023”, “export THJALFI-0001”.
+“new work on IDEA-003”, “generate SPEC-0023”, “export ACME-0001”.
 
 **Superpowers coexistence (SPEC-0138):** if Cursor injects Superpowers skills, they are
 tactics only. Governing design stays in wt (`docs/specs/` / outbox portables). Agents:

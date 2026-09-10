@@ -9,6 +9,15 @@ project). For another codebase, use [Outbound](outbound.md).
 capture → explore → authxx accepted spec → generate tasks → build → verify
 ```
 
+Full picture (roles and handoffs): [Workflow architecture](../concepts/workflows.md).
+On-disk shape (Summary / questions / Log, rotation, archive): [Org-mode storage](org-storage.md).
+
+After capture, triage looks like this:
+
+![wt ideas](../assets/captures/cli-ideas.svg)
+
+![wt next](../assets/captures/cli-next.svg)
+
 | Step | Human CLI | Agent skill (optional) |
 |------|-----------|------------------------|
 | Capture | `wt idea "…"` | `/wt-capture`, `/wt-seed` |

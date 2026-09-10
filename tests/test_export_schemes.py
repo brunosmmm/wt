@@ -94,7 +94,7 @@ def test_registry_get_returns_registered_scheme():
 
 def test_wt_native_is_default_and_matches_spec0015_shape(tmp_path):
     cfg = _cfg(tmp_path)
-    src_path, outbound_id = _scaffold(cfg, "thjalfi", "Adversarial reviewer")
+    src_path, outbound_id = _scaffold(cfg, "acme", "Adversarial reviewer")
     target = tmp_path / "target-repo"
 
     dest_spec, dest_contract = E.export_spec(cfg, outbound_id, to=str(target))
@@ -115,7 +115,7 @@ def test_wt_native_is_default_and_matches_spec0015_shape(tmp_path):
 
 def test_wt_native_validate_blocks_missing_context(tmp_path):
     cfg = _cfg(tmp_path)
-    path, outbound_id = _scaffold(cfg, "thjalfi", "No context")
+    path, outbound_id = _scaffold(cfg, "acme", "No context")
     text = path.read_text().replace(
         "## Context\n\n<Why are we doing this? What exists today? What's the problem or "
         "opportunity?>", "## Context\n\n")
@@ -348,7 +348,7 @@ def test_template_scheme_plain_md_renders_manifest_remap(tmp_path):
 
 def test_template_scheme_validate_blocks_missing_required_field(tmp_path):
     cfg = _cfg(tmp_path)
-    path, outbound_id = _scaffold(cfg, "thjalfi", "No acceptance")
+    path, outbound_id = _scaffold(cfg, "acme", "No acceptance")
     text = path.read_text().replace(
         "## Acceptance criteria\n\n<What must be TRUE for this to be correct. Each item must "
         "be objectively checkable.>\n\n- [ ] …\n- [ ] …",
@@ -506,7 +506,7 @@ def test_REMOVED_epic_rejects_task_id_pin(tmp_path):
 
 def test_wt_native_ignores_task_id(tmp_path):
     cfg = _cfg(tmp_path)
-    path, outbound_id = _scaffold(cfg, "thjalfi", "Native ignore pin")
+    path, outbound_id = _scaffold(cfg, "acme", "Native ignore pin")
     text = path.read_text()
     path.write_text(text.replace("---\n", "---\ntask_id: \"1.3.2\"\n", 1)
                     if "task_id:" not in text

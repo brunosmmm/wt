@@ -17,5 +17,7 @@ wt hub --json --tasks-slice none  # ideas/specs only
 wt hub --json --state TODO        # filter by state
 ```
 
-`--json` is required in v1. Pair with [Ideas & next](ideas.md) and [Skills](skills.md)
-(`/wt-orient`).
+![hub --json](../assets/captures/cli-hub.svg)
+
+`--json` is required in v1. Pair with [Ideas & next](ideas.md), [Skills](skills.md)
+(`/wt-orient`), and the [Daily](../guides/daily-ops.md) / [Weekly](../guides/weekly-ops.md) ops guides.

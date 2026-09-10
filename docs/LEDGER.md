@@ -85,6 +85,17 @@ progress. This is the single place to see *what has been decided* and *what is i
   - [x] [SPEC-0145](./specs/0145-capability-showcase-pages-for-major-cli-surfaces.md) Capability showcase pages for major CLI surfaces — done
   - [x] [SPEC-0146](./specs/0146-command-reference-synced-to-live-cli.md) Command reference synced to live CLI — done
   - [x] [SPEC-0147](./specs/0147-root-readme-slim-front-door-into-docs-site.md) Root README slim front door into docs site — done
+- **[SPEC-0148](./specs/0148-example-heavy-docs-svg-captures-and-workflow.md) — Example-heavy docs: SVG captures and workflow architecture** · accepted · (4/4 done)
+  - [x] [SPEC-0149](./specs/0149-demo-fixture-and-docs-svg-capture-toolchain.md) Demo fixture and docs SVG capture toolchain — done
+  - [x] [SPEC-0150](./specs/0150-workflow-architecture-diagrams-in-product-docs.md) Workflow architecture diagrams in product docs — done
+  - [x] [SPEC-0151](./specs/0151-example-heavy-guides-embedding-svg-captures.md) Example-heavy guides embedding SVG captures — done
+  - [x] [SPEC-0152](./specs/0152-org-mode-storage-guide-and-expanded-cli-svg.md) Org-mode storage guide and expanded CLI SVG captures — done
+- **[SPEC-0153](./specs/0153-full-surface-product-docs-remediation.md) — Full-surface product docs remediation** · done · (5/5 done)
+  - [x] [SPEC-0154](./specs/0154-time-ops-demo-fixture-and-wave-a-b-svg-captures.md) Time+ops demo fixture and Wave A/B SVG captures — done
+  - [x] [SPEC-0155](./specs/0155-journey-rewrite-home-getting-started-forks-daily.md) Journey rewrite: home, getting-started forks, daily/weekly guides — done
+  - [x] [SPEC-0156](./specs/0156-architecture-and-lifecycle-pages.md) Architecture and lifecycle pages — done
+  - [x] [SPEC-0157](./specs/0157-agent-surface-guide-schemas-skills-map-json.md) Agent surface guide: schemas, skills map, JSON recipes — done
+  - [x] [SPEC-0158](./specs/0158-outbound-multi-project-depth-and-wave-c-captures.md) Outbound/multi-project depth and Wave C captures — done
 
 ## Active & planned
 
@@ -93,6 +104,8 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0000](./specs/0000-how-we-write-specs.md) | How we write & execute specs | policy | accepted | M0: process | 2026-07-16 |
 | [SPEC-0055](./specs/0055-complete-the-idea-terminal-outcome-model-first.md) | Complete the idea terminal-outcome model (close verb, reason, pointers) | epic | accepted | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0087](./specs/0087-workstreams-and-concern-separation-routing.md) | Workstreams and concern separation (routing, streams, filters, hub; umbrella for priority & sort) | epic | accepted | M4: cli ergonomics | 2026-07-28 |
+| [SPEC-0148](./specs/0148-example-heavy-docs-svg-captures-and-workflow.md) | Example-heavy docs: SVG captures and workflow architecture | epic | accepted | M8: product documentation | 2026-09-09 |
+| [SPEC-0159](./specs/0159-outbox-project-rename-migrate-dry-run-default.md) | Outbox project rename / migrate (dry-run default) | feature | accepted | M8: product documentation | 2026-09-09 |
 
 ## Done
 
@@ -240,6 +253,16 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0145](./specs/0145-capability-showcase-pages-for-major-cli-surfaces.md) | Capability showcase pages for major CLI surfaces | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0146](./specs/0146-command-reference-synced-to-live-cli.md) | Command reference synced to live CLI | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0147](./specs/0147-root-readme-slim-front-door-into-docs-site.md) | Root README slim front door into docs site | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0149](./specs/0149-demo-fixture-and-docs-svg-capture-toolchain.md) | Demo fixture and docs SVG capture toolchain | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0150](./specs/0150-workflow-architecture-diagrams-in-product-docs.md) | Workflow architecture diagrams in product docs | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0151](./specs/0151-example-heavy-guides-embedding-svg-captures.md) | Example-heavy guides embedding SVG captures | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0152](./specs/0152-org-mode-storage-guide-and-expanded-cli-svg.md) | Org-mode storage guide and expanded CLI SVG captures | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0153](./specs/0153-full-surface-product-docs-remediation.md) | Full-surface product docs remediation | epic | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0154](./specs/0154-time-ops-demo-fixture-and-wave-a-b-svg-captures.md) | Time+ops demo fixture and Wave A/B SVG captures | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0155](./specs/0155-journey-rewrite-home-getting-started-forks-daily.md) | Journey rewrite: home, getting-started forks, daily/weekly guides | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0156](./specs/0156-architecture-and-lifecycle-pages.md) | Architecture and lifecycle pages | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0157](./specs/0157-agent-surface-guide-schemas-skills-map-json.md) | Agent surface guide: schemas, skills map, JSON recipes | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0158](./specs/0158-outbound-multi-project-depth-and-wave-c-captures.md) | Outbound/multi-project depth and Wave C captures | feature | done | M8: product documentation | 2026-09-09 |
 
 ## Superseded / rejected
 

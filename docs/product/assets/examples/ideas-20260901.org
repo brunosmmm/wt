@@ -1,0 +1,8 @@
+#+TODO: IDEA INCUBATE SPECCED | PROMOTED EXPORTED SHIPPED DROPPED
+
+* INCUBATE Idea from a previous rotation window
+  :PROPERTIES:
+  :ID: IDEA-050
+  :END:
+** Summary
+Still readable: rotated files stay under org_files and keep their IDs.

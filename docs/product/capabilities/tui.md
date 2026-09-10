@@ -18,5 +18,9 @@ Browse / filter / search ideas, capture, edit metadata (project, state, tags), t
 clock (`i`), open detail. Project chooser uses known projects from config + payload
 (empty chooser notifies instead of hanging).
 
+Demo desk (SVG from Textual `export_screenshot` on a fixture corpus):
+
+![wt tui ideas desk](../assets/captures/tui-desk.svg)
+
 See `wt tui --help` for keys and flags. Triage without a TTY: [Hub](hub.md) /
 [Ideas & next](ideas.md).

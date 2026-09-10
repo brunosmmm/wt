@@ -106,63 +106,63 @@ def test_next_missing_spec_soft_fail(tmp_path):
 
 def test_next_outbound_export(tmp_path):
     cfg = _cfg(tmp_path)
-    proj = Path(cfg["outbox_dir"]) / "thjalfi"
+    proj = Path(cfg["outbox_dir"]) / "acme"
     proj.mkdir()
-    (proj / "THJALFI-0001-x.md").write_text(
-        "---\nid: THJALFI-0001\ntitle: X\nstatus: accepted\nowner: t\n"
-        "created: 2026-07-22\ntarget_project: thjalfi\ntarget_repo: /tmp/t\n---\n\n## Context\n\n",
+    (proj / "ACME-0001-x.md").write_text(
+        "---\nid: ACME-0001\ntitle: X\nstatus: accepted\nowner: t\n"
+        "created: 2026-07-22\ntarget_project: acme\ntarget_repo: /tmp/t\n---\n\n## Context\n\n",
         encoding="utf-8",
     )
-    idea = _idea(state="SPECCED", properties={"ID": "IDEA-001", "SPEC": "THJALFI-0001"})
-    assert next_step_for_idea(cfg, idea) == "wt spec export THJALFI-0001"
+    idea = _idea(state="SPECCED", properties={"ID": "IDEA-001", "SPEC": "ACME-0001"})
+    assert next_step_for_idea(cfg, idea) == "wt spec export ACME-0001"
 
 
 def test_next_outbound_exported_implement(tmp_path):
     """SPEC-0041: exported + accepted → implement in target, not wt tasks."""
     cfg = _cfg(tmp_path)
-    proj = Path(cfg["outbox_dir"]) / "thjalfi"
+    proj = Path(cfg["outbox_dir"]) / "acme"
     proj.mkdir()
-    (proj / "THJALFI-0001-x.md").write_text(
-        "---\nid: THJALFI-0001\ntitle: X\nstatus: accepted\nowner: t\n"
-        "created: 2026-07-22\ntarget_project: thjalfi\ntarget_repo: ~/work/thjalfi\n---\n\n"
+    (proj / "ACME-0001-x.md").write_text(
+        "---\nid: ACME-0001\ntitle: X\nstatus: accepted\nowner: t\n"
+        "created: 2026-07-22\ntarget_project: acme\ntarget_repo: ~/work/acme\n---\n\n"
         "## Context\n\n",
         encoding="utf-8",
     )
-    (proj / "PROVENANCE.md").write_text("exported THJALFI-0001\n", encoding="utf-8")
+    (proj / "PROVENANCE.md").write_text("exported ACME-0001\n", encoding="utf-8")
     idea = _idea(state="EXPORTED", is_done=True,
-                 properties={"ID": "IDEA-001", "SPEC": "THJALFI-0001"})
-    assert next_step_for_idea(cfg, idea) == "implement in ~/work/thjalfi"
+                 properties={"ID": "IDEA-001", "SPEC": "ACME-0001"})
+    assert next_step_for_idea(cfg, idea) == "implement in ~/work/acme"
 
 
 def test_next_outbound_exported_pull_status(tmp_path):
     """SPEC-0068: the in-progress hint mentions both pull-status and pull-clock."""
     cfg = _cfg(tmp_path)
-    proj = Path(cfg["outbox_dir"]) / "thjalfi"
+    proj = Path(cfg["outbox_dir"]) / "acme"
     proj.mkdir()
-    (proj / "THJALFI-0001-x.md").write_text(
-        "---\nid: THJALFI-0001\ntitle: X\nstatus: in-progress\nowner: t\n"
-        "created: 2026-07-22\ntarget_project: thjalfi\ntarget_repo: ~/work/thjalfi\n---\n\n"
+    (proj / "ACME-0001-x.md").write_text(
+        "---\nid: ACME-0001\ntitle: X\nstatus: in-progress\nowner: t\n"
+        "created: 2026-07-22\ntarget_project: acme\ntarget_repo: ~/work/acme\n---\n\n"
         "## Context\n\n",
         encoding="utf-8",
     )
-    (proj / "PROVENANCE.md").write_text("exported THJALFI-0001\n", encoding="utf-8")
-    idea = _idea(state="SPECCED", properties={"ID": "IDEA-001", "SPEC": "THJALFI-0001"})
-    assert next_step_for_idea(cfg, idea) == "wt spec pull-status/pull-clock THJALFI-0001"
+    (proj / "PROVENANCE.md").write_text("exported ACME-0001\n", encoding="utf-8")
+    idea = _idea(state="SPECCED", properties={"ID": "IDEA-001", "SPEC": "ACME-0001"})
+    assert next_step_for_idea(cfg, idea) == "wt spec pull-status/pull-clock ACME-0001"
 
 
 def test_next_outbound_exported_done_quiet(tmp_path):
     cfg = _cfg(tmp_path)
-    proj = Path(cfg["outbox_dir"]) / "thjalfi"
+    proj = Path(cfg["outbox_dir"]) / "acme"
     proj.mkdir()
-    (proj / "THJALFI-0001-x.md").write_text(
-        "---\nid: THJALFI-0001\ntitle: X\nstatus: done\nowner: t\n"
-        "created: 2026-07-22\ntarget_project: thjalfi\ntarget_repo: ~/work/thjalfi\n---\n\n"
+    (proj / "ACME-0001-x.md").write_text(
+        "---\nid: ACME-0001\ntitle: X\nstatus: done\nowner: t\n"
+        "created: 2026-07-22\ntarget_project: acme\ntarget_repo: ~/work/acme\n---\n\n"
         "## Context\n\n",
         encoding="utf-8",
     )
-    (proj / "PROVENANCE.md").write_text("exported THJALFI-0001\n", encoding="utf-8")
+    (proj / "PROVENANCE.md").write_text("exported ACME-0001\n", encoding="utf-8")
     idea = _idea(state="EXPORTED", is_done=True,
-                 properties={"ID": "IDEA-001", "SPEC": "THJALFI-0001"})
+                 properties={"ID": "IDEA-001", "SPEC": "ACME-0001"})
     assert next_step_for_idea(cfg, idea) == ""
 
 

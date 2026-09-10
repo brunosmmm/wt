@@ -27,4 +27,5 @@ wt skills install --dest ~/.cursor/skills   # optional other host
 | `/wt-verify` | Post-hoc Definition of Done |
 | `/wt-sheet-sync` | Sheet plan/record loop |
 
-Triage JSON: [Hub](hub.md). Product narrative for humans: [Guides](../guides/index.md).
+Triage JSON: [Hub](hub.md). Full agent catalog: [Agent surface](../guides/agent-surface.md).
+Product narrative for humans: [Guides](../guides/index.md).

@@ -23,20 +23,33 @@ markdown_extensions:
   - toc:
       permalink: true
   - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
   - Home: index.md
   - Guides:
       - guides/index.md
       - Getting started: guides/getting-started.md
+      - Daily ops: guides/daily-ops.md
+      - Weekly ops: guides/weekly-ops.md
+      - Agent surface: guides/agent-surface.md
+      - Org-mode storage: guides/org-storage.md
       - Track time: guides/track-time.md
       - Idea → ship: guides/idea-to-ship.md
       - Outbound: guides/outbound.md
       - Multi-project: guides/multi-project.md
   - Concepts:
       - concepts/index.md
+      - Storage architecture: concepts/architecture.md
+      - Lifecycle & DoD: concepts/lifecycle.md
+      - Workflow architecture: concepts/workflows.md
       - Time model & retention: concepts/time-and-retention.md
   - Capabilities:
       - capabilities/index.md

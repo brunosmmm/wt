@@ -73,7 +73,7 @@ def test_hub_json_envelope(tmp_path, monkeypatch):
         encoding="utf-8",
     )
 
-    out_path, oid = S.scaffold_outbound(cfg, "thjalfi", title="Outbound stub")
+    out_path, oid = S.scaffold_outbound(cfg, "acme", title="Outbound stub")
     ledger = ROOT / "docs" / "LEDGER.md"
     before = ledger.read_text(encoding="utf-8") if ledger.exists() else None
 
@@ -87,7 +87,7 @@ def test_hub_json_envelope(tmp_path, monkeypatch):
     assert data["internal"][0]["status"] == "draft"
     assert len(data["outbound"]) == 1
     assert data["outbound"][0]["id"] == oid
-    assert data["outbound"][0]["project"] == "thjalfi"
+    assert data["outbound"][0]["project"] == "acme"
     assert data["outbound"][0]["path"] == str(out_path)
     assert "today" in data
     assert "date" in data["today"]

@@ -1,28 +1,29 @@
 # wt
 
-**wt** turns work you already do into two durable systems:
+**wt** is two products in one CLI:
 
-1. **Passive time tracking** — hours per topic from Claude Code / Cursor transcripts and Outlook meetings. No timer for that signal.
-2. **Idea → ship** — capture thoughts, explore them, accept governing specs, generate or export work, and verify done.
+1. **Passive time** — hours per topic from Claude Code / Cursor transcripts (and meetings). No timer for that signal.
+2. **Idea → ship** — capture, enrich, accept a governing spec, generate or export work, then verify done.
 
-They share one CLI and one triage surface (`wt ideas`, `wt next`, `wt hub`, optional `wt tui`).
+They share triage (`wt ideas`, `wt next`, `wt hub`) and an optional desk (`wt tui`).
 
-### Supplemental clocking
+![Bare wt: today + this week](assets/captures/cli-wt-dashboard.svg)
 
-`wt idea clock-in` / `clock-out` records **intentional wall-time** on an idea while you build a slice. That does **not** replace passive tracking — it sits beside it (see [Clock](capabilities/clock.md)).
+![Open ideas](assets/captures/cli-ideas.svg)
+
+`wt idea clock-in` / `clock-out` is **supplemental** wall-time on an idea while you build a slice — it does not replace passive tracking ([Clock](capabilities/clock.md)).
 
 ## Start here
 
 | If you want to… | Go to |
 |-----------------|--------|
-| Install and run the first commands | [Getting started](guides/getting-started.md) |
-| See hours this week | [Track time](guides/track-time.md) |
+| Install and pick a first path | [Getting started](guides/getting-started.md) |
+| Run a normal workday | [Daily ops](guides/daily-ops.md) |
+| Close the week | [Weekly ops](guides/weekly-ops.md) |
+| Dig into hours | [Track time](guides/track-time.md) |
 | Turn a thought into shipped work | [Idea → ship](guides/idea-to-ship.md) |
 | Hand work to another repo | [Outbound](guides/outbound.md) |
-| Browse what wt can do | [Capabilities](capabilities/index.md) |
 
 ## Also
 
-- [Concepts glossary](concepts/index.md)
-- [Command reference](reference/index.md)
-- [Contribute / change wt itself](contribute/index.md)
+- [Concepts](concepts/index.md) · [Capabilities](capabilities/index.md) · [Reference](reference/index.md) · [Contribute](contribute/index.md)

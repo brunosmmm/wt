@@ -17,5 +17,10 @@ Concrete TODOs with states, tags, schedule; morning agenda; marking done after g
 | `wt state SELECTOR STATE` | Set TODO state |
 | `wt digest` | Hours joined to tasks by JIRA key (also under [Report](report.md)) |
 
+![agenda](../assets/captures/cli-agenda.svg)
+
+![tasks](../assets/captures/cli-tasks.svg)
+
 Selectors: `:ID:`, `file:line`, JIRA key, or heading substring. Ideas vs tasks: prefer
-`wt idea` for seeds and `wt add` for actionable lines — see [Idea → ship](../guides/idea-to-ship.md).
+`wt idea` for seeds and `wt add` for actionable lines — see [Idea → ship](../guides/idea-to-ship.md)
+and [Daily ops](../guides/daily-ops.md).

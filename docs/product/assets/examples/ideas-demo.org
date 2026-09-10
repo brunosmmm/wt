@@ -1,0 +1,31 @@
+#+TODO: IDEA INCUBATE SPECCED | PROMOTED EXPORTED SHIPPED DROPPED
+#+TODO: OPEN | RESOLVED
+
+* INCUBATE Ship SVG captures for product docs
+  :PROPERTIES:
+  :ID: IDEA-001
+  :CREATED: [2026-09-09 Wed 19:46]
+  :UPDATED: [2026-09-09 Wed 19:46]
+  :END:
+** Summary
+Docs should show real CLI/TUI output and explain how org files hold the durable idea record.
+** Open questions
+*** OPEN Do we embed org excerpts as fenced code or SVG?
+*** OPEN Should rotation knobs appear in the guide?
+** Log
+*** [2026-09-09 Wed 19:46]
+Seeded demo enrichment for product-doc captures.
+*** [2026-09-09 Wed 19:46]
+Summary gates promote; Log holds the explore trail.
+* IDEA Passive hours from transcripts
+  :PROPERTIES:
+  :ID: IDEA-002
+  :CREATED: [2026-09-09 Wed 19:46]
+  :UPDATED: [2026-09-09 Wed 19:46]
+  :END:
+* SPECCED Outbound export to partner repo
+  :PROPERTIES:
+  :ID: IDEA-003
+  :CREATED: [2026-09-09 Wed 19:46]
+  :UPDATED: [2026-09-09 Wed 19:46]
+  :END:

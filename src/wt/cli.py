@@ -1342,8 +1342,8 @@ def spec_new_cmd(cfg, from_idea, target, internal, epic, title, force):
     wt spec new --from-idea "instant review agent"
     wt spec new --from-idea idea-42 --epic --title "Review platform"
     wt spec new --from-idea idea-7 --internal
-    wt spec new --target thjalfi --from-idea "adversarial reviewer"
-    wt spec new --target thjalfi --title "Adversarial reviewer"
+    wt spec new --target acme --from-idea "adversarial reviewer"
+    wt spec new --target acme --title "Adversarial reviewer"
     """
     project = target
     try:
@@ -1391,12 +1391,12 @@ def spec_export_cmd(cfg, outbound_id, scheme, emit, to, force, task_id):
     Successful export advances the linked idea to EXPORTED (SPEC-0041).
 
     \b
-    wt spec export THJALFI-0001                             into outbox_targets[thjalfi]
-    wt spec export THJALFI-0001 --to /tmp/somerepo           explicit destination
-    wt spec export THJALFI-0001 --scheme REMOVED --to .  REMOVED task-spec + plan
-    wt spec export THJALFI-0001 --emit task-spec             only that artifact
-    wt spec export THJALFI-0001 --force                      overwrite despite divergence
-    wt spec export THJALFI-0001 --scheme REMOVED --task-id 1.3.2 --to .
+    wt spec export ACME-0001                             into outbox_targets[acme]
+    wt spec export ACME-0001 --to /tmp/somerepo           explicit destination
+    wt spec export ACME-0001 --scheme REMOVED --to .  REMOVED task-spec + plan
+    wt spec export ACME-0001 --emit task-spec             only that artifact
+    wt spec export ACME-0001 --force                      overwrite despite divergence
+    wt spec export ACME-0001 --scheme REMOVED --task-id 1.3.2 --to .
     """
     try:
         result = export_spec(cfg, outbound_id, scheme=scheme, emit=emit or None, to=to,
@@ -1425,8 +1425,8 @@ def spec_pull_status_cmd(cfg, outbound_id, to):
     is optional convenience — you can also edit the outbox frontmatter by hand.
 
     \b
-    wt spec pull-status THJALFI-0001
-    wt spec pull-status THJALFI-0001 --to /tmp/somerepo
+    wt spec pull-status ACME-0001
+    wt spec pull-status ACME-0001 --to /tmp/somerepo
     """
     from .export import pull_status
     try:
@@ -1446,7 +1446,7 @@ def spec_pull_clock_cmd(cfg, outbound_id, to):
     idea (SPEC-0060/0062/0063). Idempotent; requires source_idea on the outbound spec.
 
     \b
-    wt spec pull-clock THJALFI-0001
+    wt spec pull-clock ACME-0001
     """
     from .export import pull_clock
     try:
@@ -1465,7 +1465,7 @@ def spec_fit_log_cmd(cfg, outbound_id, note):
     """Append a post-ship fit/miss note to the outbound's source idea Log (SPEC-0049).
 
     \b
-    wt spec fit-log THJALFI-0001 --note "used it; filters still too coarse"
+    wt spec fit-log ACME-0001 --note "used it; filters still too coarse"
     """
     from .export import fit_log
     try:
@@ -1861,8 +1861,8 @@ def map_cmd(cfg, raw, assignments):
     """Assign facets to a base topic: RAW axis=value [axis=value ...].
 
     \b
-    wt map thjalfi project=Thjalfi area=drone-perf
-    wt map thjalfi Thjalfi          # shorthand for bucket=Thjalfi
+    wt map acme project=Acme area=perf
+    wt map acme Acme          # shorthand for bucket=Acme
     """
     facets = {}
     for a in assignments:

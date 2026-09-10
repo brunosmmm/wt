@@ -78,9 +78,9 @@ configured per-project path) and appends a provenance record.
 ### CLI (`src/wt/cli.py`)
 
 ```
-wt spec new --target thjalfi --from-idea "adversarial reviewer"   # outbound draft in outbox/
-wt spec export THJALFI-0001                                        # file-drop into ~/work/thjalfi
-wt spec export THJALFI-0001 --to /tmp/somerepo                     # explicit destination
+wt spec new --target acme --from-idea "adversarial reviewer"   # outbound draft in outbox/
+wt spec export ACME-0001                                        # file-drop into ~/work/acme
+wt spec export ACME-0001 --to /tmp/somerepo                     # explicit destination
 ```
 
 ## Alternatives considered

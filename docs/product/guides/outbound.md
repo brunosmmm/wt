@@ -1,50 +1,94 @@
 # Outbound
 
-Ship work into **another** project’s repo. The governing portable lives in that tree;
-wt’s outbox keeps a copy and lifecycle on the idea.
+Ship work into **another** repo. The portable in that tree is what implementers edit;
+wt’s outbox keeps a draft + the idea’s lifecycle. Closing the loop is **required**, not
+optional.
 
-## Register the project
-
-```bash
-wt projects --json                          # name → research / outbound
-wt projects add Example --repo ~/work/example   # prints plan; does not write
-wt projects add Example --repo ~/work/example --yes
+```mermaid
+flowchart LR
+  Idea[Idea :PROJECT:] --> Outbox[data-dir outbox]
+  Outbox -->|accepted| Export[wt spec export]
+  Export --> Port[target docs/specs]
+  Port --> Impl[implement + verify in target]
+  Impl --> Pull[wt spec pull-status / sweep]
+  Pull --> Ship[Idea SHIPPED]
 ```
 
-`repo_path` is both the export destination and the **explore research root** for that
-project. Stubs without a repo stay `outbound: false` until you add one.
-
-## Capture with `:PROJECT:`
+## 1. Register the project
 
 ```bash
-wt idea "…" --project Example
-# explore Summary / Log as usual — research root follows the project
-wt spec new --from-idea IDEA-00N            # lands under data_dir/outbox/<project>/
+wt projects list --json
+wt projects add Acme --repo ~/work/acme          # dry-run plan
+wt projects add Acme --repo ~/work/acme --yes    # write outbox_targets
 ```
 
-Force an internal SPEC in this repo instead: `--internal`.
+![projects list](../assets/captures/cli-projects.svg)
 
-## After `accepted`
+`repo_path` is both the **export destination** and the explore **research root**. Stubs
+without a repo stay non-outbound until you add one.
 
-Do **not** `wt spec generate` on outbound portables.
+## 2. Capture with `:PROJECT:`
 
 ```bash
-wt spec export PROJ-NNNN                    # idea → EXPORTED; file in target docs/specs/
-# In the target repo: implement against the portable (status + AC + Test plan)
-# Prefer /wt-implement-spec if skills are installed there
-wt spec pull-status PROJ-NNNN               # optional: mirror status → outbox
-# when portable is done → idea SHIPPED (pull-status / sweep)
+wt idea "…" --project Acme
+# explore Summary / questions / Log as usual
+wt spec new --from-idea IDEA-00N     # → data_dir/outbox/Acme/ACME-NNNN.md
 ```
 
-Schemes (e.g. REMOVED): `wt spec schemes`, then
-`wt spec export … --scheme …` as needed.
+Force an internal SPEC in this wt checkout instead: `--internal`.
 
-## Fit after ship
+## 3. Accept, then export (never generate)
+
+Do **not** `wt spec generate` on outbound portables — that path is for internal SPECs.
 
 ```bash
-wt spec fit-log PROJ-NNNN --note "…"
+# edit outbox portable → status: accepted
+wt spec schemes                      # wt-native (default), plain-md, REMOVED, …
+wt spec export ACME-NNNN             # scheme from outbox_targets or --scheme
+# idea → EXPORTED; file lands in target docs/specs/
 ```
 
-Outbound AC should include a human outcome (“I can …”) when possible.
+![export schemes](../assets/captures/cli-spec-schemes.svg)
 
-See also [Projects](../capabilities/projects.md) and [Multi-project](multi-project.md).
+## 4. Implement in the target repo
+
+In the foreign checkout: drive AC + Test plan on the portable (skill `/wt-implement-spec`
+if skills are installed there). Prefer the portable’s status/`done` as source of truth.
+
+## 5. Required close-the-loop
+
+Leaving the idea on `EXPORTED` after the portable is `done` is **debt**.
+
+```bash
+wt spec pull-status ACME-NNNN        # mirror portable status → outbox + idea
+wt spec sweep                        # bulk pull-status/pull-clock for pending exports
+# when portable is done → idea must become SHIPPED
+wt idea show IDEA-00N                # confirm SHIPPED
+```
+
+Stuck on `EXPORTED` while the portable is already `done` → run `pull-status` (or `sweep`),
+then fix any reconcile complaints (`wt spec reconcile`). Do not archive the idea as
+`RESEARCHED` to hide outbound debt.
+
+Optional after ship:
+
+```bash
+wt spec fit-log ACME-NNNN --note "…"
+```
+
+## Schemes (short)
+
+| Scheme | Role |
+|--------|------|
+| `wt-native` | Default portable + contract |
+| `plain-md` | Flat remap for simple foreign layouts |
+| `REMOVED` | REMOVED seed + optional project-plan fragment |
+
+`wt spec schemes` lists required fields and emit artifacts.
+
+## Related
+
+- Fan-out epics: [Multi-project](multi-project.md) (`seed-children`)
+- DoD matrix: [Lifecycle](../concepts/lifecycle.md)
+- Weekly hygiene: [Weekly ops](weekly-ops.md)
+- Capability: [Projects](../capabilities/projects.md)

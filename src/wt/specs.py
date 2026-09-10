@@ -355,7 +355,7 @@ def outbox_dir(cfg):
 
 
 def _proj_code(project):
-    """Uppercased short code for a project name, e.g. 'thjalfi' -> 'THJALFI'."""
+    """Uppercased short code for a project name, e.g. 'acme' -> 'ACME'."""
     code = re.sub(r"[^A-Za-z0-9]+", "", project).upper()
     return code or "PROJ"
 
