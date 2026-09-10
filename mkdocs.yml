@@ -1,5 +1,6 @@
 site_name: wt
 site_description: Passive time tracking and idea → ship workflow
+site_url: https://brunosmmm.github.io/wt/
 docs_dir: docs/product
 site_dir: site
 

@@ -263,6 +263,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0157](./specs/0157-agent-surface-guide-schemas-skills-map-json.md) | Agent surface guide: schemas, skills map, JSON recipes | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0158](./specs/0158-outbound-multi-project-depth-and-wave-c-captures.md) | Outbound/multi-project depth and Wave C captures | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0159](./specs/0159-outbox-project-rename-migrate-dry-run-default.md) | Outbox project rename / migrate (dry-run default) | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0160](./specs/0160-publish-product-docs-github-pages-via-actions.md) | Publish product docs to GitHub Pages via Actions | feature | done | M8: product documentation | 2026-09-09 |
 
 ## Superseded / rejected
 
