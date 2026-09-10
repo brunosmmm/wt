@@ -73,7 +73,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 - **[SPEC-0123](./specs/0123-google-sheets-sync-scheme-push-pull-wt-ideas-a.md) — Google Sheets sync scheme: push/pull wt ideas <-> a project's thin backlog** · done · (3/3 done)
   - [x] [SPEC-0124](./specs/0124-sheet-sync-manifest-format-outbox-targets-sheet.md) Sheet-sync manifest format + outbox_targets.sheet config — done
   - [x] [SPEC-0125](./specs/0125-wt-sheet-plan-record-json-cli.md) wt sheet plan/record JSON CLI — done
-  - [x] [SPEC-0126](./specs/0126-wt-sheet-sync-skill-and-example-reference-manifest.md) wt-sheet-sync skill and Example reference manifest — done
+  - [x] [SPEC-0126](./specs/0126-wt-sheet-sync-skill-and-reference-manifest.md) wt-sheet-sync skill and reference sheet-sync manifest — done
 - **[SPEC-0131](./specs/0131-release-archive-meta-tools-idea-slice-with-git.md) — Release archive: Meta-Tools idea slice with git code** · done · (2/2 done)
   - [x] [SPEC-0132](./specs/0132-filtered-idea-subtree-export.md) Filtered idea subtree export — done
   - [x] [SPEC-0133](./specs/0133-wt-release-archive-packs-code-and-idea-slice.md) wt release-archive packs code and idea slice — done
@@ -226,7 +226,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0123](./specs/0123-google-sheets-sync-scheme-push-pull-wt-ideas-a.md) | Google Sheets sync scheme: push/pull wt ideas <-> a project's thin backlog | epic | done | M7: sheet sync | 2026-08-04 |
 | [SPEC-0124](./specs/0124-sheet-sync-manifest-format-outbox-targets-sheet.md) | Sheet-sync manifest format + outbox_targets.sheet config | feature | done | M7: sheet sync | 2026-08-04 |
 | [SPEC-0125](./specs/0125-wt-sheet-plan-record-json-cli.md) | wt sheet plan/record JSON CLI | feature | done | M7: sheet sync | 2026-08-04 |
-| [SPEC-0126](./specs/0126-wt-sheet-sync-skill-and-example-reference-manifest.md) | wt-sheet-sync skill and Example reference manifest | feature | done | M7: sheet sync | 2026-08-04 |
+| [SPEC-0126](./specs/0126-wt-sheet-sync-skill-and-reference-manifest.md) | wt-sheet-sync skill and reference sheet-sync manifest | feature | done | M7: sheet sync | 2026-08-04 |
 | [SPEC-0127](./specs/0127-sheet-sync-column-value-maps-neutral-external.md) | Sheet-sync column value maps (neutral external vocabulary) | feature | done | M7: sheet sync | 2026-08-05 |
 | [SPEC-0128](./specs/0128-tui-desk-resilience-to-external-idea-updates.md) | TUI desk resilience to external idea updates | feature | done | M5: interactive desk | 2026-08-05 |
 | [SPEC-0129](./specs/0129-tui-poll-reload-off-the-event-loop-thread.md) | TUI poll reload off the event-loop thread | feature | done | M5: interactive desk | 2026-08-05 |

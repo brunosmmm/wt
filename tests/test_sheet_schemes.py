@@ -154,7 +154,7 @@ def test_sheet_target_for_and_resolve(tmp_path, monkeypatch):
     (schemes_dir / "example.toml").write_text(VALID_MANIFEST)
     monkeypatch.setenv("WT_CONFIG_DIR", str(tmp_path))
 
-    cfg_no_target = {"outbox_targets": {"Example": {"repo_path": "~/work/example-ats"}}}
+    cfg_no_target = {"outbox_targets": {"Example": {"repo_path": "~/work/example-repo-ats"}}}
     assert SS.sheet_target_for(cfg_no_target, "Example") is None
     with pytest.raises(ValueError, match="no sheet target"):
         SS.resolve_sheet_manifest(cfg_no_target, "Example")

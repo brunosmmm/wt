@@ -50,8 +50,8 @@ org-agenda surfaces TODO-keyword items.
 ```
 wt tasks                      open tasks, all sources
 wt tasks --state INPROGRESS   only that TODO state
-wt tasks --tag demo           tasks tagged demo (grouped tags already split)
-wt tasks --project Demo       tasks under that project/category
+wt tasks --tag example           tasks tagged example (grouped tags already split)
+wt tasks --project Example       tasks under that project/category
 wt tasks --priority A         only [#A]
 wt tasks --all                include DONE/CANCELED/etc.
 wt tasks --key                only tasks with a topic_key (JIRA-linked)
@@ -96,7 +96,7 @@ palette conventions (no new color module).
   smoke-tested by invoking `report.tasks` with a captured `console` (no exception; expected
   rows present). CLI wired via `click.testing.CliRunner` asserting exit 0 and key substrings.
 - **Manual verification:** `uv run wt tasks`, `uv run wt tasks --state INPROGRESS`,
-  `uv run wt tasks --project Demo` against real `~/work/org`, eyeballed.
+  `uv run wt tasks --project Example` against real `~/work/org`, eyeballed.
 - **Regression guard:** `uv run pytest` stays green; existing commands unaffected.
 
 ## Rollout / migration

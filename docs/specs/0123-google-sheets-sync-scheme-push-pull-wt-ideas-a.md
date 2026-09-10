@@ -30,7 +30,7 @@ A generic, portable sync between wt's **idea** stage (loose capture) and an exte
 project's thin, external triage backlog living in a Google Sheet. First concrete target:
 Example's "Pre-triage Backlog" tab (spreadsheet 1JFGArwv8QoWwQRushxjkV7tbd8nxp465sWg1Q5tPXLs).
 `Example` is already a configured project (~/.config/wt/config.yaml outbox_targets.Example,
-repo_path ~/work/example-ats) and its proj-code `EXAMPLE` already matches the `EXAMPLE-NNNN` ids
+repo_path ~/work/example-repo-ats) and its proj-code `EXAMPLE` already matches the `EXAMPLE-NNNN` ids
 already sitting in that sheet.
 
 Explicitly **not** in scope: the separate "ATS Product Requirements (PRD Tracker)" spreadsheet
@@ -198,7 +198,7 @@ wt sheet record --project P --json  -->  writes Ext sheet_row/sheet_hash
 
 - [x] SPEC-0124 (project: Meta-Tools) — Sheet-sync manifest format + `outbox_targets[project].sheet` config
 - [x] SPEC-0125 (project: Meta-Tools) — `wt sheet plan`/`wt sheet record` JSON CLI (depends_on SPEC-0124)
-- [x] SPEC-0126 (project: Meta-Tools) — `/wt-sheet-sync` skill + Example reference manifest/config (depends_on SPEC-0124, SPEC-0125)
+- [x] SPEC-0126 (project: Meta-Tools) — `/wt-sheet-sync` skill + reference sheet-sync manifest/config (depends_on SPEC-0124, SPEC-0125)
 
 Sequencing: 0124 → 0125 → 0126, strictly serial — each child's contract is the input the next
 one needs (manifest shape before plan/record can read one; plan/record before the skill has
@@ -268,7 +268,7 @@ full rationale behind each design decision above)
 Implemented as designed across SPEC-0124/0125/0126: `src/wt/sheet_schemes.py` (manifest
 model + config resolution), `src/wt/sheet_sync.py` + `wt sheet plan`/`wt sheet record` (JSON
 diff/record, no network), `skills/wt-sheet-sync/SKILL.md` (orchestration procedure), and the
-Example reference manifest/config on this machine. One Architecture deviation worth recording:
+reference sheet-sync manifest/config on this machine. One Architecture deviation worth recording:
 the Architecture section above describes "child 2's id allocator... scan the sheet's own id
 column for the current max" — in practice, `plan_push`/`record` (SPEC-0125) never mint ids at
 all; a new row's id is assigned by whoever actually writes it into the sheet (the driving

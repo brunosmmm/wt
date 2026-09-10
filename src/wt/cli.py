@@ -176,8 +176,8 @@ def tasks_cmd(cfg, state, tag, project, priority, workstream, all_done, key, as_
     \b
     wt tasks                    open tasks
     wt tasks --state INPROGRESS only that state
-    wt tasks --tag demo         tagged demo
-    wt tasks --project Demo     under that project
+    wt tasks --tag example         tagged example
+    wt tasks --project Example     under that project
     wt tasks --priority A       only [#A]
     wt tasks --workstream ops   only that workstream (SPEC-0090)
     wt tasks --key              only JIRA-linked tasks

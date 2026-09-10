@@ -75,8 +75,8 @@ wt idea "…" --project Meta-Tools          # internal tooling
 wt idea "…" --project Example               # outbound if Example has a repo_path
 wt projects --json                        # agent map: name → research/outbound (SPEC-0095)
 # register a missing project (SPEC-0137) — dry-run first, then --yes
-wt projects add Example --repo ~/work/example           # prints plan; does not write
-wt projects add Example --repo ~/work/example --yes     # commits to ~/.config/wt/config.yaml
+wt projects add Example --repo ~/work/example-repo           # prints plan; does not write
+wt projects add Example --repo ~/work/example-repo --yes     # commits to ~/.config/wt/config.yaml
 wt projects add StubName --yes                      # association stub (outbound: false)
 wt spec new --from-idea IDEA-00N          # routing follows the idea's :PROJECT:
 wt spec new --from-idea IDEA-00N --internal   # force docs/specs/ even with a project

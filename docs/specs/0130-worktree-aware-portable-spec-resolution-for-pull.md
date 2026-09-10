@@ -197,7 +197,7 @@ def _resolve_portable_spec(cfg, source_path, fm, *, to=None) -> Path:
   anywhere both asserting the original `ValueError` message is unchanged; a direct unit test
   of `_git_plumbing_lookup` against a non-repo path.
 - **Manual verification:** performed live against the real case that motivated this spec —
-  removed the manually-dropped local copy of `~/work/example-ats/docs/specs/EXAMPLE-0026-...md`
+  removed the manually-dropped local copy of `~/work/example-repo-ats/docs/specs/EXAMPLE-0026-...md`
   (the workaround applied earlier in the session) and re-ran `wt spec sweep`: it found the
   spec via git plumbing from the sibling `example-ats-1` worktree's branch history with no
   manual export needed, confirming the fix works against the exact scenario that started this
