@@ -7,6 +7,29 @@ drawers, clocks, and outline nesting becomes wt’s durable record.
 
 Agents and the CLI speak JSON; **humans can still read and edit the files**.
 
+## Official Org documentation
+
+wt leans on plain Org syntax — it does not redefine Org. When you want the
+authxxitative rules for headlines, TODO keywords, properties, drawers, or
+clocking, use the upstream manuals:
+
+| Resource | Use it for |
+|----------|------------|
+| [Org mode home](https://orgmode.org/) | Releases, overview, community links |
+| [Org Mode Compact Guide](https://orgmode.org/orgguide.html) | Short intro to structure, TODO, and editing |
+| [The Org Manual](https://orgmode.org/manual/) (multi-page) | Full reference — start here for deep dives |
+| [The Org Manual](https://orgmode.org/org.html) (single page) | Same manual as one HTML file |
+| [Manuals index](https://orgmode.org/manuals.html) | HTML / PDF / Emacs-bundled variants |
+| [Worg](https://orgmode.org/worg/) | Community tutorials and FAQ |
+
+Topics that show up most in wt’s idea files:
+
+- [Document structure](https://orgmode.org/manual/Document-Structure.html) — headlines and outline levels
+- [TODO items](https://orgmode.org/manual/TODO-Items.html) — `#+TODO:` vocabularies and states
+- [Properties](https://orgmode.org/manual/Property-Syntax.html) — `:PROPERTIES:` drawers / `:ID:`
+- [Drawers](https://orgmode.org/manual/Drawers.html) — drawers in general
+- [Clocking work time](https://orgmode.org/manual/Clocking-Work-Time.html) — `CLOCK:` / `:LOGBOOK:`
+
 ## Where files live
 
 | Config key | Default (typical) | Role |
