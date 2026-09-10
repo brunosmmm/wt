@@ -16,7 +16,7 @@ Any idea with a `:PROJECT:` that is not Meta-Tools / this checkout; multi-repo e
 | `wt spec new --from-idea …` | Routes to outbox when project is outbound |
 | `wt spec export` | Copy portable into target `docs/specs/`; idea → EXPORTED |
 | `wt spec pull-status` / `sweep` | Mirror done → SHIPPED |
-| `wt spec schemes` | Export schemes (e.g. REMOVED) |
+| `wt spec schemes` | List export schemes |
 | `wt spec fit-log` | Post-ship fit notes |
 
 Workflow: [Outbound](../guides/outbound.md), [Multi-project](../guides/multi-project.md).

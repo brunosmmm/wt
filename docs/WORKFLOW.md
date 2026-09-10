@@ -117,10 +117,10 @@ wt spec export PROJ-NNNN          # → idea EXPORTED; portable file in target r
 # foreign agent updates portable status / AC in the target
 wt spec pull-status PROJ-NNNN     # optional: mirror portable status → outbox
 wt spec schemes
-# REMOVED patch sequencing (SPEC-0037): pin X.Y.Z so a follow-up lands between
+# Optional id pin when a scheme allocates X.Y.Z ids:
 # neighbors (e.g. 1.3.2 after 1.3.1) without juggling task_base —
 #   frontmatter: task_id: "1.3.2"
-#   or: wt spec export PROJ-NNNN --scheme REMOVED --task-id 1.3.2 --to …
+#   or: wt spec export PROJ-NNNN --scheme wt-native --task-id 1.3.2 --to …
 ```
 
 Exact flags: `wt <cmd> --help`. Bare `wt idea TEXT` captures; `wt idea show|log|…`

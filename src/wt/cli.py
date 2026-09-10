@@ -1436,7 +1436,7 @@ def spec_new_cmd(cfg, from_idea, target, internal, epic, title, force):
 @click.option("--force", is_flag=True,
              help="overwrite existing owned/spliced content that differs")
 @click.option("--task-id", "task_id",
-              help="pin REMOVED Task-ID X.Y.Z (SPEC-0037; overrides frontmatter task_id)")
+              help="pin allocated task id X.Y.Z when the scheme supports it (overrides frontmatter task_id)")
 @click.pass_obj
 def spec_export_cmd(cfg, outbound_id, scheme, emit, to, force, task_id):
     """File-drop an outbound spec into its target repo via a pluggable export scheme
@@ -1447,10 +1447,10 @@ def spec_export_cmd(cfg, outbound_id, scheme, emit, to, force, task_id):
     \b
     wt spec export ACME-0001                             into outbox_targets[acme]
     wt spec export ACME-0001 --to /tmp/somerepo           explicit destination
-    wt spec export ACME-0001 --scheme REMOVED --to .  REMOVED task-spec + plan
+    wt spec export ACME-0001 --scheme wt-native --to .
     wt spec export ACME-0001 --emit task-spec             only that artifact
     wt spec export ACME-0001 --force                      overwrite despite divergence
-    wt spec export ACME-0001 --scheme REMOVED --task-id 1.3.2 --to .
+    wt spec export ACME-0001 --scheme wt-native --to .
     """
     try:
         result = export_spec(cfg, outbound_id, scheme=scheme, emit=emit or None, to=to,

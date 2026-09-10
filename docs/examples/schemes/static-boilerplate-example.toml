@@ -1,0 +1,122 @@
+# static-boilerplate-example: example TemplateScheme manifest (SPEC-0059).
+#
+# Demonstrates a config-dir scheme with fixed boilerplate sections plus
+# {{field}} placeholders filled from a wt CanonicalSpec. Not registered by
+# wt itself — copy into your config dir to activate:
+#
+#   mkdir -p "$(python3 -c 'import os;print(os.environ.get("WT_CONFIG_DIR") or os.path.expanduser("~/.config/wt"))')/schemes"
+#   cp docs/examples/schemes/static-boilerplate-example.toml <that dir>/schemes/
+#   wt spec schemes            # confirm it lists with [user-config]
+#   wt spec export --scheme static-boilerplate-example ...
+#
+# This file is intentionally fictional / generic. Do not vendor customer-
+# specific templates into the public wt tree — keep those under ~/.config/wt.
+
+name = "static-boilerplate-example"
+description = "Generic TemplateScheme example: fixed boilerplate interleaved with wt-sourced fields (SPEC-0059/0161)."
+required_fields = ["id", "title", "context", "acceptance"]
+naming = "specs/tasks/{id}-{slug}.md"
+artifact = "spec"
+
+[[sections]]
+label = "Context"
+static = """
+{{context}}
+
+**Target repository:** `[fill: repo URL]`
+
+**Starting branch:** All work must begin from:
+```
+[BRANCH NAME]
+```
+
+**Upstream dependency:** [Task or branch this builds on, or "none".]
+"""
+
+[[sections]]
+label = "Architectural Contracts (read before touching any code)"
+static = """
+Read the target repository's architectural docs before modifying shared layers.
+The contracts below are example placeholders — replace them in your private
+config-dir copy with the real customer contracts.
+
+### Always-applicable contracts
+
+- **`layer-dependency-flow`** — respect the documented layering; no upward imports.
+- **`abstract-dependencies`** — prefer interfaces over concrete types at boundaries.
+- **`log-format`** — log messages must use `key=value` format.
+
+### Task-specific contracts
+
+[List any contracts specifically relevant to this task.]
+"""
+
+[[sections]]
+label = "Code Review Style (read before reviewing)"
+static = """
+- **No prescriptive solutions in reviews** — flag what is wrong and why; do not rewrite the
+  engineer's code.
+- **CI is the truth gate** — a review pass without a green CI run is provisional only.
+"""
+
+[[sections]]
+label = "Requirements"
+static = """
+### Functional Requirements
+
+{{goals}}
+
+### Non-Functional Requirements
+
+1. Changes must build cleanly on the project's default CI preset matrix.
+2. Prefer existing abstractions over introducing a parallel I/O model.
+"""
+
+[[sections]]
+label = "Technical Approach"
+static = """
+{{decision}}
+
+{{design}}
+
+The fix must respect the following constraints:
+
+- Follow existing patterns in the codebase rather than introducing a new I/O model or
+  abstraction.
+- [LAYER CONSTRAINT / PATTERN CONSTRAINT — name the architectural layer and any contracts
+  that constrain the solution space.]
+"""
+
+[[sections]]
+label = "Acceptance Criteria"
+static = """
+{{acceptance:checkbox}}
+
+- [ ] CI workflow run completes green for the change-relevant jobs.
+- [ ] Applicable architectural-review criteria satisfied.
+"""
+
+[[sections]]
+label = "Verification Steps"
+static = """
+### Build Verification
+
+```bash
+# [fill: project-specific build command]
+```
+
+### Functional testing
+
+Task-specific test command:
+```bash
+{{verification_commands}}
+```
+"""
+
+[[sections]]
+label = "Dependencies"
+static = """
+{{depends_on}}
+
+- Architectural review docs — must be read before shared-layer changes.
+"""

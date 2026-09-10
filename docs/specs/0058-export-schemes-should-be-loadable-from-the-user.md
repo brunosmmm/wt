@@ -13,9 +13,8 @@ supersedes: []
 
 ## Context
 
-Promoted from `IDEA-071`. `SPEC-0029` (a richer REMOVED export scheme) was designed and
-accepted 2026-07-22 but never built — `wt spec schemes` still only lists `plain-md`,
-`REMOVED`, `wt-native`. Its design calls for a new Python module vendored inside
+Promoted from `IDEA-071`. `SPEC-0029` (a richer downstream export scheme) was designed and
+accepted 2026-07-22 but never built — `wt spec schemes` still only lists `plain-md`, `wt-native`. Its design calls for a new Python module vendored inside
 `src/wt/export_schemes/` plus a template file baked into the wt package — every org-specific
 scheme would require a code change and release of wt.
 
@@ -49,7 +48,7 @@ this one's.
   config file is a real trust boundary; declarative-only for this spec).
 - Extending `TemplateScheme`'s manifest schema with new section kinds (static/boilerplate
   text) — that's `IDEA-017`'s spec.
-- Changing the built-in schemes (`plain-md`, `REMOVED`, `wt-native`) themselves.
+- Changing the built-in schemes (`plain-md`, `wt-native`) themselves.
 
 ## Decision
 
@@ -69,7 +68,7 @@ semantics. No new precedence code, no `cfg` threading required.
 - **`TemplateScheme.__init__`:** accept and store `origin` (default `"built-in"` for
   callers/tests that don't pass one).
 - **Discoverability (`cli.py` `spec schemes`):** print each scheme's origin when it isn't the
-  default built-in tier (e.g. `REMOVED-extended  [user-config]  …`); built-ins print unchanged
+  default built-in tier (e.g. `static-boilerplate-example  [user-config]  …`); built-ins print unchanged
   (no visual noise for the common case).
 - **No changes** to `export_schemes/__init__.py`'s `register`/`get`/`available` — reuse as-is.
 
@@ -95,7 +94,7 @@ semantics. No new precedence code, no `cfg` threading required.
 - [x] `wt spec schemes` shows `[user-config]` (or similar) next to a user-loaded scheme;
       built-in scheme output is unchanged.
 - [x] Absence of `$WT_CONFIG_DIR/schemes/` is not an error (no directory required to exist).
-- [x] Existing built-in schemes (`plain-md`, `REMOVED`, `wt-native`) behave identically
+- [x] Existing built-in schemes (`plain-md`, `wt-native`) behave identically
       when no user manifest overrides them.
 
 ## Test plan
@@ -109,7 +108,7 @@ semantics. No new precedence code, no `cfg` threading required.
   scheme and not next to `wt-native`.
 - **Manual verification (performed):** real `wt` binary with `WT_CONFIG_DIR=<scratch>` and a
   `schemes/demo.toml` (copy of `plain-md.toml`, renamed) — `wt spec schemes` listed `demo
-  [user-config]` alongside the three unchanged built-ins.
+  [user-config]` alongside the unchanged built-ins.
 - **Regression guard:** full `uv run pytest` green (371); built-in schemes byte-identical when
   no user `schemes/` dir exists (default `WT_CONFIG_DIR`).
 

@@ -497,7 +497,7 @@ def export_spec(cfg, outbound_id, *, scheme=None, emit=None, to=None, force=Fals
     `emit`, if given, is an iterable of artifact names (e.g. `["task-spec"]`) narrowing the
     run to a subset of what the scheme would otherwise emit.
 
-    `task_id` (SPEC-0037) is an optional REMOVED `X.Y.Z` pin from CLI `--task-id`.
+    `task_id` (SPEC-0037) is an optional `X.Y.Z` pin from CLI `--task-id` when a scheme allocates ids.
     """
     source_path = _find_outbound_spec(cfg, outbound_id)
     text = source_path.read_text()
@@ -512,7 +512,7 @@ def export_spec(cfg, outbound_id, *, scheme=None, emit=None, to=None, force=Fals
 
     canonical = ES.parse_canonical(fm, body, specmeta)
     problems = list(scheme_obj.validate(canonical) or [])
-    # SPEC-0048: wt-native warns on missing outcome; REMOVED hard-fails via validate.
+    # SPEC-0048: wt-native warns on missing outcome; strict schemes hard-fail via validate.
     # --force skips product-fit outcome problems for any scheme (legacy escape).
     from .export_schemes.canonical import has_outcome_signal, missing_outcome_problem
     if scheme_obj.name == "wt-native" and not has_outcome_signal(canonical):

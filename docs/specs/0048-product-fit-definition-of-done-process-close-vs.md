@@ -19,7 +19,7 @@ Promoted from `IDEA-034` (epic SPEC-0046). AGENTS.md Definition of Done is corre
 internal CLI (AC + Test plan + ledger). Outbound magnifies “objectively checkable” AC into
 file/CLI assertions that can pass while the product miss remains (wrong dashboard, empty
 workflow). Export CLI does not even require `status: accepted` today — soft skill only.
-`canonical.py` already accepts optional `outcome:` (and related) frontmatter for REMOVED.
+`canonical.py` already accepts optional `outcome:` (and related) frontmatter for the target consumer.
 
 ## Goals / Non-goals
 
@@ -41,7 +41,7 @@ workflow). Export CLI does not even require `status: accepted` today — soft sk
 2. `wt-export` and `wt-implement-spec`: refuse or loudly warn when outbound portable/outbox
    feature|epic lacks both outcome AC and `outcome:` (prefer warn-at-export skill + optional
    scheme `validate()` warning or non-zero soft check — hard fail only if cheap and reliable).
-3. Prefer hard fail in REMOVED `validate()` when `outcome` empty **and** no AC bullet looks
+3. Prefer hard fail in the target consumer `validate()` when `outcome` empty **and** no AC bullet looks
    outcome-like (heuristic: starts with “I can” / “User can” / “Operator can”, case-insensitive)
    — document the heuristic; allow `--force` on export to bypass if needed for legacy.
 4. No change to AGENTS.md internal done checklist.
@@ -50,7 +50,7 @@ workflow). Export CLI does not even require `status: accepted` today — soft sk
 
 - Docs: SCHEMA or WORKFLOW outbound subsection; TEMPLATE.md comment/example outcome AC.
 - Skills: `wt-export`, `wt-implement-spec`, optionally `wt-new-work` when `--target`/outbound.
-- Code: `REMOVED.validate` and/or shared helper `has_outcome_signal(canonical)`; wire
+- Code: `export-scheme.validate` and/or shared helper `has_outcome_signal(canonical)`; wire
   export path to surface Clearmessage. wt-native may warn similarly without blocking v1 if TC
   is the high-stakes path — **both** schemes should share the helper so wt-native exports also
   get the signal.

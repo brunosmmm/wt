@@ -3,7 +3,7 @@ from wt.org_markup import from_org_body, to_org_body
 
 
 def test_to_org_backticks_and_bold():
-    assert to_org_body("use `REMOVED` here") == "use ~REMOVED~ here"
+    assert to_org_body("use `wt-native` here") == "use ~wt-native~ here"
     assert to_org_body("This is **not** inventing") == "This is *not* inventing"
     assert to_org_body("also __bold__ ok") == "also *bold* ok"
 
@@ -18,7 +18,7 @@ def test_to_org_strips_atx_and_fences():
 
 
 def test_to_org_idempotent_on_org():
-    org = "use ~REMOVED~ and *not* inventing\n"
+    org = "use ~wt-native~ and *not* inventing\n"
     assert to_org_body(org) == org
 
 

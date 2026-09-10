@@ -1,6 +1,6 @@
 """Pluggable export scheme registry (SPEC-0016): an `ExportScheme` interface + `OutputFile`
 result type + a small name -> scheme registry, so `wt spec export` can render an outbound
-spec into different downstream shapes (default `wt-native`, plus `REMOVED` and any
+spec into different downstream shapes (default `wt-native`, plus `custom-scheme` and any
 manifest-defined `TemplateScheme`). Built-ins register themselves on import of this package
 (see the bottom of this file). See docs/specs/0016-pluggable-export-schemes.md."""
 from dataclasses import dataclass
@@ -23,7 +23,7 @@ class OutputFile:
         "contract"    — an informational snapshot (wt-native's consumption contract);
                         always (re)written, no clobber guard (it isn't a shared/owned
                         artifact another tool depends on byte-for-byte).
-        "owned"       — a file this scheme fully owns outright (e.g. a REMOVED task
+        "owned"       — a file this scheme fully owns outright (e.g. a custom-scheme task
                         spec seed): written if absent, left alone if byte-identical,
                         refuses to overwrite divergent content without --force.
         "splice"      — a shared file we do NOT own outright (e.g. project-plan.md): our
@@ -46,7 +46,7 @@ class RenderContext:
     scheme-agnostic `CanonicalSpec`.
 
     `dest_root` (SPEC-0034) is the resolved export destination so schemes that allocate
-    on-disk ids (REMOVED Task-IDs) can scan for clashes; None keeps legacy no-scan
+    on-disk ids (custom-scheme allocated ids) can scan for clashes; None keeps legacy no-scan
     numbering for dry/unit renders.
 
     `task_id` (SPEC-0037) is an optional CLI pin (`--task-id`); frontmatter `task_id` is
@@ -109,5 +109,4 @@ def available():
 # after `OutputFile`/`register` above are defined.
 from .canonical import CanonicalSpec, parse_canonical  # noqa: E402,F401
 from . import wt_native as _wt_native  # noqa: E402,F401
-from . import REMOVED as _REMOVED  # noqa: E402,F401
 from . import template_scheme as _template_scheme  # noqa: E402,F401

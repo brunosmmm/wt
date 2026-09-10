@@ -49,7 +49,7 @@ Do **not** `wt spec generate` on outbound portables — that path is for interna
 
 ```bash
 # edit outbox portable → status: accepted
-wt spec schemes                      # wt-native (default), plain-md, REMOVED, …
+wt spec schemes                      # wt-native (default), plain-md, …
 wt spec export ACME-NNNN             # scheme from outbox_targets or --scheme
 # idea → EXPORTED; file lands in target docs/specs/
 ```
@@ -88,7 +88,7 @@ wt spec fit-log ACME-NNNN --note "…"
 |--------|------|
 | `wt-native` | Default portable + contract |
 | `plain-md` | Flat remap for simple foreign layouts |
-| `REMOVED` | REMOVED seed + optional project-plan fragment |
+| `wt-native` | downstream seed + optional project-plan fragment |
 
 `wt spec schemes` lists required fields and emit artifacts.
 

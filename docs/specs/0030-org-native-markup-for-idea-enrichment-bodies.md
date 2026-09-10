@@ -115,7 +115,7 @@ summary containing backticks persists `~…~` in the org file; `idea show` lacks
 
 - **Automated:** `tests/test_org_markup.py` + `tests/test_explore.py` — conversion table;
   MD summary → org on disk; show uses `** Summary`.
-- **Manual:** `wt idea show IDEA-018` shows `** Summary`; `to_org_body('use \`REMOVED\` — **not** inventing')` → `use ~REMOVED~ — *not* inventing`.
+- **Manual:** `wt idea show IDEA-018` shows `** Summary`; `to_org_body('use \`export-scheme\` — **not** inventing')` → `use ~export-scheme~ — *not* inventing`.
 - **Regression:** full pytest (273 passed after ledger refresh).
 
 ## Rollout / migration

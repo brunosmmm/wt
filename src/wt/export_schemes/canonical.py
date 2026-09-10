@@ -90,7 +90,7 @@ class CanonicalSpec:
     depends_on: list
     # Epic-only: child task titles from '## Breakdown / sub-specs'.
     breakdown: list = field(default_factory=list)
-    # Target-oriented extras a scheme like REMOVED wants but wt usually can't know;
+    # Target-oriented extras a scheme like export-scheme wants but wt usually can't know;
     # surfaced from optional frontmatter when present, else left blank (the scheme marks
     # them <!-- fill --> rather than guessing).
     scope_paths: str = ""

@@ -92,7 +92,7 @@ copy + provenance. The internal `tools/spec_lint.py` (which scans `docs/specs/[0
 
 **Pluggable output schemes (Layer 2, SPEC-0016).** Different consumers ingest different spec
 shapes, so the exporter delegates to a selectable **scheme/adapter**: `wt-native` (default) is
-our own shape; `REMOVED` renders an outbound spec into the REMOVED `task-spec-template`/
+our own shape; `wt-native` renders an outbound spec into the the target consumer `task-spec-template`/
 `project-plan` shape (`X.Y.Z` task ids, `<!-- fill -->` skeleton markers its PM refines).
 Schemes are two-tier — declarative manifests for simple relabels, code plugins for real
 decomposition — selected via `--scheme` or per-target config.
@@ -111,7 +111,7 @@ new work without re-understanding the codebase.
 - [x] SPEC-0013 — Idea → internal spec promotion (`wt spec new --from-idea`, prefill, bidi link). *(depends_on 0012)* — Layer 1
 - [x] SPEC-0014 — Spec → org task/epic generation (breakdown → tasks, keyed for the join). *(depends_on 0012, 0013)* — Layer 1
 - [x] SPEC-0015 — Outbound portable specs + cross-project export (parallel namespace, file-drop). *(depends_on 0013)* — Layer 2
-- [x] SPEC-0016 — Pluggable export schemes + REMOVED adapter (`wt-native` default + `REMOVED`). *(depends_on 0015)* — Layer 2
+- [x] SPEC-0016 — Pluggable export schemes + downstream adapter (`wt-native` default + `wt-native`). *(depends_on 0015)* — Layer 2
 - [x] SPEC-0017 — Agent workflow skills (drive the pipeline from a fresh session without reading code). *(depends_on 0012–0016)* — usability
 
 Sequencing: 0012 → 0013 → {0014, 0015} → 0016, then 0017 (skills over the whole surface). Layer 1 = 0012+0013+0014 is independently useful; Layer 2 = 0015 (file-drop export) then 0016 (multi-scheme adapters) is the strategic payoff; 0017 makes it all drivable without reading `wt`'s code.
@@ -124,8 +124,8 @@ Sequencing: 0012 → 0013 → {0014, 0015} → 0016, then 0017 (skills over the 
 - [x] An outbound spec can be authxxed in the parallel namespace and **exported by file-drop**
       into a (temp) target repo with a consumption contract, without touching `docs/LEDGER.md`
       or `tools/spec_lint.py`'s internal scan.
-- [x] Export is **scheme-selectable**: `wt-native` (default) plus a `REMOVED` adapter that
-      renders an outbound spec into REMOVED's ingestible shape.
+- [x] Export is **scheme-selectable**: `wt-native` (default) plus a `wt-native` adapter that
+      renders an outbound spec into the target consumer's ingestible shape.
 - [x] The pipeline is **drivable from a fresh session** via installable skills over the CLI,
       without reading `wt`'s source.
 - [x] All child specs are `done`/`superseded`.

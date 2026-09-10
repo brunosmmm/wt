@@ -41,12 +41,12 @@ a wt idea (which can hold implementation details, half-formed decisions, explora
 Ruled out after discussion — do not conflate idea-sync with spec/PRD-sync.
 
 Where the schema/config should live (by analogy with SPEC-0058's user-config-dir export
-schemes, e.g. ~/.config/wt/schemes/REMOVED-extended.toml):
+schemes, e.g. ~/.config/wt/schemes/static-boilerplate-example.toml):
 - **Mechanism** (code that reads a manifest + does row upserts via the Sheets API) — in-tree in
   wt, a new sibling to `src/wt/export_schemes/` (generic/portable, ships with wt).
 - **Manifest** (this sheet's actual column mapping) — NOT committed to wt's repo; lives in
   `~/.config/wt/schemes/` (e.g. a new `example-pretriage-sheet.toml`), since it's specific to
-  this one external sheet, same reasoning as the extended REMOVED example manifest already
+  this one external sheet, same reasoning as the static-boilerplate example manifest already
   living there rather than in-tree.
 - **Connection details** (spreadsheet_id, tab, which manifest to use) — a new key under
   `outbox_targets.Example` in `~/.config/wt/config.yaml`, alongside the existing

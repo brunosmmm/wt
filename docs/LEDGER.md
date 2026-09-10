@@ -23,10 +23,9 @@ progress. This is the single place to see *what has been decided* and *what is i
   - [x] [SPEC-0013](./specs/0013-idea-to-spec-promotion.md) Idea → spec promotion — done
   - [x] [SPEC-0014](./specs/0014-spec-to-task-generation.md) Spec → org task/epic generation — done
   - [x] [SPEC-0015](./specs/0015-outbound-spec-export.md) Outbound portable specs + cross-project export — done
-  - [x] [SPEC-0016](./specs/0016-pluggable-export-schemes.md) Pluggable export schemes + REMOVED adapter — done
+  - [x] [SPEC-0016](./specs/0016-pluggable-export-schemes.md) Pluggable export schemes — done
   - [x] [SPEC-0017](./specs/0017-agent-workflow-skills.md) Agent workflow skills (drive wt without reading its code) — done
-- **[SPEC-0046](./specs/0046-outbound-product-fit-tc-compose-outcome-dod-fit.md) — Outbound product-fit: TC compose, outcome DoD, fit log** · done · (3/3 done)
-  - [x] [SPEC-0047](./specs/0047-compose-outbound-epic-children-into-REMOVED.md) Compose outbound epic children into REMOVED deliverables — done
+- **[SPEC-0046](./specs/0046-outbound-product-fit-compose-outcome-dod-fit.md) — Outbound product-fit: TC compose, outcome DoD, fit log** · done · (2/2 done)
   - [x] [SPEC-0048](./specs/0048-product-fit-definition-of-done-process-close-vs.md) Outbound outcome DoD (process close vs product-fit) — done
   - [x] [SPEC-0049](./specs/0049-post-export-post-ship-fit-log-before-supersede.md) Post-export / post-ship fit log (durable used-it miss/fit) — done
 - **[SPEC-0050](./specs/0050-hub-triage-skill-truth-defer-mcp.md) — Hub triage, skill truth, defer MCP** · done · (3/3 done)
@@ -125,7 +124,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0013](./specs/0013-idea-to-spec-promotion.md) | Idea → spec promotion | feature | done | M3: idea→spec pipeline | 2026-07-17 |
 | [SPEC-0014](./specs/0014-spec-to-task-generation.md) | Spec → org task/epic generation | feature | done | M3: idea→spec pipeline | 2026-07-17 |
 | [SPEC-0015](./specs/0015-outbound-spec-export.md) | Outbound portable specs + cross-project export | feature | done | M3: idea→spec pipeline | 2026-07-17 |
-| [SPEC-0016](./specs/0016-pluggable-export-schemes.md) | Pluggable export schemes + REMOVED adapter | feature | done | M3: idea→spec pipeline | 2026-07-18 |
+| [SPEC-0016](./specs/0016-pluggable-export-schemes.md) | Pluggable export schemes | feature | done | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0017](./specs/0017-agent-workflow-skills.md) | Agent workflow skills (drive wt without reading its code) | feature | done | M3: idea→spec pipeline | 2026-07-18 |
 | [SPEC-0018](./specs/0018-capture-entity-association.md) | Entity association on capture (project / epic / key) | feature | done | M3: idea→spec pipeline | 2026-07-18 |
 | [SPEC-0019](./specs/0019-auto-idea-ids.md) | Auto-assigned stable idea IDs | feature | done | M3: idea→spec pipeline | 2026-07-18 |
@@ -142,10 +141,8 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0031](./specs/0031-rename-idea-explore-to-log-datetime-log-stamps.md) | Rename idea explore to log; datetime Log stamps | feature | done | M4: cli ergonomics | 2026-07-23 |
 | [SPEC-0032](./specs/0032-inactive-org-timestamps-for-idea-log-entries.md) | Inactive org timestamps for idea Log entries | feature | done | M4: cli ergonomics | 2026-07-23 |
 | [SPEC-0033](./specs/0033-wt-rework-skill-and-next-hints-for-specced-epics.md) | wt-rework skill and next-hints for SPECCED epics | feature | done | M4: cli ergonomics | 2026-07-23 |
-| [SPEC-0034](./specs/0034-REMOVED-auto-allocate-free-task-ids.md) | REMOVED export auto-allocates free Task-IDs to avoid clashes | feature | done | M3: idea→spec pipeline | 2026-07-23 |
 | [SPEC-0035](./specs/0035-pretty-wt-idea-show-via-rich-and-pygments-with.md) | Pretty wt idea show via Rich and Pygments with --plain escape | feature | done | M4: cli ergonomics | 2026-07-23 |
 | [SPEC-0036](./specs/0036-configurable-pygments-theme-for-wt-idea-show.md) | Configurable Pygments theme for wt idea show | feature | done | M4: cli ergonomics | 2026-07-23 |
-| [SPEC-0037](./specs/0037-explicit-task-id-pin-for-REMOVED-export.md) | Explicit Task-ID pin for REMOVED export (frontmatter + CLI) | feature | done | M3: idea→spec pipeline | 2026-07-24 |
 | [SPEC-0038](./specs/0038-yaml-safe-scaffold-titles-and-hyphenated-org.md) | YAML-safe scaffold titles and hyphenated org tag parsing | feature | done | M3: idea→spec pipeline | 2026-07-24 |
 | [SPEC-0039](./specs/0039-idea-selector-shell-completion-compliance.md) | Idea-selector shell completion + compliance test for required completers | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0040](./specs/0040-idea-heading-in-shell-completion.md) | Show idea heading beside IDEA-id in shell completion | feature | done | M4: cli ergonomics | 2026-07-24 |
@@ -154,8 +151,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0043](./specs/0043-epic-promote-seeds-child-ideas-known-epics.md) | Epic promote seeds child ideas; known_epics includes outbound | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0044](./specs/0044-capture-kinds-as-labels-only-idea-bug-improvement.md) | Capture kinds as labels (idea/bug/improvement/chore) | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0045](./specs/0045-global-wt-implement-spec-skill-for-exported.md) | Global wt-implement-spec skill for exported portable specs | feature | done | M4: cli ergonomics | 2026-07-24 |
-| [SPEC-0046](./specs/0046-outbound-product-fit-tc-compose-outcome-dod-fit.md) | Outbound product-fit: TC compose, outcome DoD, fit log | epic | done | M4: cli ergonomics | 2026-07-24 |
-| [SPEC-0047](./specs/0047-compose-outbound-epic-children-into-REMOVED.md) | Compose outbound epic children into REMOVED deliverables | feature | done | M4: cli ergonomics | 2026-07-24 |
+| [SPEC-0046](./specs/0046-outbound-product-fit-compose-outcome-dod-fit.md) | Outbound product-fit: TC compose, outcome DoD, fit log | epic | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0048](./specs/0048-product-fit-definition-of-done-process-close-vs.md) | Outbound outcome DoD (process close vs product-fit) | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0049](./specs/0049-post-export-post-ship-fit-log-before-supersede.md) | Post-export / post-ship fit log (durable used-it miss/fit) | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0050](./specs/0050-hub-triage-skill-truth-defer-mcp.md) | Hub triage, skill truth, defer MCP | epic | done | M4: cli ergonomics | 2026-07-24 |
@@ -166,7 +162,7 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0056](./specs/0056-generic-wt-idea-close-verb-researched-state-reason.md) | Generic wt idea close verb + RESEARCHED state + reason | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0057](./specs/0057-relationship-pointers-folded-into-superseded-by.md) | Relationship pointers: folded-into / superseded-by | feature | done | M4: cli ergonomics | 2026-07-24 |
 | [SPEC-0058](./specs/0058-export-schemes-should-be-loadable-from-the-user.md) | Export schemes loadable from the user config dir | feature | done | M3: idea→spec pipeline | 2026-07-24 |
-| [SPEC-0059](./specs/0059-customer-REMOVED-template-as-a-config-manifest.md) | Extended REMOVED template as a config-dir manifest | feature | done | M3: idea→spec pipeline | 2026-09-09 |
+| [SPEC-0059](./specs/0059-static-boilerplate-template-as-config-manifest.md) | Static boilerplate TemplateScheme as a config-dir manifest | feature | done | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0060](./specs/0060-agent-clock-in-clock-out-guidance-for-wt-tracked.md) | Agent clock-in/clock-out for wt-tracked work (org + markdown, reconciled) | epic | done | M4: cli ergonomics | 2026-07-25 |
 | [SPEC-0061](./specs/0061-org-side-clock-in-clock-out-primitive.md) | Org-side clock-in/clock-out primitive | feature | done | M4: cli ergonomics | 2026-07-25 |
 | [SPEC-0062](./specs/0062-markdown-clock-log-convention-and-guidance.md) | Markdown Clock Log convention and guidance | feature | done | M4: cli ergonomics | 2026-07-25 |
@@ -264,12 +260,16 @@ progress. This is the single place to see *what has been decided* and *what is i
 | [SPEC-0158](./specs/0158-outbound-multi-project-depth-and-wave-c-captures.md) | Outbound/multi-project depth and Wave C captures | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0159](./specs/0159-outbox-project-rename-migrate-dry-run-default.md) | Outbox project rename / migrate (dry-run default) | feature | done | M8: product documentation | 2026-09-09 |
 | [SPEC-0160](./specs/0160-publish-product-docs-github-pages-via-actions.md) | Publish product docs to GitHub Pages via Actions | feature | done | M8: product documentation | 2026-09-09 |
+| [SPEC-0161](./specs/0161-remove-branded-export-adapter-from-public-tree.md) | Remove branded export adapter from the public tree | feature | done | M3: idea→spec pipeline | 2026-09-09 |
 
 ## Superseded / rejected
 
 | ID | Title | Kind | Status | Milestone | Updated |
 |----|-------|------|--------|-----------|---------|
-| [SPEC-0029](./specs/0029-customer-REMOVED-export-scheme.md) | Repo-specific REMOVED export scheme (withdrawn) | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
+| [SPEC-0029](./specs/0029-withdrawn-repo-specific-export-scheme.md) | Withdrawn: repo-specific export scheme | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
+| [SPEC-0034](./specs/0034-withdrawn-auto-allocate-free-task-ids.md) | Withdrawn: auto-allocate free task ids | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
+| [SPEC-0037](./specs/0037-withdrawn-explicit-task-id-pin.md) | Withdrawn: explicit task-id pin for export | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
+| [SPEC-0047](./specs/0047-withdrawn-compose-outbound-epic-children.md) | Withdrawn: compose outbound epic children into deliverables | policy | superseded | M3: idea→spec pipeline | 2026-09-09 |
 | [SPEC-0083](./specs/0083-light-theme-substitution-for-dim-idea-state-styles.md) | Theme-adapt the idea state palette: substitute dim on light backgrounds | feature | rejected | M4: cli ergonomics | 2026-07-28 |
 | [SPEC-0084](./specs/0084-theme-the-recessive-styling-in-the-idea-views.md) | Theme every recessive style in the idea views, not just the state palette | feature | rejected | M4: cli ergonomics | 2026-07-28 |
 
@@ -295,7 +295,7 @@ progress. This is the single place to see *what has been decided* and *what is i
   (SPEC-0012), **idea→spec** promotion (SPEC-0013), **spec→task** generation (SPEC-0014), and
   the strategic **outbound spec factory** — portable specs exported by file-drop into other
   repos for their agents to implement (SPEC-0015), with **pluggable export schemes** so a spec
-  can be rendered into a foreign consumer's shape (e.g. a `REMOVED` adapter, SPEC-0016).
+  can be rendered into a foreign consumer's shape via a selected export scheme (SPEC-0016).
   Plus installable **agent workflow skills** so the pipeline is drivable from a fresh session
   without reading `wt`'s code (SPEC-0017). Layer 1 = 0012–0014; Layer 2 = 0015 (file-drop) +
   0016 (multi-scheme adapters); 0017 = usability.
